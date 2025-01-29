@@ -1,17 +1,21 @@
+//#region Configuration initiale
 Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   let options = {
     prosemirror: proseMirrorMenu,
   };
 
+  // Définition du menu principal
   dropdowns.journalEnrichers = {
     action: "enricher",
-    title: game.i18n.localize("DND.MENU.TITLE"), // Titre du menu principal localisé
+    title: game.i18n.localize("DND.MENU.TITLE"),
     entries: [
-      // Menu "États"
+
+      //#region Menu des états
       {
         title: game.i18n.localize("DND.MENU.ETATS.TITLE"),
         action: "etats",
         children: [
+           //... Liste des états
           { title: game.i18n.localize("DND.MENU.ETATS.BLINDED"), action: "blinded", cmd: () => insertReference("blinded") },
           { title: game.i18n.localize("DND.MENU.ETATS.CHARMED"), action: "charmed", cmd: () => insertReference("charmed") },
           { title: game.i18n.localize("DND.MENU.ETATS.DEAFENED"), action: "deafened", cmd: () => insertReference("deafened") },
@@ -29,11 +33,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
           { title: game.i18n.localize("DND.MENU.ETATS.UNCONSCIOUS"), action: "unconscious", cmd: () => insertReference("unconscious") },
         ],
       },
-      // Menu "Creature"
+      //#region Menu des créatures
       {
         title: game.i18n.localize("DND.MENU.CREATURE.TITLE"),
         action: "creature",
         children: [
+          //... Liste des types de créatures
           { title: game.i18n.localize("DND.MENU.CREATURE.ABERRATION"), action: "aberration", cmd: () => insertReference("aberration") },
           { title: game.i18n.localize("DND.MENU.CREATURE.BEAST"), action: "beast", cmd: () => insertReference("beast") },
           { title: game.i18n.localize("DND.MENU.CREATURE.CELESTIAL"), action: "celestial", cmd: () => insertReference("celestial") },
@@ -50,11 +55,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
           { title: game.i18n.localize("DND.MENU.CREATURE.UNDEAD"), action: "undead", cmd: () => insertReference("undead") },
         ],
       },
-      // Menu "Dégâts"
+      //#region Menu des dégâts
       {
         title: game.i18n.localize("DND.MENU.DEGATS.TITLE"),
         action: "degats",
         children: [
+          //... Liste des types de dégâts
           { title: game.i18n.localize("DND.MENU.DEGATS.ACID"), action: "acid", cmd: () => insertReference("acid") },
           { title: game.i18n.localize("DND.MENU.DEGATS.BLUDGEONING"), action: "bludgeoning", cmd: () => insertReference("bludgeoning") },
           { title: game.i18n.localize("DND.MENU.DEGATS.COLD"), action: "cold", cmd: () => insertReference("cold") },
@@ -70,21 +76,24 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
           { title: game.i18n.localize("DND.MENU.DEGATS.THUNDER"), action: "thunder", cmd: () => insertReference("thunder") },
         ],
       },
-      // Menu "Zone"
+      //#region Menu des zones
       {
         title: game.i18n.localize("DND.MENU.ZONE.TITLE"),
         action: "zone",
         children: [
+          //... Liste des zones d'effet
           { title: game.i18n.localize("DND.MENU.ZONE.CONE"), action: "cone", cmd: () => insertReference("cone") },
           { title: game.i18n.localize("DND.MENU.ZONE.CUBE"), action: "cube", cmd: () => insertReference("cube") },
           { title: game.i18n.localize("DND.MENU.ZONE.SPHERE"), action: "sphere", cmd: () => insertReference("sphere") },
           { title: game.i18n.localize("DND.MENU.ZONE.LINE"), action: "line", cmd: () => insertReference("line") },
         ],
       },
+      //#region Menu des styles
       {
         title: game.i18n.localize("DND.MENU.STYLE.TITLE"),
         action: "styles",
         children: [
+          //... Liste des styles
           {
             title: game.i18n.localize("DND.MENU.STYLE.ADVICE"),
             action: "advice",
@@ -128,7 +137,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       }
     ],
   };
-
+  //#region Fonctions utilitaires
   /**
    * Fonction pour insérer un bloc Advice ou Quest Block.
    * @param {string} type - Le type de bloc ("advice" ou "quest").
@@ -136,7 +145,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   function insertAdviceOrQuestBlock(type) {
     const schema = proseMirrorMenu.schema;
     
-    // Définition des icônes selon le type
+
     const iconPaths = {
         advice: "icons/vtt-512.png",
         quest: "icons/magic/symbols/question-stone-yellow.webp",
@@ -147,7 +156,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     const title = game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_TITLE`);
     const content = game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_CONTENT`);
 
-    // Modification ici : on utilise "quest" comme classe pour le type "treasure"
+
     const divClass = type === "treasure" ? "fvtt quest" : `fvtt ${type}`;
 
     const divNode = schema.nodes.div.create(
@@ -182,7 +191,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     proseMirrorMenu.view.dispatch(transaction);
     return true;
 }
-
+    //... Logique d'insertion de référence
   /**
    * Fonction pour insérer une référence dans le journal.
    * @param {string} reference - La référence à insérer.

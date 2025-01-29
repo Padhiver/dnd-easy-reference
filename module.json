@@ -25,6 +25,12 @@
             "name": "Français",
             "path": "lang/fr.json",
             "flags": {}
+        },
+        {
+            "lang": "en",
+            "name": "English",
+            "path": "lang/en.json",
+            "flags": {}
         }
     ],
     "esmodules": [

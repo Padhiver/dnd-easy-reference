@@ -1,0 +1,79 @@
+{
+  "DND": {
+    "MENU": {
+      "TITLE": "D&D",
+      "ETATS": {
+        "TITLE": "Conditions",
+        "BLINDED": "Blinded",
+        "CHARMED": "Charmed",
+        "DEAFENED": "Deafened",
+        "EXHAUSTION": "Exhaustion",
+        "FRIGHTENED": "Frightened",
+        "GRAPPLED": "Grappled",
+        "INCAPACITATED": "Incapacitated",
+        "INVISIBLE": "Invisible",
+        "PARALYZED": "Paralyzed",
+        "PETRIFIED": "Petrified",
+        "POISONED": "Poisoned",
+        "PRONE": "Prone",
+        "RESTRAINED": "Restrained",
+        "STUNNED": "Stunned",
+        "UNCONSCIOUS": "Unconscious"
+      },
+      "CREATURE": {
+        "TITLE": "Creature",
+        "ABERRATION": "Aberration",
+        "BEAST": "Beast",
+        "CELESTIAL": "Celestial",
+        "CONSTRUCT": "Construct",
+        "DRAGON": "Dragon",
+        "ELEMENTAL": "Elemental",
+        "FEY": "Fey",
+        "FIEND": "Fiend",
+        "GIANT": "Giant",
+        "HUMANOID": "Humanoid",
+        "MONSTROSITY": "Monstrosity",
+        "OOZE": "Ooze",
+        "PLANT": "Plant",
+        "UNDEAD": "Undead"
+      },
+      "DEGATS": {
+        "TITLE": "Damage Types",
+        "ACID": "Acid",
+        "BLUDGEONING": "Bludgeoning",
+        "COLD": "Cold",
+        "FIRE": "Fire",
+        "FORCE": "Force",
+        "LIGHTNING": "Lightning",
+        "NECROTIC": "Necrotic",
+        "PIERCING": "Piercing",
+        "POISON": "Poison",
+        "PSYCHIC": "Psychic",
+        "RADIANT": "Radiant",
+        "SLASHING": "Slashing",
+        "THUNDER": "Thunder"
+      },
+      "ZONE": {
+        "TITLE": "Area of Effect",
+        "CONE": "Cone",
+        "CUBE": "Cube",
+        "SPHERE": "Sphere",
+        "LINE": "Line"
+      },
+      "STYLE": {
+        "TITLE": "Styles",
+        "ADVICE": "Advice",
+        "ADVICE_TITLE": "Advice Title",
+        "ADVICE_CONTENT": "Advice content ...",
+        "QUEST": "Quest Blocks",
+        "QUEST_TITLE": "Quest Title",
+        "QUEST_CONTENT": "Quest content ...",
+        "TREASURE": "Treasure",
+        "TREASURE_TITLE": "Treasure Title",
+        "TREASURE_CONTENT": "Treasure content ...",
+        "NARRATIVE": "Narrative",
+        "NOTABLE": "Notable"
+      }
+    }
+  }
+}
