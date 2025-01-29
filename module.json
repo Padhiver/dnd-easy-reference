@@ -1,0 +1,62 @@
+{
+    "id": "dnd-easy-reference",
+    "title": "D&D - Easy Reference",
+    "version": "0.0.0.1",
+    "compatibility": {
+        "minimum": "12",
+        "verified": "12"
+    },
+    "authors": [
+        {
+            "name": "Padhiver",
+            "discord": "Padhiver"
+        }
+    ],
+    "media": [
+        {
+            "type": "setup",
+            "url": "./assets/logo.webp",
+            "thumbnail": "./assets/logo.webp"
+        }
+    ],
+    "languages": [
+        {
+            "lang": "fr",
+            "name": "Français",
+            "path": "lang/fr.json",
+            "flags": {}
+        }
+    ],
+    "esmodules": [
+        "./scripts/main.js"
+    ],
+    "styles": [],
+    "manifest": "This is auto replaced",
+    "download": "This is auto replaced",
+    "url": "This is auto replaced",
+    "relationships": {
+        "systems": [
+            {
+                "id": "dnd5e",
+                "type": "system",
+                "compatibility": {
+                    "minimum": "4.0",
+                    "verified": "4.0",
+                    "maximum": "5.0"
+                }
+            }
+        ],
+        "flags": {
+            "hotReload": {
+                "extensions": [
+                    "json",
+                    "js"
+                ],
+                "paths": [
+                    "lang/",
+                    "scripts/"
+                ]
+            }
+        }
+    }
+}

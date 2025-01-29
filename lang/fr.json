@@ -1,0 +1,79 @@
+{
+  "DND": {
+    "MENU": {
+      "TITLE": "D&D",
+      "ETATS": {
+        "TITLE": "États",
+        "BLINDED": "Aveuglé",
+        "CHARMED": "Charmé",
+        "DEAFENED": "Assourdi",
+        "EXHAUSTION": "Épuisement",
+        "FRIGHTENED": "Effrayé",
+        "GRAPPLED": "Agrippé",
+        "INCAPACITATED": "Neutralisé",
+        "INVISIBLE": "Invisible",
+        "PARALYZED": "Paralysé",
+        "PETRIFIED": "Pétrifié",
+        "POISONED": "Empoisonné",
+        "PRONE": "À terre",
+        "RESTRAINED": "Entravé",
+        "STUNNED": "Étourdi",
+        "UNCONSCIOUS": "Inconscient"
+      },
+      "CREATURE": {
+        "TITLE": "Creature",
+        "ABERRATION": "Aberration",
+        "BEAST": "Bêtes",
+        "CELESTIAL": "Célestes",
+        "CONSTRUCT": "Artificiels",
+        "DRAGON": "Dragons",
+        "ELEMENTAL": "Élémentaires",
+        "FEY": "Fées",
+        "FIEND": "Fiélons",
+        "GIANT": "Géants",
+        "HUMANOID": "Humanoïdes",
+        "MONSTROSITY": "Monstruosités",
+        "OOZE": "Vases",
+        "PLANT": "Plantes",
+        "UNDEAD": "Morts-vivants"
+      },
+      "DEGATS": {
+        "TITLE": "Dégâts",
+        "ACID": "Acide",
+        "BLUDGEONING": "Contondants",
+        "COLD": "Froid",
+        "FIRE": "Feu",
+        "FORCE": "Force",
+        "LIGHTNING": "Foudre",
+        "NECROTIC": "Nécrotiques",
+        "PIERCING": "Perforants",
+        "POISON": "Poison",
+        "PSYCHIC": "Psychiques",
+        "RADIANT": "Radiants",
+        "SLASHING": "Tranchants",
+        "THUNDER": "Tonnerre"
+      },
+      "ZONE": {
+        "TITLE": "Zone",
+        "CONE": "Cône",
+        "CUBE": "Cube",
+        "SPHERE": "Sphère",
+        "LINE": "Ligne"
+      },
+      "STYLE": {
+        "TITLE": "Styles",
+        "ADVICE": "Conseil",
+        "ADVICE_TITLE": "Titre du conseil",
+        "ADVICE_CONTENT": "Contenu du conseil ...",
+        "QUEST": "Blocs de quête",
+        "QUEST_TITLE": "Titre de la quête",
+        "QUEST_CONTENT": "Contenu de la quête ...",
+        "TREASURE": "Trésor",
+        "TREASURE_TITLE": "Titre du trésor",
+        "TREASURE_CONTENT": "Contenu du trésor ...",
+        "NARRATIVE": "Narratif",
+        "NOTABLE": "Remarquable"
+      }
+    }
+  }
+}
