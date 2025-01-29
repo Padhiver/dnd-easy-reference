@@ -15,8 +15,8 @@
     "media": [
         {
             "type": "setup",
-            "url": "./assets/logo.webp",
-            "thumbnail": "./assets/logo.webp"
+            "url": "systems/dnd5e/ui/official/dnd5e-repo.jpg",
+            "thumbnail": "systems/dnd5e/ui/official/dnd5e-thumbnail.jpg"
         }
     ],
     "languages": [
