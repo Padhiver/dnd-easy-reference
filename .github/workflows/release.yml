@@ -29,7 +29,7 @@ jobs:
 
     # Create a zip file with all files required by the module to add to the release
     - name: Create archive
-      run: zip -r dnd-easy-reference.zip module.json lang script -x ".*"
+      run:  zip dnd-easy-reference.zip module.json -r lang scripts -x ".*"
 
     # Create a release for this specific version
     - name: Update Release with Files
