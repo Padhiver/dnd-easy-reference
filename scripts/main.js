@@ -1,23 +1,13 @@
 Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   const MENU_CONFIGS = {
-    //region Menus
-    etats: [
-      'blinded', 'charmed', 'deafened', 'exhaustion', 'frightened', 'grappled',
-      'incapacitated', 'invisible', 'paralyzed', 'petrified', 'poisoned',
-      'prone', 'restrained', 'stunned', 'unconscious'
-    ],
-    creature: [
-      'aberration', 'beast', 'celestial', 'construct', 'dragon', 'elemental',
-      'fey', 'fiend', 'giant', 'humanoid', 'monstrosity', 'ooze', 'plant', 'undead'
-    ],
-    degats: [
-      'acid', 'bludgeoning', 'cold', 'fire', 'force', 'lightning', 'necrotic',
-      'piercing', 'poison', 'psychic', 'radiant', 'slashing', 'thunder'
-    ],
-    zone: ['cone', 'cube', 'sphere', 'line']
+    condition: Object.keys(CONFIG.DND5E?.conditionTypes || {})
+      .filter(condition => CONFIG.DND5E?.conditionTypes?.[condition]?.reference),
+    creature: Object.keys(CONFIG.DND5E?.creatureTypes || {})
+      .filter(type => CONFIG.DND5E?.creatureTypes?.[type]?.reference),
+    damage: Object.keys(CONFIG.DND5E?.damageTypes || {}),
+    zone: ['cone', 'cube', 'sphere', 'line', 'cylinder']
   };
 
-  //region Styles
   const STYLE_BLOCKS = {
     advice: { class: 'fvtt advice', icon: 'icons/vtt-512.png' },
     quest: { class: 'fvtt quest', icon: 'icons/magic/symbols/question-stone-yellow.webp' },
@@ -26,7 +16,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     notable: { class: 'notable', type: 'aside' }
   };
 
-  //region Helper Reference
   const createReferenceEntries = (category, items) => {
     return items.map(item => ({
       title: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.${item.toUpperCase()}`),
@@ -35,7 +24,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     }));
   };
 
-  //region Helper Styles
   const createStyleBlock = (type) => {
     if (STYLE_BLOCKS[type].type) {
       return {
@@ -61,7 +49,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     };
   };
 
-  //region Styles spéciaux
   const insertAdviceOrQuestBlock = (type) => {
     const schema = proseMirrorMenu.schema;
     const config = STYLE_BLOCKS[type];
@@ -88,7 +75,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     return true;
   };
 
-  //region Fonction Reference
   const insertReference = (reference) => {
     proseMirrorMenu.view.dispatch(
       proseMirrorMenu.view.state.tr
@@ -97,7 +83,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     );
   };
 
-  //region Menu Principal
   dropdowns.journalEnrichers = {
     action: 'enricher',
     title: game.i18n.localize('DND.MENU.TITLE'),

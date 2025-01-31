@@ -2,11 +2,12 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "ETATS": {
+      "CONDITION": {
         "TITLE": "Conditions",
         "BLINDED": "Blinded",
         "CHARMED": "Charmed",
         "DEAFENED": "Deafened",
+        "DISEASED": "Diseased",
         "EXHAUSTION": "Exhaustion",
         "FRIGHTENED": "Frightened",
         "GRAPPLED": "Grappled",
@@ -37,7 +38,7 @@
         "PLANT": "Plant",
         "UNDEAD": "Undead"
       },
-      "DEGATS": {
+      "DAMAGE": {
         "TITLE": "Damage Types",
         "ACID": "Acid",
         "BLUDGEONING": "Bludgeoning",
@@ -57,6 +58,7 @@
         "TITLE": "Area of Effect",
         "CONE": "Cone",
         "CUBE": "Cube",
+        "CYLINDER": "Cylinder",
         "SPHERE": "Sphere",
         "LINE": "Line"
       },

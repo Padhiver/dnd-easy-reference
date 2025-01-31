@@ -2,11 +2,12 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "ETATS": {
+      "CONDITION": {
         "TITLE": "États",
         "BLINDED": "Aveuglé",
         "CHARMED": "Charmé",
         "DEAFENED": "Assourdi",
+        "DISEASED": "Maladies",
         "EXHAUSTION": "Épuisement",
         "FRIGHTENED": "Effrayé",
         "GRAPPLED": "Agrippé",
@@ -37,7 +38,7 @@
         "PLANT": "Plantes",
         "UNDEAD": "Morts-vivants"
       },
-      "DEGATS": {
+      "DAMAGE": {
         "TITLE": "Dégâts",
         "ACID": "Acide",
         "BLUDGEONING": "Contondants",
@@ -57,6 +58,7 @@
         "TITLE": "Zone",
         "CONE": "Cône",
         "CUBE": "Cube",
+        "CYLINDER": "Cylindre",
         "SPHERE": "Sphère",
         "LINE": "Ligne"
       },
