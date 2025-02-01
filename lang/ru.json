@@ -1,0 +1,81 @@
+{
+    "DND": {
+      "MENU": {
+        "TITLE": "D&D",
+        "CONDITION": {
+          "TITLE": "Состояния",
+          "BLINDED": "Слепота",
+          "CHARMED": "Обворожение",
+          "DEAFENED": "Глухота",
+          "DISEASED": "Болезнь",
+          "EXHAUSTION": "Утомление",
+          "FRIGHTENED": "Испуг",
+          "GRAPPLED": "Захват",
+          "INCAPACITATED": "Выход из строя",
+          "INVISIBLE": "Невидимость",
+          "PARALYZED": "Паралич",
+          "PETRIFIED": "Окаменение",
+          "POISONED": "Отравление",
+          "PRONE": "Распластанность",
+          "RESTRAINED": "Обездвиженность",
+          "STUNNED": "Шок",
+          "UNCONSCIOUS": "Без сознания"
+        },
+        "CREATURE": {
+          "TITLE": "Существо",
+          "ABERRATION": "Аберрация",
+          "BEAST": "Животное",
+          "CELESTIAL": "Небожитель",
+          "CONSTRUCT": "Конструкция",
+          "DRAGON": "Дракон",
+          "ELEMENTAL": "Элементталь",
+          "FEY": "Фея",
+          "FIEND": "Бестия",
+          "GIANT": "Великан",
+          "HUMANOID": "Гуманоид",
+          "MONSTROSITY": "Монстр",
+          "OOZE": "Жижа",
+          "PLANT": "Растение",
+          "UNDEAD": "Нежить"
+        },
+        "DAMAGE": {
+          "TITLE": "Типы урона",
+          "ACID": "Кислота",
+          "BLUDGEONING": "Дробящий",
+          "COLD": "Холод",
+          "FIRE": "Огонь",
+          "FORCE": "Сила",
+          "LIGHTNING": "Молния",
+          "NECROTIC": "Некротический",
+          "PIERCING": "Колющий",
+          "POISON": "Яд",
+          "PSYCHIC": "Психический",
+          "RADIANT": "Лучистый",
+          "SLASHING": "Режущий",
+          "THUNDER": "Гром"
+        },
+        "ZONE": {
+          "TITLE": "Область действия",
+          "CONE": "Конус",
+          "CUBE": "Куб",
+          "CYLINDER": "Цилиндр",
+          "SPHERE": "Сфера",
+          "LINE": "Линия"
+        },
+        "STYLE": {
+          "TITLE": "Стили",
+          "ADVICE": "Совет",
+          "ADVICE_TITLE": "Заголовок совета",
+          "ADVICE_CONTENT": "Текст совета ...",
+          "QUEST": "Квест",
+          "QUEST_TITLE": "Заголовок квеста",
+          "QUEST_CONTENT": "Текст квеста ...",
+          "TREASURE": "Сокровища",
+          "TREASURE_TITLE": "Заголовок блока сокровищ",
+          "TREASURE_CONTENT": "Текст блока сокровищ ...",
+          "NARRATIVE": "Нарративный блок",
+          "NOTABLE": "Заметка"
+        }
+      }
+    }
+}

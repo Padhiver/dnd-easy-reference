@@ -13,4 +13,5 @@ I'm open to requests if you think other references or other things would be usef
 ## Supported languages
 - French
 - English
+- Russian
 - Submit a PR to add your own!
