@@ -22,7 +22,7 @@
         "UNCONSCIOUS": "Inconscient"
       },
       "CREATURE": {
-        "TITLE": "Creature",
+        "TITLE": "Créatures",
         "ABERRATION": "Aberration",
         "BEAST": "Bêtes",
         "CELESTIAL": "Célestes",
@@ -85,7 +85,7 @@
         "CHA": "Charisme"
       },
       "ZONE": {
-        "TITLE": "Zone",
+        "TITLE": "Zones",
         "CONE": "Cône",
         "CUBE": "Cube",
         "CYLINDER": "Cylindre",
