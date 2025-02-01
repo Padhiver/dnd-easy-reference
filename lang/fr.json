@@ -54,6 +54,36 @@
         "SLASHING": "Tranchants",
         "THUNDER": "Tonnerre"
       },
+      "SKILLS": {
+        "TITLE": "Compétences",
+        "ACR": "Acrobaties",
+        "ARC": "Arcanes",
+        "ATH": "Athlétisme",
+        "STE": "Discrétion",
+        "ANI": "Dressage",
+        "SLT": "Escamotage",
+        "HIS": "Histoire",
+        "ITM": "Intimidation",
+        "INS": "Intuition",
+        "INV": "Investigation",
+        "MED": "Médecine",
+        "NAT": "Nature",
+        "PRC": "Perception",
+        "PER": "Persuasion",
+        "REL": "Religion",
+        "PRF": "Représentation",
+        "SUR": "Survie",
+        "DEC": "Tromperie"
+      },
+      "ABILITIES": {
+        "TITLE": "Caractéristiques",
+        "STR": "Force",
+        "DEX": "Dextérité",
+        "CON": "Constitution",
+        "INT": "Intelligence",
+        "WIS": "Sagesse",
+        "CHA": "Charisme"
+      },
       "ZONE": {
         "TITLE": "Zone",
         "CONE": "Cône",
@@ -75,7 +105,7 @@
         "TREASURE_CONTENT": "Contenu du trésor ...",
         "NARRATIVE": "Narratif",
         "NOTABLE": "Remarquable"
-      }
+     }
     }
   }
 }

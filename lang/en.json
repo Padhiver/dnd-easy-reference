@@ -62,6 +62,36 @@
         "SPHERE": "Sphere",
         "LINE": "Line"
       },
+      "SKILLS": {
+        "TITLE": "Skills",
+        "ACR": "Acrobatics",
+        "ARC": "Arcana",
+        "ATH": "Athletics",
+        "STE": "Stealth",
+        "ANI": "Animal Handling",
+        "SLT": "Sleight of Hand",
+        "HIS": "History",
+        "ITM": "Intimidation",
+        "INS": "Insight",
+        "INV": "Investigation",
+        "MED": "Medicine",
+        "NAT": "Nature",
+        "PRC": "Perception",
+        "PER": "Persuasion",
+        "REL": "Religion",
+        "PRF": "Performance",
+        "SUR": "Survival",
+        "DEC": "Deception"
+      },
+      "ABILITIES": {
+        "TITLE": "Abilities",
+        "STR": "Strength",
+        "DEX": "Dexterity",
+        "CON": "Constitution",
+        "INT": "Intelligence",
+        "WIS": "Wisdom",
+        "CHA": "Charisma"
+      },
       "STYLE": {
         "TITLE": "Styles",
         "ADVICE": "Advice",

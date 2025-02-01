@@ -1,11 +1,13 @@
 Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   const MENU_CONFIGS = {
+    abilities: Object.keys(CONFIG.DND5E?.abilities || {}),
+    skills: Object.keys(CONFIG.DND5E?.skills || {}),
     condition: Object.keys(CONFIG.DND5E?.conditionTypes || {})
       .filter(condition => CONFIG.DND5E?.conditionTypes?.[condition]?.reference),
-    creature: Object.keys(CONFIG.DND5E?.creatureTypes || {})
-      .filter(type => CONFIG.DND5E?.creatureTypes?.[type]?.reference),
     damage: Object.keys(CONFIG.DND5E?.damageTypes || {}),
-    zone: ['cone', 'cube', 'sphere', 'line', 'cylinder']
+    zone: ['cone', 'cube', 'sphere', 'line', 'cylinder'],
+    creature: Object.keys(CONFIG.DND5E?.creatureTypes || {})
+    .filter(type => CONFIG.DND5E?.creatureTypes?.[type]?.reference),
   };
 
   const STYLE_BLOCKS = {
