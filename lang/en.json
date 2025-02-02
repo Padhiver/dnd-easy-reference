@@ -2,122 +2,53 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "CONDITIONTYPES": {
-        "TITLE": "Conditions",
-        "HINT": "Show or hide conditions in the menu",
-        "BLINDED": "Blinded",
-        "CHARMED": "Charmed",
-        "DEAFENED": "Deafened",
-        "DISEASED": "Diseased",
-        "EXHAUSTION": "Exhaustion",
-        "FRIGHTENED": "Frightened",
-        "GRAPPLED": "Grappled",
-        "INCAPACITATED": "Incapacitated",
-        "INVISIBLE": "Invisible",
-        "PARALYZED": "Paralyzed",
-        "PETRIFIED": "Petrified",
-        "POISONED": "Poisoned",
-        "PRONE": "Prone",
-        "RESTRAINED": "Restrained",
-        "STUNNED": "Stunned",
-        "UNCONSCIOUS": "Unconscious"
-      },
-      "CREATURETYPES": {
-        "TITLE": "Creature",
-        "HINT": "Show or hide creature types in the menu",
-        "ABERRATION": "Aberration",
-        "BEAST": "Beast",
-        "CELESTIAL": "Celestial",
-        "CONSTRUCT": "Construct",
-        "DRAGON": "Dragon",
-        "ELEMENTAL": "Elemental",
-        "FEY": "Fey",
-        "FIEND": "Fiend",
-        "GIANT": "Giant",
-        "HUMANOID": "Humanoid",
-        "MONSTROSITY": "Monstrosity",
-        "OOZE": "Ooze",
-        "PLANT": "Plant",
-        "UNDEAD": "Undead"
-      },
-      "DAMAGETYPES": {
-        "TITLE": "Damage Types",
-        "HINT": "Show or hide damage types in the menu",
-        "ACID": "Acid",
-        "BLUDGEONING": "Bludgeoning",
-        "COLD": "Cold",
-        "FIRE": "Fire",
-        "FORCE": "Force",
-        "LIGHTNING": "Lightning",
-        "NECROTIC": "Necrotic",
-        "PIERCING": "Piercing",
-        "POISON": "Poison",
-        "PSYCHIC": "Psychic",
-        "RADIANT": "Radiant",
-        "SLASHING": "Slashing",
-        "THUNDER": "Thunder"
-      },
-      "AREATARGETTYPES": {
-        "TITLE": "Area of Effect",
-        "HINT": "Show or hide area target types in the menu",
-        "CONE": "Cone",
-        "CUBE": "Cube",
-        "CYLINDER": "Cylinder",
-        "SPHERE": "Sphere",
-        "LINE": "Line"
+      "ABILITIES": {
+        "TITLE": "Abilities",
+        "HINT": "Show abilities in the menu."
       },
       "SKILLS": {
         "TITLE": "Skills",
-        "HINT": "Show or hide skills in the menu",
-        "ACR": "Acrobatics",
-        "ARC": "Arcana",
-        "ATH": "Athletics",
-        "STE": "Stealth",
-        "ANI": "Animal Handling",
-        "SLT": "Sleight of Hand",
-        "HIS": "History",
-        "ITM": "Intimidation",
-        "INS": "Insight",
-        "INV": "Investigation",
-        "MED": "Medicine",
-        "NAT": "Nature",
-        "PRC": "Perception",
-        "PER": "Persuasion",
-        "REL": "Religion",
-        "PRF": "Performance",
-        "SUR": "Survival",
-        "DEC": "Deception"
+        "HINT": "Show skills in the menu."
       },
-      "ABILITIES": {
-        "TITLE": "Abilities",
-        "HINT": "Show or hide abilities in the menu",
-        "STR": "Strength",
-        "DEX": "Dexterity",
-        "CON": "Constitution",
-        "INT": "Intelligence",
-        "WIS": "Wisdom",
-        "CHA": "Charisma"
+      "CONDITIONTYPES": {
+        "TITLE": "Conditions",
+        "HINT": "Show condition types in the menu."
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Damage Types",
+        "HINT": "Show damage types in the menu."
+      },
+      "CREATURETYPES": {
+        "TITLE": "Creature Types",
+        "HINT": "Show creature types in the menu."
+      },
+      "AREATARGETTYPES": {
+        "TITLE": "Area Target Types",
+        "HINT": "Show area target types in the menu."
       },
       "ITEMPROPERTIES": {
-        "TITLE": "Spell properties",
-        "HINT": "Show or hide Spell properties in the menu",
-        "CONCENTRATION": "Concentration",
-        "MATERIAL": "Material",
-        "RITUAL": "Ritual",
-        "SOMATIC": "Somatic",
-        "VOCAL": "Vocal"
+        "TITLE": "Spell Properties",
+        "HINT": "Show spell properties in the menu."
+      },
+      "SAVES": {
+        "TITLE": "Saving Throws",
+        "HINT": "Show saving throws in the menu."
+      },
+      "CHECKS": {
+        "TITLE": "Checks",
+        "HINT": "Show checks checks in the menu."
       },
       "STYLE": {
         "TITLE": "Styles",
         "ADVICE": "Advice",
-        "ADVICE_TITLE": "Advice Title",
-        "ADVICE_CONTENT": "Advice content ...",
-        "QUEST": "Quest Blocks",
-        "QUEST_TITLE": "Quest Title",
-        "QUEST_CONTENT": "Quest content ...",
+        "ADVICE_TITLE": "Advice",
+        "ADVICE_CONTENT": "This is an advice block.",
+        "QUEST": "Quest",
+        "QUEST_TITLE": "Quest",
+        "QUEST_CONTENT": "This is a quest block.",
         "TREASURE": "Treasure",
-        "TREASURE_TITLE": "Treasure Title",
-        "TREASURE_CONTENT": "Treasure content ...",
+        "TREASURE_TITLE": "Treasure",
+        "TREASURE_CONTENT": "This is a treasure block.",
         "NARRATIVE": "Narrative",
         "NOTABLE": "Notable"
       }

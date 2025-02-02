@@ -2,122 +2,53 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "CONDITIONTYPES": {
-        "TITLE": "États",
-        "HINT": "Si activé, affiches enrichisseurs États",
-        "BLINDED": "Aveuglé",
-        "CHARMED": "Charmé",
-        "DEAFENED": "Assourdi",
-        "DISEASED": "Maladies",
-        "EXHAUSTION": "Épuisement",
-        "FRIGHTENED": "Effrayé",
-        "GRAPPLED": "Agrippé",
-        "INCAPACITATED": "Neutralisé",
-        "INVISIBLE": "Invisible",
-        "PARALYZED": "Paralysé",
-        "PETRIFIED": "Pétrifié",
-        "POISONED": "Empoisonné",
-        "PRONE": "À terre",
-        "RESTRAINED": "Entravé",
-        "STUNNED": "Étourdi",
-        "UNCONSCIOUS": "Inconscient"
-      },
-      "CREATURETYPES": {
-        "TITLE": "Type de Créatures",
-        "HINT": "Si activé, affiches enrichisseurs Type de créatures",
-        "ABERRATION": "Aberration",
-        "BEAST": "Bêtes",
-        "CELESTIAL": "Célestes",
-        "CONSTRUCT": "Artificiels",
-        "DRAGON": "Dragons",
-        "ELEMENTAL": "Élémentaires",
-        "FEY": "Fées",
-        "FIEND": "Fiélons",
-        "GIANT": "Géants",
-        "HUMANOID": "Humanoïdes",
-        "MONSTROSITY": "Monstruosités",
-        "OOZE": "Vases",
-        "PLANT": "Plantes",
-        "UNDEAD": "Morts-vivants"
-      },
-      "DAMAGETYPES": {
-        "TITLE": "Type de dégâts",
-        "HINT": "Si activé, affiches enrichisseurs Type de dégâts",
-        "ACID": "Acide",
-        "BLUDGEONING": "Contondants",
-        "COLD": "Froid",
-        "FIRE": "Feu",
-        "FORCE": "Force",
-        "LIGHTNING": "Foudre",
-        "NECROTIC": "Nécrotiques",
-        "PIERCING": "Perforants",
-        "POISON": "Poison",
-        "PSYCHIC": "Psychiques",
-        "RADIANT": "Radiants",
-        "SLASHING": "Tranchants",
-        "THUNDER": "Tonnerre"
+      "ABILITIES": {
+        "TITLE": "Caractéristiques",
+        "HINT": "Afficher les caractéristiques."
       },
       "SKILLS": {
         "TITLE": "Compétences",
-        "HINT": "Si activé, affiches enrichisseurs Compétences",
-        "ACR": "Acrobaties",
-        "ARC": "Arcanes",
-        "ATH": "Athlétisme",
-        "STE": "Discrétion",
-        "ANI": "Dressage",
-        "SLT": "Escamotage",
-        "HIS": "Histoire",
-        "ITM": "Intimidation",
-        "INS": "Intuition",
-        "INV": "Investigation",
-        "MED": "Médecine",
-        "NAT": "Nature",
-        "PRC": "Perception",
-        "PER": "Persuasion",
-        "REL": "Religion",
-        "PRF": "Représentation",
-        "SUR": "Survie",
-        "DEC": "Tromperie"
+        "HINT": "Afficher les compétences."
       },
-      "ABILITIES": {
-        "TITLE": "Caractéristiques",
-        "HINT": "Si activé, affiches enrichisseurs Caractéristiques",
-        "STR": "Force",
-        "DEX": "Dextérité",
-        "CON": "Constitution",
-        "INT": "Intelligence",
-        "WIS": "Sagesse",
-        "CHA": "Charisme"
+      "CONDITIONTYPES": {
+        "TITLE": "États",
+        "HINT": "Afficher les états."
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Types de dégâts",
+        "HINT": "Afficher les types de dégâts."
+      },
+      "CREATURETYPES": {
+        "TITLE": "Types de créatures",
+        "HINT": "Afficher les types de créatures."
       },
       "AREATARGETTYPES": {
-        "TITLE": "Zones",
-        "HINT": "Si activé, affiches enrichisseurs Zones",
-        "CONE": "Cône",
-        "CUBE": "Cube",
-        "CYLINDER": "Cylindre",
-        "SPHERE": "Sphère",
-        "LINE": "Ligne"
+        "TITLE": "Types de zones",
+        "HINT": "Afficher les types de zones."
       },
       "ITEMPROPERTIES": {
         "TITLE": "Propriétés des sorts",
-        "HINT": "Si activé, affiches enrichisseurs Propriétés des sorts",
-        "CONCENTRATION": "Concentration",
-        "MATERIAL": "Matériel",
-        "RITUAL": "Rituel",
-        "SOMATIC": "Somatique",
-        "VOCAL": "Verbal"
+        "HINT": "Afficher les propriétés des sorts."
+      },
+      "SAVES": {
+        "TITLE": "Jets de sauvegarde",
+        "HINT": "Afficher les jets de sauvegarde."
+      },
+      "CHECKS": {
+        "TITLE": "Jets d'opposition",
+        "HINT": "Afficher les jets d'opposition."
       },
       "STYLE": {
         "TITLE": "Styles",
         "ADVICE": "Conseil",
-        "ADVICE_TITLE": "Titre du conseil",
-        "ADVICE_CONTENT": "Contenu du conseil ...",
-        "QUEST": "Blocs de quête",
-        "QUEST_TITLE": "Titre de la quête",
-        "QUEST_CONTENT": "Contenu de la quête ...",
+        "ADVICE_TITLE": "Conseil",
+        "ADVICE_CONTENT": "Ceci est un bloc de conseil.",
+        "QUEST": "Quête",
+        "QUEST_TITLE": "Quête",
+        "QUEST_CONTENT": "Ceci est un bloc de quête.",
         "TREASURE": "Trésor",
-        "TREASURE_TITLE": "Titre du trésor",
-        "TREASURE_CONTENT": "Contenu du trésor ...",
+        "TREASURE_TITLE": "Trésor",
+        "TREASURE_CONTENT": "Ceci est un bloc de trésor.",
         "NARRATIVE": "Narratif",
         "NOTABLE": "Remarquable"
       }
