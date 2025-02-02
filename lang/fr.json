@@ -2,8 +2,9 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "CONDITION": {
+      "CONDITIONTYPES": {
         "TITLE": "États",
+        "HINT": "Si activé, affiches enrichisseurs États",
         "BLINDED": "Aveuglé",
         "CHARMED": "Charmé",
         "DEAFENED": "Assourdi",
@@ -21,8 +22,9 @@
         "STUNNED": "Étourdi",
         "UNCONSCIOUS": "Inconscient"
       },
-      "CREATURE": {
-        "TITLE": "Créatures",
+      "CREATURETYPES": {
+        "TITLE": "Type de Créatures",
+        "HINT": "Si activé, affiches enrichisseurs Type de créatures",
         "ABERRATION": "Aberration",
         "BEAST": "Bêtes",
         "CELESTIAL": "Célestes",
@@ -38,8 +40,9 @@
         "PLANT": "Plantes",
         "UNDEAD": "Morts-vivants"
       },
-      "DAMAGE": {
-        "TITLE": "Dégâts",
+      "DAMAGETYPES": {
+        "TITLE": "Type de dégâts",
+        "HINT": "Si activé, affiches enrichisseurs Type de dégâts",
         "ACID": "Acide",
         "BLUDGEONING": "Contondants",
         "COLD": "Froid",
@@ -56,6 +59,7 @@
       },
       "SKILLS": {
         "TITLE": "Compétences",
+        "HINT": "Si activé, affiches enrichisseurs Compétences",
         "ACR": "Acrobaties",
         "ARC": "Arcanes",
         "ATH": "Athlétisme",
@@ -77,6 +81,7 @@
       },
       "ABILITIES": {
         "TITLE": "Caractéristiques",
+        "HINT": "Si activé, affiches enrichisseurs Caractéristiques",
         "STR": "Force",
         "DEX": "Dextérité",
         "CON": "Constitution",
@@ -84,13 +89,23 @@
         "WIS": "Sagesse",
         "CHA": "Charisme"
       },
-      "ZONE": {
+      "AREATARGETTYPES": {
         "TITLE": "Zones",
+        "HINT": "Si activé, affiches enrichisseurs Zones",
         "CONE": "Cône",
         "CUBE": "Cube",
         "CYLINDER": "Cylindre",
         "SPHERE": "Sphère",
         "LINE": "Ligne"
+      },
+      "ITEMPROPERTIES": {
+        "TITLE": "Propriétés des sorts",
+        "HINT": "Si activé, affiches enrichisseurs Propriétés des sorts",
+        "CONCENTRATION": "Concentration",
+        "MATERIAL": "Matériel",
+        "RITUAL": "Rituel",
+        "SOMATIC": "Somatique",
+        "VOCAL": "Verbal"
       },
       "STYLE": {
         "TITLE": "Styles",
@@ -105,7 +120,7 @@
         "TREASURE_CONTENT": "Contenu du trésor ...",
         "NARRATIVE": "Narratif",
         "NOTABLE": "Remarquable"
-     }
+      }
     }
   }
 }

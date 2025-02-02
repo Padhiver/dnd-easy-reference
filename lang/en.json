@@ -2,8 +2,9 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "CONDITION": {
+      "CONDITIONTYPES": {
         "TITLE": "Conditions",
+        "HINT": "Show or hide conditions in the menu",
         "BLINDED": "Blinded",
         "CHARMED": "Charmed",
         "DEAFENED": "Deafened",
@@ -21,8 +22,9 @@
         "STUNNED": "Stunned",
         "UNCONSCIOUS": "Unconscious"
       },
-      "CREATURE": {
+      "CREATURETYPES": {
         "TITLE": "Creature",
+        "HINT": "Show or hide creature types in the menu",
         "ABERRATION": "Aberration",
         "BEAST": "Beast",
         "CELESTIAL": "Celestial",
@@ -38,8 +40,9 @@
         "PLANT": "Plant",
         "UNDEAD": "Undead"
       },
-      "DAMAGE": {
+      "DAMAGETYPES": {
         "TITLE": "Damage Types",
+        "HINT": "Show or hide damage types in the menu",
         "ACID": "Acid",
         "BLUDGEONING": "Bludgeoning",
         "COLD": "Cold",
@@ -54,8 +57,9 @@
         "SLASHING": "Slashing",
         "THUNDER": "Thunder"
       },
-      "ZONE": {
+      "AREATARGETTYPES": {
         "TITLE": "Area of Effect",
+        "HINT": "Show or hide area target types in the menu",
         "CONE": "Cone",
         "CUBE": "Cube",
         "CYLINDER": "Cylinder",
@@ -64,6 +68,7 @@
       },
       "SKILLS": {
         "TITLE": "Skills",
+        "HINT": "Show or hide skills in the menu",
         "ACR": "Acrobatics",
         "ARC": "Arcana",
         "ATH": "Athletics",
@@ -85,12 +90,22 @@
       },
       "ABILITIES": {
         "TITLE": "Abilities",
+        "HINT": "Show or hide abilities in the menu",
         "STR": "Strength",
         "DEX": "Dexterity",
         "CON": "Constitution",
         "INT": "Intelligence",
         "WIS": "Wisdom",
         "CHA": "Charisma"
+      },
+      "ITEMPROPERTIES": {
+        "TITLE": "Spell properties",
+        "HINT": "Show or hide Spell properties in the menu",
+        "CONCENTRATION": "Concentration",
+        "MATERIAL": "Material",
+        "RITUAL": "Ritual",
+        "SOMATIC": "Somatic",
+        "VOCAL": "Vocal"
       },
       "STYLE": {
         "TITLE": "Styles",

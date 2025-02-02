@@ -1,15 +1,24 @@
+// Hook pour ajouter des menus déroulants à ProseMirror
 Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
+  //region Configuration menus
   const MENU_CONFIGS = {
-    abilities: Object.keys(CONFIG.DND5E?.abilities || {}),
-    skills: Object.keys(CONFIG.DND5E?.skills || {}),
-    condition: Object.keys(CONFIG.DND5E?.conditionTypes || {})
-      .filter(condition => CONFIG.DND5E?.conditionTypes?.[condition]?.reference),
-    damage: Object.keys(CONFIG.DND5E?.damageTypes || {}),
-    zone: ['cone', 'cube', 'sphere', 'line', 'cylinder'],
-    creature: Object.keys(CONFIG.DND5E?.creatureTypes || {})
-    .filter(type => CONFIG.DND5E?.creatureTypes?.[type]?.reference),
+    abilities: Object.keys(CONFIG.DND5E?.abilities || {})
+      .filter(abilities => CONFIG.DND5E?.abilities?.[abilities]),
+    skills: Object.keys(CONFIG.DND5E?.skills || {})
+      .filter(skills => CONFIG.DND5E?.skills?.[skills]),
+    conditionTypes: Object.keys(CONFIG.DND5E?.conditionTypes || {})
+      .filter(conditionTypes => CONFIG.DND5E?.conditionTypes?.[conditionTypes]?.reference),
+    damageTypes: Object.keys(CONFIG.DND5E?.damageTypes || {})
+      .filter(damageTypes => CONFIG.DND5E?.damageTypes?.[damageTypes]),
+    creatureTypes: Object.keys(CONFIG.DND5E?.creatureTypes || {})
+      .filter(creatureTypes => CONFIG.DND5E?.creatureTypes?.[creatureTypes]?.reference),
+    areatargettypes: Object.keys(CONFIG.DND5E?.areaTargetTypes || {})
+      .filter(areaTargetTypes => CONFIG.DND5E?.areaTargetTypes?.[areaTargetTypes]?.reference),
+    itemProperties: Object.keys(CONFIG.DND5E?.itemProperties || {})
+      .filter(itemProperties => CONFIG.DND5E?.itemProperties?.[itemProperties]?.reference),
   };
 
+  //region Configuration style
   const STYLE_BLOCKS = {
     advice: { class: 'fvtt advice', icon: 'icons/vtt-512.png' },
     quest: { class: 'fvtt quest', icon: 'icons/magic/symbols/question-stone-yellow.webp' },
@@ -18,6 +27,8 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     notable: { class: 'notable', type: 'aside' }
   };
 
+  //region Fonctions
+  // Fonction référence
   const createReferenceEntries = (category, items) => {
     return items.map(item => ({
       title: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.${item.toUpperCase()}`),
@@ -26,6 +37,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     }));
   };
 
+  // Fonction blocs style
   const createStyleBlock = (type) => {
     if (STYLE_BLOCKS[type].type) {
       return {
@@ -51,6 +63,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     };
   };
 
+  // Fonction blocs quête
   const insertAdviceOrQuestBlock = (type) => {
     const schema = proseMirrorMenu.schema;
     const config = STYLE_BLOCKS[type];
@@ -77,6 +90,8 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     return true;
   };
 
+
+  // Fonction pour insérer une référence
   const insertReference = (reference) => {
     proseMirrorMenu.view.dispatch(
       proseMirrorMenu.view.state.tr
@@ -85,11 +100,21 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     );
   };
 
+  //region Filtrer
+  // Filtrer les menus en fonction des paramètres
+  const filteredMenuConfigs = Object.entries(MENU_CONFIGS).reduce((acc, [key, items]) => {
+    if (game.settings.get('dnd-easy-reference', `show${key.charAt(0).toUpperCase() + key.slice(1)}`)) {
+      acc[key] = items;
+    }
+    return acc;
+  }, {});
+
+  //region Menus déroulants
   dropdowns.journalEnrichers = {
     action: 'enricher',
     title: game.i18n.localize('DND.MENU.TITLE'),
     entries: [
-      ...Object.entries(MENU_CONFIGS).map(([key, items]) => ({
+      ...Object.entries(filteredMenuConfigs).map(([key, items]) => ({
         title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
         action: key,
         children: createReferenceEntries(key, items)
@@ -101,4 +126,5 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       }
     ]
   };
+
 });
