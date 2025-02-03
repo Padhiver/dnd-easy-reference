@@ -2,25 +2,21 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "ABILITIES": {
-        "TITLE": "Abilities",
-        "HINT": "Show abilities in the menu."
-      },
-      "SKILLS": {
-        "TITLE": "Skills",
-        "HINT": "Show skills in the menu."
-      },
       "CONDITIONTYPES": {
         "TITLE": "Conditions",
         "HINT": "Show condition types in the menu."
       },
-      "DAMAGETYPES": {
-        "TITLE": "Damage Types",
-        "HINT": "Show damage types in the menu."
+      "SAVES": {
+        "TITLE": "Saving Throws",
+        "HINT": "Show saving throws in the menu."
       },
-      "CREATURETYPES": {
-        "TITLE": "Creature Types",
-        "HINT": "Show creature types in the menu."
+      "CHECKS": {
+        "TITLE": "Checks",
+        "HINT": "Show checks checks in the menu."
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Weapon Masteries",
+        "HINT": "Show Weapon Masteries in the menu. (PHB required)"
       },
       "AREATARGETTYPES": {
         "TITLE": "Area Target Types",
@@ -30,13 +26,21 @@
         "TITLE": "Spell Properties",
         "HINT": "Show spell properties in the menu."
       },
-      "SAVES": {
-        "TITLE": "Saving Throws",
-        "HINT": "Show saving throws in the menu."
+      "ABILITIES": {
+        "TITLE": "Abilities",
+        "HINT": "Show abilities in the menu."
       },
-      "CHECKS": {
-        "TITLE": "Checks",
-        "HINT": "Show checks checks in the menu."
+      "SKILLS": {
+        "TITLE": "Skills",
+        "HINT": "Show skills in the menu."
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Damage Types",
+        "HINT": "Show damage types in the menu."
+      },
+      "CREATURETYPES": {
+        "TITLE": "Creature Types",
+        "HINT": "Show creature types in the menu."
       },
       "STYLE": {
         "TITLE": "Styles",

@@ -2,25 +2,21 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
-      "ABILITIES": {
-        "TITLE": "Caractéristiques",
-        "HINT": "Afficher les caractéristiques."
-      },
-      "SKILLS": {
-        "TITLE": "Compétences",
-        "HINT": "Afficher les compétences."
-      },
       "CONDITIONTYPES": {
         "TITLE": "États",
         "HINT": "Afficher les états."
       },
-      "DAMAGETYPES": {
-        "TITLE": "Types de dégâts",
-        "HINT": "Afficher les types de dégâts."
+      "SAVES": {
+        "TITLE": "Jets de sauvegarde",
+        "HINT": "Afficher les jets de sauvegarde."
       },
-      "CREATURETYPES": {
-        "TITLE": "Types de créatures",
-        "HINT": "Afficher les types de créatures."
+      "CHECKS": {
+        "TITLE": "Jets d'opposition",
+        "HINT": "Afficher les jets d'opposition."
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Bottes d'armes",
+        "HINT": "Afficher les bottes d'armes (requière PHB)"
       },
       "AREATARGETTYPES": {
         "TITLE": "Types de zones",
@@ -30,13 +26,21 @@
         "TITLE": "Propriétés des sorts",
         "HINT": "Afficher les propriétés des sorts."
       },
-      "SAVES": {
-        "TITLE": "Jets de sauvegarde",
-        "HINT": "Afficher les jets de sauvegarde."
+      "ABILITIES": {
+        "TITLE": "Caractéristiques",
+        "HINT": "Afficher les caractéristiques."
       },
-      "CHECKS": {
-        "TITLE": "Jets d'opposition",
-        "HINT": "Afficher les jets d'opposition."
+      "SKILLS": {
+        "TITLE": "Compétences",
+        "HINT": "Afficher les compétences."
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Types de dégâts",
+        "HINT": "Afficher les types de dégâts."
+      },
+      "CREATURETYPES": {
+        "TITLE": "Types de créatures",
+        "HINT": "Afficher les types de créatures."
       },
       "STYLE": {
         "TITLE": "Styles",

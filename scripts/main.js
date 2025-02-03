@@ -1,193 +1,162 @@
-// Hook pour ajouter des menus déroulants à ProseMirror
+//region Menus
+// Configuration des menus
+const MENU_CONFIGS = {
+  conditionTypes: 'conditionTypes',
+  saves: {
+    items: ['str', 'dex', 'con', 'int', 'wis', 'cha'],
+    suffix: '-save'
+  },
+  checks: {
+    abilities: ['str', 'dex', 'con', 'int', 'wis', 'cha'],
+    skills: ['acr', 'arc', 'ath', 'ste', 'ani', 'slt', 'his', 'itm', 'ins', 'inv',
+      'med', 'nat', 'prc', 'per', 'rel', 'prf', 'sur', 'dec'],
+    suffix: '-check'
+  },
+  weaponMasteries: 'weaponMasteries',
+  areaTargetTypes: 'areaTargetTypes',
+  itemProperties: 'itemProperties',
+  abilities: 'abilities',
+  skills: 'skills',
+  damageTypes: 'damageTypes',
+  creatureTypes: 'creatureTypes',
+};
+
+//region Style
+// Configuration des blocs de style
+const STYLE_BLOCKS = {
+  advice: { class: 'fvtt advice', icon: 'icons/vtt-512.png' },
+  quest: { class: 'fvtt quest', icon: 'icons/magic/symbols/question-stone-yellow.webp' },
+  treasure: { class: 'fvtt quest', icon: 'icons/containers/chest/chest-wooden-tied-white.webp' },
+  narrative: { class: 'fvtt narrative', type: 'div' },
+  notable: { class: 'notable', type: 'aside' }
+};
+
+//region Hook
+// Hook principal qui s'exécute lors de l'initialisation des menus ProseMirror
 Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
-  //region Configuration menus
-  const MENU_CONFIGS = {
-    abilities: Object.keys(CONFIG.DND5E?.abilities || {})
-      .filter(ability => CONFIG.DND5E.abilities[ability]?.reference),
-    skills: Object.keys(CONFIG.DND5E?.skills || {})
-      .filter(skill => CONFIG.DND5E.skills[skill]?.reference),
-    conditionTypes: Object.keys(CONFIG.DND5E?.conditionTypes || {})
-      .filter(condition => CONFIG.DND5E.conditionTypes[condition]?.reference),
-    damageTypes: Object.keys(CONFIG.DND5E?.damageTypes || {})
-      .filter(damage => CONFIG.DND5E.damageTypes[damage]),
-    creatureTypes: Object.keys(CONFIG.DND5E?.creatureTypes || {})
-      .filter(creature => CONFIG.DND5E.creatureTypes[creature]?.reference),
-    areaTargetTypes: Object.keys(CONFIG.DND5E?.areaTargetTypes || {})
-      .filter(area => CONFIG.DND5E.areaTargetTypes[area]?.reference),
-    itemProperties: Object.keys(CONFIG.DND5E?.itemProperties || {})
-      .filter(item => CONFIG.DND5E.itemProperties[item]?.reference),
-    saves: ['str-save', 'dex-save', 'con-save', 'int-save', 'wis-save', 'cha-save'],
-    checks: [
-      'str-check', 'dex-check', 'con-check', 'int-check', 'wis-check', 'cha-check',
-      'acr-check', 'arc-check', 'ath-check', 'ste-check', 'ani-check',
-      'slt-check', 'his-check', 'itm-check', 'ins-check', 'inv-check',
-      'med-check', 'nat-check', 'prc-check', 'per-check', 'rel-check',
-      'prf-check', 'sur-check', 'dec-check'
-    ],
+  // Fonction pour insérer du texte dans l'éditeur
+  const insertText = (text) => {
+    proseMirrorMenu.view.dispatch(
+      proseMirrorMenu.view.state.tr.insertText(text).scrollIntoView()
+    );
   };
 
   //region Fonctions
-  // Fonction pour insérer une référence
-  const insertReference = (reference) => {
-    proseMirrorMenu.view.dispatch(
-      proseMirrorMenu.view.state.tr
-        .insertText(`&Reference[${reference}]`)
-        .scrollIntoView()
-    );
+  // Fonctions d'insertion pour les références, sauvegardes et tests
+  const insertions = {
+    reference: (item) => insertText(`&Reference[${item}]`),
+    save: (save) => insertText(`[[/save ${save.replace('-save', '')} dc=15]]`),
+    check: (check) => insertText(`[[/check ${check.replace('-check', '')} dc=15]]`)
   };
 
-  // Fonction pour insérer un jet de sauvegarde avec DC=15
-  const insertSave = (save) => {
-    const saveKey = save.replace('-save', ''); // Retire le suffixe "-save"
-    proseMirrorMenu.view.dispatch(
-      proseMirrorMenu.view.state.tr
-        .insertText(`[[/save ${saveKey} dc=15]]`)
-        .scrollIntoView()
-    );
+  // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
+  const createMenuEntries = (category, items) => {
+    if (category === 'saves') {
+      // Crée des entrées de menu pour les jets de sauvegarde
+      return items.items.map(item => ({
+        title: CONFIG.DND5E.abilities[item]?.label || item, // Titre de l'entrée
+        action: `${item}${items.suffix}`, // Action associée
+        cmd: () => insertions.save(`${item}${items.suffix}`) // Commande à exécuter
+      }));
+    }
+
+    if (category === 'checks') {
+      // Crée des entrées de menu pour les tests de caractéristiques et de compétences
+      return [
+        ...items.abilities.map(ability => ({
+          title: CONFIG.DND5E.abilities[ability]?.label || ability,
+          action: `${ability}${items.suffix}`,
+          cmd: () => insertions.check(`${ability}${items.suffix}`)
+        })),
+        ...items.skills.map(skill => ({
+          title: CONFIG.DND5E.skills[skill]?.label || skill,
+          action: `${skill}${items.suffix}`,
+          cmd: () => insertions.check(`${skill}${items.suffix}`)
+        }))
+      ];
+    }
+
+    // Cas standard pour les références
+    return Object.keys(CONFIG.DND5E?.[items] || {})
+      .filter(item => CONFIG.DND5E[items][item]?.reference)
+      .map(item => ({
+        title: CONFIG.DND5E[items][item]?.label || item,
+        action: item,
+        cmd: () => insertions.reference(item)
+      }));
   };
 
-  // Fonction pour insérer un jet de caractéristique ou de compétence
-  const insertCheck = (check) => {
-    const checkKey = check.replace('-check', ''); // Retire le suffixe "-check"
-    proseMirrorMenu.view.dispatch(
-      proseMirrorMenu.view.state.tr
-        .insertText(`[[/check ${checkKey} dc=15]]`)
-        .scrollIntoView()
-    );
-  };
-
-  // Fonction pour créer les entrées de référence
-  const createReferenceEntries = (category, items) => {
-    return items.map(item => ({
-      title: CONFIG.DND5E[category]?.[item]?.label || item, // Utilise les traductions du système
-      action: item,
-      cmd: () => insertReference(item)
-    }));
-  };
-
-  // Fonction pour créer les entrées de sauvegarde
-  const createSaveEntries = (saves) => {
-    return saves.map(save => {
-      const saveKey = save.replace('-save', '');
+  // Fonction pour créer des entrées de menu pour les blocs de style
+  const createStyleEntry = (type, config) => {
+    if (config.type) {
+      // Crée une entrée de menu pour un bloc de style avec un type spécifique
       return {
-        title: CONFIG.DND5E.abilities[saveKey]?.label || saveKey, // Utilise les traductions du système
-        action: save,
-        cmd: () => insertSave(save)
-      };
-    });
-  };
-
-  // Fonction pour créer les entrées de checks
-  const createCheckEntries = (checks) => {
-    const abilities = checks.filter(check => check.includes('-check') && CONFIG.DND5E.abilities[check.replace('-check', '')]);
-    const skills = checks.filter(check => check.includes('-check') && CONFIG.DND5E.skills[check.replace('-check', '')]);
-
-    return [
-      // Entrées pour les checks de caractéristiques (abilities)
-      ...abilities.map(ability => {
-        const abilityKey = ability.replace('-check', '');
-        return {
-          title: CONFIG.DND5E.abilities[abilityKey]?.label || abilityKey, // Utilise les traductions du système
-          action: ability,
-          cmd: () => insertCheck(ability)
-        };
-      }),
-      // Entrées pour les checks de compétences (skills)
-      ...skills.map(skill => {
-        const skillKey = skill.replace('-check', '');
-        return {
-          title: CONFIG.DND5E.skills[skillKey]?.label || skillKey, // Utilise les traductions du système
-          action: skill,
-          cmd: () => insertCheck(skill)
-        };
-      })
-    ];
-  };
-
-  //region Styles
-  const STYLE_BLOCKS = {
-    advice: { class: 'fvtt advice', icon: 'icons/vtt-512.png' },
-    quest: { class: 'fvtt quest', icon: 'icons/magic/symbols/question-stone-yellow.webp' },
-    treasure: { class: 'fvtt quest', icon: 'icons/containers/chest/chest-wooden-tied-white.webp' },
-    narrative: { class: 'fvtt narrative', type: 'div' },
-    notable: { class: 'notable', type: 'aside' }
-  };
-
-  // Fonction pour créer les blocs de style
-  const createStyleBlock = (type) => {
-    if (STYLE_BLOCKS[type].type) {
-      return {
-        title: game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}`), // Conserve les traductions pour les styles
+        title: game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}`),
         action: type,
-        node: proseMirrorMenu.schema.nodes[STYLE_BLOCKS[type].type],
-        attrs: { class: STYLE_BLOCKS[type].class },
-        cmd: () => {
-          proseMirrorMenu._toggleBlock(
-            proseMirrorMenu.schema.nodes[STYLE_BLOCKS[type].type],
-            foundry.prosemirror.commands.wrapIn,
-            { attrs: { _preserve: { class: STYLE_BLOCKS[type].class } } }
-          );
-          return true;
-        }
+        node: proseMirrorMenu.schema.nodes[config.type],
+        attrs: { class: config.class },
+        cmd: () => proseMirrorMenu._toggleBlock(
+          proseMirrorMenu.schema.nodes[config.type],
+          foundry.prosemirror.commands.wrapIn,
+          { attrs: { _preserve: { class: config.class } } }
+        )
       };
     }
 
+    // Entrée de menu pour un bloc de style avec une icône et du contenu
     return {
-      title: game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}`), // Conserve les traductions pour les styles
+      title: game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}`),
       action: type,
-      cmd: () => insertAdviceOrQuestBlock(type)
+      cmd: () => {
+        const schema = proseMirrorMenu.schema;
+        const divNode = schema.nodes.div.create(
+          { _preserve: { class: config.class } },
+          [
+            schema.nodes.figure.create(
+              { _preserve: { class: 'icon' } },
+              [schema.nodes.image.create({ src: config.icon, _preserve: { class: 'round' } })]
+            ),
+            schema.nodes.article.create(null, [
+              schema.nodes.heading.create(
+                { level: 4 },
+                schema.text(game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_TITLE`))
+              ),
+              schema.nodes.paragraph.create(
+                null,
+                schema.text(game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_CONTENT`))
+              )
+            ])
+          ]
+        );
+        proseMirrorMenu.view.dispatch(
+          proseMirrorMenu.view.state.tr.replaceSelectionWith(divNode)
+        );
+        return true;
+      }
     };
   };
 
-  // Fonction pour insérer des blocs de quête ou de conseil
-  const insertAdviceOrQuestBlock = (type) => {
-    const schema = proseMirrorMenu.schema;
-    const config = STYLE_BLOCKS[type];
-    const title = game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_TITLE`);
-    const content = game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_CONTENT`);
+  //region Configuration
+  // Filtre les menus activés en fonction des paramètres utilisateur
+  const enabledMenus = Object.entries(MENU_CONFIGS)
+    .filter(([key]) => game.settings.get('dnd-easy-reference', `show${key.charAt(0).toUpperCase() + key.slice(1)}`));
 
-    const divNode = schema.nodes.div.create(
-      { _preserve: { class: config.class } },
-      [
-        schema.nodes.figure.create(
-          { _preserve: { class: 'icon' } },
-          [schema.nodes.image.create({ src: config.icon, _preserve: { class: 'round' } })]
-        ),
-        schema.nodes.article.create(null, [
-          schema.nodes.heading.create({ level: 4 }, schema.text(title)),
-          schema.nodes.paragraph.create(null, schema.text(content))
-        ])
-      ]
-    );
-
-    proseMirrorMenu.view.dispatch(
-      proseMirrorMenu.view.state.tr.replaceSelectionWith(divNode)
-    );
-    return true;
-  };
-
-  //region Filtrer les menus en fonction des paramètres
-  const filteredMenuConfigs = Object.entries(MENU_CONFIGS).reduce((acc, [key, items]) => {
-    if (game.settings.get('dnd-easy-reference', `show${key.charAt(0).toUpperCase() + key.slice(1)}`)) {
-      acc[key] = items;
-    }
-    return acc;
-  }, {});
-
-  //region Menus déroulants
+  // Construction du menu final
   dropdowns.journalEnrichers = {
     action: 'enricher',
-    title: game.i18n.localize('DND.MENU.TITLE'), // Titre du menu principal
+    title: game.i18n.localize('DND.MENU.TITLE'), // Titre localisé du menu
     entries: [
-      ...Object.entries(filteredMenuConfigs).map(([key, items]) => ({
-        title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`), // Titre du menu
+      ...enabledMenus.map(([key, items]) => ({
+        title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`), // Titre localisé de la catégorie
         action: key,
-        children: key === 'saves' ? createSaveEntries(items) : key === 'checks' ? createCheckEntries(items) : createReferenceEntries(key, items)
+        children: createMenuEntries(key, items) // Entrées de menu pour la catégorie
       })),
       {
-        title: game.i18n.localize('DND.MENU.STYLE.TITLE'), // Titre des styles
+        title: game.i18n.localize('DND.MENU.STYLE.TITLE'),
         action: 'styles',
-        children: Object.keys(STYLE_BLOCKS).map(type => createStyleBlock(type))
+        children: Object.entries(STYLE_BLOCKS).map(([type, config]) =>
+          createStyleEntry(type, config)
+        )
       }
     ]
   };
