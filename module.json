@@ -1,7 +1,7 @@
 {
     "id": "dnd-easy-reference",
     "title": "D&D - Easy Reference",
-    "version": "1.0.3",
+    "version": "0.0.0.1",
     "compatibility": {
         "minimum": "12",
         "verified": "12"
@@ -45,8 +45,8 @@
     ],
     "styles": [],
     "manifest": "https://github.com/Padhiver/dnd-easy-reference/releases/latest/download/module.json",
-    "download": "https://github.com/Padhiver/dnd-easy-reference/releases/download/1.0.3/dnd-easy-reference.zip",
-    "url": "https://github.com/Padhiver/dnd-easy-reference",
+    "download": "This is auto replaced",
+    "url": "This is auto replaced",
     "relationships": {
         "systems": [
             {
