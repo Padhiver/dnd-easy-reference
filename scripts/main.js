@@ -1,4 +1,4 @@
-//region Menus
+//region Constantes
 // Configuration des menus
 const MENU_CONFIGS = {
   conditionTypes: 'conditionTypes',
@@ -21,7 +21,6 @@ const MENU_CONFIGS = {
   creatureTypes: 'creatureTypes',
 };
 
-//region Style
 // Configuration des blocs de style
 const STYLE_BLOCKS = {
   advice: { class: 'fvtt advice', icon: 'icons/vtt-512.png' },
@@ -40,13 +39,20 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       proseMirrorMenu.view.state.tr.insertText(text).scrollIntoView()
     );
   };
-
-  //region Fonctions
+//region Fonctions
   // Fonctions d'insertion pour les références, sauvegardes et tests
   const insertions = {
     reference: (item) => insertText(`&Reference[${item}]`),
-    save: (save) => insertText(`[[/save ${save.replace('-save', '')} dc=15]]`),
-    check: (check) => insertText(`[[/check ${check.replace('-check', '')} dc=15]]`)
+    save: (save) => {
+      const format = game.settings.get('dnd-easy-reference', 'formatType');
+      const formatString = format === 'long' ? ' format=long' : '';
+      insertText(`[[/save ${save.replace('-save', '')} dc=15${formatString}]]`);
+    },
+    check: (check) => {
+      const format = game.settings.get('dnd-easy-reference', 'formatType');
+      const formatString = format === 'long' ? ' format=long' : '';
+      insertText(`[[/check ${check.replace('-check', '')} dc=15${formatString}]]`);
+    }
   };
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
@@ -89,7 +95,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   // Fonction pour créer des entrées de menu pour les blocs de style
   const createStyleEntry = (type, config) => {
     if (config.type) {
-      // Crée une entrée de menu pour un bloc de style avec un type spécifique
+      // Bloc de style avec un type spécifique
       return {
         title: game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}`),
         action: type,
@@ -103,7 +109,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       };
     }
 
-    // Entrée de menu pour un bloc de style avec une icône et du contenu
+    // Bloc de style avec icône et du contenu
     return {
       title: game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}`),
       action: type,
@@ -136,12 +142,11 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     };
   };
 
-  //region Configuration
   // Filtre les menus activés en fonction des paramètres utilisateur
   const enabledMenus = Object.entries(MENU_CONFIGS)
-    .filter(([key]) => game.settings.get('dnd-easy-reference', `show${key.charAt(0).toUpperCase() + key.slice(1)}`));
+    .filter(([key]) => game.settings.get('dnd-easy-reference', `show${key}`));
 
-  // Construction du menu final
+  //region Menu final
   dropdowns.journalEnrichers = {
     action: 'enricher',
     title: game.i18n.localize('DND.MENU.TITLE'), // Titre localisé du menu

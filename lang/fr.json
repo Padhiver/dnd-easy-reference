@@ -56,6 +56,19 @@
         "NARRATIVE": "Narratif",
         "NOTABLE": "Remarquable"
       }
+    },
+    "SETTINGS": {
+      "FORMAT": {
+        "TITLE": "Format des enrichisseurs",
+        "HINT": "Choisir entre format court ou long pour les enrichisseurs de jet",
+        "SHORT": "Format court",
+        "LONG": "Format long"
+      },
+      "MENU": {
+        "TITLE": "Configuration du menu",
+        "LABEL": "Configurer les éléments du menu",
+        "HINT": "Configurer les éléments qui apparaissent dans le menu D&D"
+      }
     }
   }
 }

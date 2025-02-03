@@ -1,0 +1,80 @@
+<form>
+  <div class="menu-config">
+    {{#each categories}}
+    <div class="form-group menu-item">
+      <div class="menu-content">
+        <div class="menu-header">
+          <label for="{{this.id}}">{{this.name}}</label>
+          <input type="checkbox" name="show{{this.id}}" id="{{this.id}}" {{#if this.checked}}checked{{/if}}>
+        </div>
+        <p class="hint">{{this.hint}}</p>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  <footer class="sheet-footer">
+    <button type="submit" name="submit">
+      <i class="far fa-save"></i> {{localize "Save Changes"}}
+    </button>
+  </footer>
+</form>
+
+<style>
+.menu-config {
+  display: flex;
+  flex-direction: column;
+  gap: 4px; 
+  margin-bottom: 0.5em; 
+}
+
+.menu-item {
+  padding: 0.25em; 
+  border-radius: 3px;
+}
+
+.menu-item:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px; 
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-header label {
+  flex: 1;
+  margin: 0;
+  font-weight: bold;
+}
+
+.menu-header input[type="checkbox"] {
+  flex: 0 0 auto;
+  margin: 0 0 0 0.5em; 
+}
+
+.hint {
+  color: var(--color-text-dark-secondary);
+  font-size: 0.8em; 
+  margin: 0;
+  padding-left: 0.25em; 
+}
+
+.sheet-footer {
+  border-top: 1px solid #eeede0; 
+  margin-top: 0.25em; 
+  padding-top: 0.25em; 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sheet-footer button {
+  min-width: 100px; 
+}
+</style>
