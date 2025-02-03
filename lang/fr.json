@@ -2,6 +2,8 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
+      "TITLE_DESCRIPTION": "D&D - Easy Reference",
+      "DESCRIPTION": "Sélectionnez les menus à afficher dans ProseMirror.",
       "CONDITIONTYPES": {
         "TITLE": "États",
         "HINT": "Afficher les états."
@@ -16,7 +18,7 @@
       },
       "WEAPONMASTERIES": {
         "TITLE": "Bottes d'armes",
-        "HINT": "Afficher les bottes d'armes (requière PHB)"
+        "HINT": "Afficher les bottes d'armes"
       },
       "AREATARGETTYPES": {
         "TITLE": "Types de zones",

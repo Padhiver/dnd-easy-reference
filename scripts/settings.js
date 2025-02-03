@@ -55,10 +55,10 @@ class DnDMenuConfig extends FormApplication {
   // Méthode statique pour obtenir les options par défaut du formulaire
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      title: game.i18n.localize('DND.SETTINGS.MENU.TITLE'), // Titre localisé du formulaire
-      id: 'dnd-menu-config', // Identifiant du formulaire
-      template: 'modules/dnd-easy-reference/templates/menu-config.hbs', // Chemin vers le template Handlebars
-      width: 480 // Largeur du formulaire
+      title: game.i18n.localize('DND.SETTINGS.MENU.TITLE'),
+      id: 'dnd-menu-config',
+      template: 'modules/dnd-easy-reference/templates/menu-config.hbs',
+      width: 480 
     });
   }
 
@@ -66,10 +66,10 @@ class DnDMenuConfig extends FormApplication {
   getData() {
     return {
       categories: MENU_CATEGORIES.map(category => ({
-        id: category, // Identifiant de la catégorie
-        name: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.TITLE`), // Nom localisé de la catégorie
-        hint: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.HINT`), // Description localisée de la catégorie
-        checked: game.settings.get('dnd-easy-reference', `show${category}`) // État de la case à cocher
+        id: category, 
+        name: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.TITLE`), 
+        hint: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.HINT`), 
+        checked: game.settings.get('dnd-easy-reference', `show${category}`) 
       }))
     };
   }

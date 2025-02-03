@@ -2,6 +2,8 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
+      "TITLE_DESCRIPTION": "D&D - Easy Reference",
+      "DESCRIPTION": "Выберите меню, которое будет отображаться в ProseMirror.",
       "CONDITIONTYPES": {
         "TITLE": "Состояния",
         "HINT": "Показывать состояния в меню."

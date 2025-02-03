@@ -2,6 +2,8 @@
   "DND": {
     "MENU": {
       "TITLE": "D&D",
+      "TITLE_DESCRIPTION": "D&D - Easy Reference",
+      "DESCRIPTION": "Select the menus to be displayed in ProseMirror.",
       "CONDITIONTYPES": {
         "TITLE": "Conditions",
         "HINT": "Show condition types in the menu."
