@@ -42,7 +42,11 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 //region Fonctions
   // Fonctions d'insertion pour les références, sauvegardes et tests
   const insertions = {
-    reference: (item) => insertText(`&Reference[${item}]`),
+    reference: (item, category) => {
+      // Ajoute le préfixe weaponMastery= si la catégorie est weaponMasteries
+      const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
+      insertText(`&Reference[${reference}]`);
+    },
     save: (save) => {
       const format = game.settings.get('dnd-easy-reference', 'formatType');
       const formatString = format === 'long' ? ' format=long' : '';
@@ -88,7 +92,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       .map(item => ({
         title: CONFIG.DND5E[items][item]?.label || item,
         action: item,
-        cmd: () => insertions.reference(item)
+        cmd: () => insertions.reference(item, category)
       }));
   };
 
