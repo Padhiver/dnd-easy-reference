@@ -16,6 +16,10 @@
         "TITLE": "Checks",
         "HINT": "Show checks in the menu."
       },
+      "DAMAGE": {
+        "TITLE": "Damage formula",
+        "HINT": "Show damage formula in the menu."
+      },
       "WEAPONMASTERIES": {
         "TITLE": "Weapon Masteries",
         "HINT": "Show Weapon Masteries in the menu. (PHB required)"

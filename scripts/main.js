@@ -12,6 +12,11 @@ const MENU_CONFIGS = {
       'med', 'nat', 'prc', 'per', 'rel', 'prf', 'sur', 'dec'],
     suffix: '-check'
   },
+  damage: {
+    items: ['acid', 'bludgeoning', 'cold', 'fire', 'force', 'lightning', 'necrotic',
+      'piercing', 'poison', 'psychic', 'radiant', 'slashing', 'thunder'],
+    suffix: '-damage'
+  },
   weaponMasteries: 'weaponMasteries',
   areaTargetTypes: 'areaTargetTypes',
   itemProperties: 'itemProperties',
@@ -39,7 +44,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       proseMirrorMenu.view.state.tr.insertText(text).scrollIntoView()
     );
   };
-//region Fonctions
+  //region Fonctions
   // Fonctions d'insertion pour les références, sauvegardes et tests
   const insertions = {
     reference: (item, category) => {
@@ -56,13 +61,16 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       const format = game.settings.get('dnd-easy-reference', 'formatType');
       const formatString = format === 'long' ? ' format=long' : '';
       insertText(`[[/check ${check.replace('-check', '')} dc=15${formatString}]]`);
+    },
+    damage: (damage) => {
+      insertText(`[[/damage formula=1d6 type=${damage.replace('-damage', '')} average=false]]`);
     }
   };
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
   const createMenuEntries = (category, items) => {
     if (category === 'saves') {
-      // Crée des entrées de menu pour les jets de sauvegarde
+      // Jets de sauvegarde
       return items.items.map(item => ({
         title: CONFIG.DND5E.abilities[item]?.label || item, // Titre de l'entrée
         action: `${item}${items.suffix}`, // Action associée
@@ -71,7 +79,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     }
 
     if (category === 'checks') {
-      // Crée des entrées de menu pour les tests de caractéristiques et de compétences
+      // Caractéristiques et de compétences
       return [
         ...items.abilities.map(ability => ({
           title: CONFIG.DND5E.abilities[ability]?.label || ability,
@@ -84,6 +92,15 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
           cmd: () => insertions.check(`${skill}${items.suffix}`)
         }))
       ];
+    }
+
+    // Dégâts
+    if (category === 'damage') {
+      return items.items.map(item => ({
+        title: CONFIG.DND5E.damageTypes[item]?.label || item,
+        action: `${item}${items.suffix}`,
+        cmd: () => insertions.damage(`${item}${items.suffix}`)
+      }));
     }
 
     // Cas standard pour les références

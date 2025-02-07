@@ -3,6 +3,7 @@ const MENU_CATEGORIES = [
   'conditionTypes',
   'saves',
   'checks',
+  'damage',
   'weaponMasteries',
   'areaTargetTypes',
   'itemProperties',

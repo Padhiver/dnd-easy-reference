@@ -16,6 +16,10 @@
         "TITLE": "Jets d'opposition",
         "HINT": "Afficher les jets d'opposition."
       },
+      "DAMAGE": {
+        "TITLE": "Formule de dégâts",
+        "HINT": "Afficher les formules de dégâts."
+      },
       "WEAPONMASTERIES": {
         "TITLE": "Bottes d'armes",
         "HINT": "Afficher les bottes d'armes"
