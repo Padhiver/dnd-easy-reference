@@ -14,4 +14,5 @@ I'm open to requests if you think other references or other things would be usef
 - French
 - English
 - Russian
+- Português (Brasil)
 - Submit a PR to add your own!
