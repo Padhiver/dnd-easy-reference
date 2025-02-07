@@ -1,0 +1,80 @@
+{
+  "DND": {
+    "MENU": {
+      "TITLE": "D&D",
+      "TITLE_DESCRIPTION": "D&D - Easy Reference",
+      "DESCRIPTION": "Selecione os menus a serem exibidos no ProseMirror.",
+      "CONDITIONTYPES": {
+        "TITLE": "Condições",
+        "HINT": "Mostrar tipos de condições no menu."
+      },
+      "SAVES": {
+        "TITLE": "Salvaguardas",
+        "HINT": "Mostrar salvaguardas no menu."
+      },
+      "CHECKS": {
+        "TITLE": "Testes",
+        "HINT": "Mostrar testes no menu."
+      },
+      "DAMAGE": {
+        "TITLE": "Fórmula de dano",
+        "HINT": "Mostra fórmula de dano no menu."
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Maestrias de Arma",
+        "HINT": "Mostrar Maestrias de Arma no menu. (Requer PHB)"
+      },
+      "AREATARGETTYPES": {
+        "TITLE": "Tipos de Área",
+        "HINT": "Mostrar tipos de área que podem ser alvo no menu."
+      },
+      "ITEMPROPERTIES": {
+        "TITLE": "Propriedades de Magia",
+        "HINT": "Mostrar propriedades de magia no menu."
+      },
+      "ABILITIES": {
+        "TITLE": "Atributos",
+        "HINT": "Mostrar atributos no menu."
+      },
+      "SKILLS": {
+        "TITLE": "Perícias",
+        "HINT": "Mostrar perícias no menu."
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Tipos de Dano",
+        "HINT": "Mostrar tipos de dano no menu."
+      },
+      "CREATURETYPES": {
+        "TITLE": "Tipos de Criatura",
+        "HINT": "Mostrar tipos de criatura no menu."
+      },
+      "STYLE": {
+        "TITLE": "Estilos",
+        "ADVICE": "Conselho",
+        "ADVICE_TITLE": "Conselho",
+        "ADVICE_CONTENT": "Este é um bloco de conselho.",
+        "QUEST": "Missão",
+        "QUEST_TITLE": "Missão",
+        "QUEST_CONTENT": "Este é um bloco de missão.",
+        "TREASURE": "Tesouro",
+        "TREASURE_TITLE": "Tesouro",
+        "TREASURE_CONTENT": "Este é um bloco de tesouro.",
+        "NARRATIVE": "Narrativo",
+        "NOTABLE": "Notável"
+      }
+    },
+    "SETTINGS": {
+      "FORMAT": {
+        "TITLE": "Formato do Enricher",
+        "HINT": "Escolha entre o formato curto ou longo do enricher para salvaguarda e teste",
+        "SHORT": "Formato Curto",
+        "LONG": "Formato Longo"
+      },
+      "MENU": {
+        "TITLE": "Configuração do Menu",
+        "LABEL": "Configurar Itens do Menu",
+        "HINT": "Configurar quais itens aparecem no menu D&D"
+      }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
     "id": "dnd-easy-reference",
     "title": "D&D - Easy Reference",
-    "version": "0.0.0.1",
+    "version": "1.0.9",
     "compatibility": {
         "minimum": "12",
         "verified": "12"
@@ -37,7 +37,13 @@
             "name": "Russian",
             "path": "lang/ru.json",
             "flags": {}
-        }
+        },
+		{
+			"lang": "pt-BR",
+			"name": Português (Brasil),
+			"path": "lang/pt-BR.json",
+			"flags": {}
+		}
     ],
     "esmodules": [
         "./scripts/main.js",
@@ -45,8 +51,8 @@
     ],
     "styles": [],
     "manifest": "https://github.com/Padhiver/dnd-easy-reference/releases/latest/download/module.json",
-    "download": "This is auto replaced",
-    "url": "This is auto replaced",
+    "download": "https://github.com/Padhiver/dnd-easy-reference/releases/download/1.0.9/dnd-easy-reference.zip",
+    "url": "https://github.com/Padhiver/dnd-easy-reference",
     "relationships": {
         "systems": [
             {
