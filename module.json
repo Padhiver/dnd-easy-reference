@@ -38,12 +38,12 @@
             "path": "lang/ru.json",
             "flags": {}
         },
-		{
-			"lang": "pt-BR",
-			"name": Português (Brasil),
-			"path": "lang/pt-BR.json",
-			"flags": {}
-		}
+	{
+            "lang": "pt-BR",
+            "name": "Português (Brasil)",
+            "path": "lang/pt-BR.json",
+            "flags": {}
+	}
     ],
     "esmodules": [
         "./scripts/main.js",
