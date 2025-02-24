@@ -6,7 +6,6 @@ https://github.com/user-attachments/assets/269226f0-34a9-45ca-b2ef-4aa7948079e1
 ---
 ## If anyone would like to make it a PR AppV2, don't hesitate
 
----
 ## About Request
 I'm open to requests if you think other references or other things would be useful in the menu, but I'm not a programmer, it's all just tinkering, so it'll depend on the difficulty!
 
