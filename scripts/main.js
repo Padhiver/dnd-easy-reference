@@ -112,7 +112,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     // Soins
     if (category === 'heal') {
       return items.items.map(item => ({
-        title: game.i18n.localize(`DND.MENU.HEAL.${item.toUpperCase()}`),
+        title: CONFIG.DND5E.healingTypes[item]?.label || item,
         action: item,
         cmd: () => insertions.heal(item)
       }));

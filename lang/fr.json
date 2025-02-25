@@ -22,9 +22,7 @@
       },
       "HEAL": {
         "TITLE": "Formule de soins",
-        "HINT": "Afficher les formules de soins.",
-        "HEALING": "Points de vie",
-        "TEMPHP": "PV temporaires"
+        "HINT": "Afficher les formules de soins."
       },
       "WEAPONMASTERIES": {
         "TITLE": "Bottes d'armes",
