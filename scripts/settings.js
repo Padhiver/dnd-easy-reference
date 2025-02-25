@@ -4,6 +4,7 @@ const MENU_CATEGORIES = [
   'saves',
   'checks',
   'damage',
+  'heal',
   'weaponMasteries',
   'areaTargetTypes',
   'itemProperties',

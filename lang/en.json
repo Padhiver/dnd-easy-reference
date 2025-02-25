@@ -20,6 +20,12 @@
         "TITLE": "Damage formula",
         "HINT": "Show damage formula in the menu."
       },
+      "HEAL": {
+        "TITLE": "Healing formula",
+        "HINT": "Show healing formula in the menu.",
+        "HEALING": "Health Points",
+        "TEMPHP": "Temporary HP"
+      },
       "WEAPONMASTERIES": {
         "TITLE": "Weapon Masteries",
         "HINT": "Show Weapon Masteries in the menu. (PHB required)"

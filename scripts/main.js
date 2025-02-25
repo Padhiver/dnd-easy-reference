@@ -17,6 +17,9 @@ const MENU_CONFIGS = {
       'piercing', 'poison', 'psychic', 'radiant', 'slashing', 'thunder'],
     suffix: '-damage'
   },
+  heal: {
+    items: ['healing', 'temphp'],
+  },
   weaponMasteries: 'weaponMasteries',
   areaTargetTypes: 'areaTargetTypes',
   itemProperties: 'itemProperties',
@@ -64,6 +67,9 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
     damage: (damage) => {
       insertText(`[[/damage formula=1d6 type=${damage.replace('-damage', '')} average=false]]`);
+    },
+    heal: (healType) => {
+      insertText(`[[/heal formula=2d4 type=${healType}]]`);
     }
   };
 
@@ -100,6 +106,15 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         title: CONFIG.DND5E.damageTypes[item]?.label || item,
         action: `${item}${items.suffix}`,
         cmd: () => insertions.damage(`${item}${items.suffix}`)
+      }));
+    }
+
+    // Soins
+    if (category === 'heal') {
+      return items.items.map(item => ({
+        title: game.i18n.localize(`DND.MENU.HEAL.${item.toUpperCase()}`),
+        action: item,
+        cmd: () => insertions.heal(item)
       }));
     }
 
