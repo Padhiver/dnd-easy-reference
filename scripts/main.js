@@ -51,27 +51,49 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   // Fonctions d'insertion pour les références, sauvegardes et tests
   const insertions = {
     reference: (item, category) => {
-      // Ajoute le préfixe weaponMastery= si la catégorie est weaponMasteries
       const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
       insertText(`&Reference[${reference}]`);
     },
-    save: (save) => {
-      const format = game.settings.get('dnd-easy-reference', 'formatType');
-      const formatString = format === 'long' ? ' format=long' : '';
-      insertText(`[[/save ${save.replace('-save', '')} dc=15${formatString}]]`);
+    
+    // Dialogue pour les jets de sauvegarde
+    save: () => {
+      new SaveDialog({
+        callback: (ability, dc, format) => {
+          const formatString = format === 'long' ? ' format=long' : '';
+          insertText(`[[/save ${ability} dc=${dc}${formatString}]]`);
+        }
+      }).render(true);
     },
-    check: (check) => {
-      const format = game.settings.get('dnd-easy-reference', 'formatType');
-      const formatString = format === 'long' ? ' format=long' : '';
-      insertText(`[[/check ${check.replace('-check', '')} dc=15${formatString}]]`);
+    
+    // Dialogue pour les jets d'opposition
+    check: () => {
+      new CheckDialog({
+        callback: (checkType, dc, format) => {
+          const formatString = format === 'long' ? ' format=long' : '';
+          insertText(`[[/check ${checkType} dc=${dc}${formatString}]]`);
+        }
+      }).render(true);
     },
-    damage: (damage) => {
-      insertText(`[[/damage formula=1d6 type=${damage.replace('-damage', '')} average=false]]`);
+    
+    // Dialogue pour les dégâts
+    damage: () => {
+      new DamageDialog({
+        callback: (formula, damageType, average) => {
+          insertText(`[[/damage formula=${formula} type=${damageType} average=${average}]]`);
+        }
+      }).render(true);
     },
-    heal: (healType) => {
-      insertText(`[[/heal formula=2d4 type=${healType}]]`);
+    
+    // Dialogue pour les soins
+    heal: () => {
+      new HealDialog({
+        callback: (formula, healType) => {
+          insertText(`[[/heal formula=${formula} type=${healType}]]`);
+        }
+      }).render(true);
     }
   };
+  
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
   const createMenuEntries = (category, items) => {
@@ -185,13 +207,43 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   //region Menu final
   dropdowns.journalEnrichers = {
     action: 'enricher',
-    title: game.i18n.localize('DND.MENU.TITLE'), // Titre localisé du menu
+    title: game.i18n.localize('DND.MENU.TITLE'),
     entries: [
-      ...enabledMenus.map(([key, items]) => ({
-        title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`), // Titre localisé de la catégorie
-        action: key,
-        children: createMenuEntries(key, items) // Entrées de menu pour la catégorie
-      })),
+      // Menu simplifié pour sauvegarde, check, damage et heal
+      ...(game.settings.get('dnd-easy-reference', 'showsaves') ? [{
+        title: game.i18n.localize('DND.MENU.SAVES.TITLE'),
+        action: 'save-dialog',
+        cmd: () => insertions.save()
+      }] : []),
+      
+      ...(game.settings.get('dnd-easy-reference', 'showchecks') ? [{
+        title: game.i18n.localize('DND.MENU.CHECKS.TITLE'),
+        action: 'check-dialog',
+        cmd: () => insertions.check()
+      }] : []),
+      
+      ...(game.settings.get('dnd-easy-reference', 'showdamage') ? [{
+        title: game.i18n.localize('DND.MENU.DAMAGE.TITLE'),
+        action: 'damage-dialog',
+        cmd: () => insertions.damage()
+      }] : []),
+      
+      ...(game.settings.get('dnd-easy-reference', 'showheal') ? [{
+        title: game.i18n.localize('DND.MENU.HEAL.TITLE'),
+        action: 'heal-dialog',
+        cmd: () => insertions.heal()
+      }] : []),
+      
+      // Pour les autres catégories, on garde une approche par sous-menu
+      ...enabledMenus
+        .filter(([key]) => !['saves', 'checks', 'damage', 'heal'].includes(key))
+        .map(([key, items]) => ({
+          title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
+          action: key,
+          children: createMenuEntries(key, items)
+        })),
+      
+      // Menu des styles (inchangé)
       {
         title: game.i18n.localize('DND.MENU.STYLE.TITLE'),
         action: 'styles',
@@ -202,3 +254,198 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     ]
   };
 });
+
+class SaveDialog extends Dialog {
+  constructor(data) {
+    const abilities = CONFIG.DND5E.abilities;
+    
+    super({
+      title: game.i18n.localize('DND.DIALOG.SAVE.TITLE'),
+      content: `
+        <form>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.SAVE.ABILITY')}</label>
+            <select id="ability" name="ability">
+              ${Object.entries(abilities).map(([key, ability]) => 
+                `<option value="${key}">${ability.label}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.SAVE.DC')}</label>
+            <input type="number" id="dc" name="dc" value="15">
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.SAVE.FORMAT')}</label>
+            <select id="format" name="format">
+              <option value="short">${game.i18n.localize('DND.SETTINGS.FORMAT.SHORT')}</option>
+              <option value="long">${game.i18n.localize('DND.SETTINGS.FORMAT.LONG')}</option>
+            </select>
+          </div>
+        </form>
+      `,
+      buttons: {
+        confirm: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize('DND.DIALOG.CONFIRM'),
+          callback: (html) => {
+            const ability = html.find('[name="ability"]').val();
+            const dc = html.find('[name="dc"]').val();
+            const format = html.find('[name="format"]').val();
+            data.callback(ability, dc, format);
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('DND.DIALOG.CANCEL')
+        }
+      },
+      default: 'confirm'
+    });
+  }
+}
+
+class CheckDialog extends Dialog {
+  constructor(data) {
+    const abilities = CONFIG.DND5E.abilities;
+    const skills = CONFIG.DND5E.skills;
+    
+    super({
+      title: game.i18n.localize('DND.DIALOG.CHECK.TITLE'),
+      content: `
+        <form>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.CHECK.TYPE')}</label>
+            <select id="checkType" name="checkType">
+              <optgroup label="${game.i18n.localize('DND.DIALOG.CHECK.ABILITIES')}">
+                ${Object.entries(abilities).map(([key, ability]) => 
+                  `<option value="${key}">${ability.label}</option>`).join('')}
+              </optgroup>
+              <optgroup label="${game.i18n.localize('DND.DIALOG.CHECK.SKILLS')}">
+                ${Object.entries(skills).map(([key, skill]) => 
+                  `<option value="${key}">${skill.label}</option>`).join('')}
+              </optgroup>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.CHECK.DC')}</label>
+            <input type="number" id="dc" name="dc" value="15">
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.CHECK.FORMAT')}</label>
+            <select id="format" name="format">
+              <option value="short">${game.i18n.localize('DND.SETTINGS.FORMAT.SHORT')}</option>
+              <option value="long">${game.i18n.localize('DND.SETTINGS.FORMAT.LONG')}</option>
+            </select>
+          </div>
+        </form>
+      `,
+      buttons: {
+        confirm: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize('DND.DIALOG.CONFIRM'),
+          callback: (html) => {
+            const checkType = html.find('[name="checkType"]').val();
+            const dc = html.find('[name="dc"]').val();
+            const format = html.find('[name="format"]').val();
+            data.callback(checkType, dc, format);
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('DND.DIALOG.CANCEL')
+        }
+      },
+      default: 'confirm'
+    });
+  }
+}
+
+class DamageDialog extends Dialog {
+  constructor(data) {
+    const damageTypes = CONFIG.DND5E.damageTypes;
+    
+    super({
+      title: game.i18n.localize('DND.DIALOG.DAMAGE.TITLE'),
+      content: `
+        <form>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.DAMAGE.FORMULA')}</label>
+            <input type="text" id="formula" name="formula" value="1d6">
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.DAMAGE.TYPE')}</label>
+            <select id="damageType" name="damageType">
+              ${Object.entries(damageTypes).map(([key, damage]) => 
+                `<option value="${key}">${damage.label}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.DAMAGE.AVERAGE')}</label>
+            <select id="average" name="average">
+              <option value="false">${game.i18n.localize('DND.DIALOG.DAMAGE.USE_DICE')}</option>
+              <option value="true">${game.i18n.localize('DND.DIALOG.DAMAGE.USE_AVERAGE')}</option>
+            </select>
+          </div>
+        </form>
+      `,
+      buttons: {
+        confirm: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize('DND.DIALOG.CONFIRM'),
+          callback: (html) => {
+            const formula = html.find('[name="formula"]').val();
+            const damageType = html.find('[name="damageType"]').val();
+            const average = html.find('[name="average"]').val();
+            data.callback(formula, damageType, average);
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('DND.DIALOG.CANCEL')
+        }
+      },
+      default: 'confirm'
+    });
+  }
+}
+
+class HealDialog extends Dialog {
+  constructor(data) {
+    const healingTypes = CONFIG.DND5E.healingTypes;
+    
+    super({
+      title: game.i18n.localize('DND.DIALOG.HEAL.TITLE'),
+      content: `
+        <form>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.HEAL.FORMULA')}</label>
+            <input type="text" id="formula" name="formula" value="2d4">
+          </div>
+          <div class="form-group">
+            <label>${game.i18n.localize('DND.DIALOG.HEAL.TYPE')}</label>
+            <select id="healType" name="healType">
+              ${Object.entries(healingTypes).map(([key, heal]) => 
+                `<option value="${key}">${heal.label}</option>`).join('')}
+            </select>
+          </div>
+        </form>
+      `,
+      buttons: {
+        confirm: {
+          icon: '<i class="fas fa-check"></i>',
+          label: game.i18n.localize('DND.DIALOG.CONFIRM'),
+          callback: (html) => {
+            const formula = html.find('[name="formula"]').val();
+            const healType = html.find('[name="healType"]').val();
+            data.callback(formula, healType);
+          }
+        },
+        cancel: {
+          icon: '<i class="fas fa-times"></i>',
+          label: game.i18n.localize('DND.DIALOG.CANCEL')
+        }
+      },
+      default: 'confirm'
+    });
+  }
+}

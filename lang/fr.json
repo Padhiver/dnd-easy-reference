@@ -67,6 +67,38 @@
         "LABEL": "Configurer les éléments du menu",
         "HINT": "Configurer les éléments qui apparaissent dans le menu D&D"
       }
+    },
+    "DIALOG": {
+      "SAVE": {
+        "TITLE": "Jet de sauvegarde",
+        "ABILITY": "Caractéristique",
+        "DC": "Difficulté (DC)",
+        "FORMAT": "Format"
+      },
+      "CHECK": {
+        "TITLE": "Jet d'opposition",
+        "TYPE": "Type",
+        "ABILITIES": "Caractéristiques",
+        "SKILLS": "Compétences",
+        "DC": "Difficulté (DC)",
+        "FORMAT": "Format"
+      },
+      "DAMAGE": {
+        "TITLE": "Formule de dégâts",
+        "FORMULA": "Formule",
+        "TYPE": "Type de dégâts",
+        "AVERAGE": "Moyenne",
+        "USE_DICE": "Utiliser les dés",
+        "USE_AVERAGE": "Utiliser la moyenne"
+      },
+      "HEAL": {
+        "TITLE": "Formule de soins",
+        "FORMULA": "Formule",
+        "TYPE": "Type de soins"
+      },
+      "CONFIRM": "Confirmer",
+      "CANCEL": "Annuler",
+      "FORMAT": "Format"
     }
   }
 }

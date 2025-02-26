@@ -67,6 +67,37 @@
         "LABEL": "Configure Menu Items",
         "HINT": "Configure which items appear in the D&D menu"
       }
+    },
+    "DIALOG": {
+      "SAVE": {
+        "TITLE": "Saving Throw",
+        "ABILITY": "Ability",
+        "DC": "Difficulty (DC)"
+      },
+      "CHECK": {
+        "TITLE": "Check",
+        "TYPE": "Type",
+        "ABILITIES": "Abilities",
+        "SKILLS": "Skills",
+        "DC": "Difficulty (DC)",
+        "FORMAT": "Format"
+      },
+      "DAMAGE": {
+        "TITLE": "Damage Formula",
+        "FORMULA": "Formula",
+        "TYPE": "Damage Type",
+        "AVERAGE": "Average",
+        "USE_DICE": "Use Dice",
+        "USE_AVERAGE": "Use Average"
+      },
+      "HEAL": {
+        "TITLE": "Healing Formula",
+        "FORMULA": "Formula",
+        "TYPE": "Healing Type"
+      },
+      "CONFIRM": "Confirm",
+      "CANCEL": "Cancel",
+      "FORMAT": "Format"
     }
   }
 }
