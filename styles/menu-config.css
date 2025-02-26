@@ -149,3 +149,15 @@
   width: 100%; 
   margin-top: 10px; 
 }
+#reference-dialog-v2 button[type="submit"] {
+  width: 100%; 
+  margin-top: 10px; 
+}
+
+#reference-dialog-v2 .dialog-form {
+  padding: 9px;
+}
+
+#reference-dialog-v2 .dialog-form .form-group {
+  padding: 5px;
+}

@@ -18,18 +18,6 @@ const MENU_CATEGORIES = [
 
 //region Hook 
 Hooks.once('init', () => {
-  game.settings.register('dnd-easy-reference', 'formatType', {
-    name: game.i18n.localize('DND.SETTINGS.FORMAT.TITLE'), // Nom localisé du paramètre
-    hint: game.i18n.localize('DND.SETTINGS.FORMAT.HINT'), // Description localisée du paramètre
-    scope: 'world', // Portée du paramètre
-    config: true, // Indique que ce paramètre est configurable via l'interface utilisateur
-    type: String, // Type de données du paramètre
-    choices: {
-      'short': game.i18n.localize('DND.SETTINGS.FORMAT.SHORT'),
-      'long': game.i18n.localize('DND.SETTINGS.FORMAT.LONG')
-    },
-    default: 'short' // Valeur par défaut
-  });
 
   // Enregistrement d'un sous-menu de configuration
   game.settings.registerMenu('dnd-easy-reference', 'menuConfig', {

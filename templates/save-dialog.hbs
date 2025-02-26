@@ -1,0 +1,21 @@
+<div class="dialog-form">
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.SAVE.ABILITY"}}</label>
+    <select id="ability" name="ability">
+      {{#each abilities}}
+        <option value="{{@key}}">{{this.label}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.SAVE.DC"}}</label>
+    <input type="number" id="dc" name="dc" value="15">
+  </div>
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.SAVE.FORMAT"}}</label>
+    <select id="format" name="format">
+      <option value="short">{{localize "DND.SETTINGS.FORMAT.SHORT"}}</option>
+      <option value="long">{{localize "DND.SETTINGS.FORMAT.LONG"}}</option>
+    </select>
+  </div>
+</div>

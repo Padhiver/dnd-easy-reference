@@ -4,6 +4,7 @@
       "TITLE": "D&D",
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
       "DESCRIPTION": "Select the menus to be displayed in ProseMirror.",
+      "DIALOG": "Configure enricher",
       "CONDITIONTYPES": {
         "TITLE": "Conditions"
       },
@@ -57,8 +58,6 @@
     },
     "SETTINGS": {
       "FORMAT": {
-        "TITLE": "Enricher Format",
-        "HINT": "Choose between short or long format for save and check enricher",
         "SHORT": "Short Format",
         "LONG": "Long Format"
       },
@@ -72,7 +71,8 @@
       "SAVE": {
         "TITLE": "Saving Throw",
         "ABILITY": "Ability",
-        "DC": "Difficulty (DC)"
+        "DC": "Difficulty (DC)",
+        "FORMAT": "Format"
       },
       "CHECK": {
         "TITLE": "Check",

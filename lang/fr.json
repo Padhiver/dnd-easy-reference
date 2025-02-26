@@ -4,6 +4,7 @@
       "TITLE": "D&D",
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
       "DESCRIPTION": "Sélectionnez les menus à afficher dans ProseMirror.",
+      "DIALOG": "Configurer l'enrichisseur",
       "CONDITIONTYPES": {
         "TITLE": "États"
       },
@@ -57,8 +58,6 @@
     },
     "SETTINGS": {
       "FORMAT": {
-        "TITLE": "Format des enrichisseurs",
-        "HINT": "Choisir entre format court ou long pour les enrichisseurs de jet",
         "SHORT": "Format court",
         "LONG": "Format long"
       },

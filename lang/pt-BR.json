@@ -54,8 +54,6 @@
     },
     "SETTINGS": {
       "FORMAT": {
-        "TITLE": "Formato do Enricher",
-        "HINT": "Escolha entre o formato curto ou longo do enricher para salvaguarda e teste",
         "SHORT": "Formato Curto",
         "LONG": "Formato Longo"
       },
