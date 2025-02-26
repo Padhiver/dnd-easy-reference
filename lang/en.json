@@ -5,52 +5,40 @@
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
       "DESCRIPTION": "Select the menus to be displayed in ProseMirror.",
       "CONDITIONTYPES": {
-        "TITLE": "Conditions",
-        "HINT": "Show condition types in the menu."
+        "TITLE": "Conditions"
       },
       "SAVES": {
-        "TITLE": "Saving Throws",
-        "HINT": "Show saving throws in the menu."
+        "TITLE": "Saving Throws"
       },
       "CHECKS": {
-        "TITLE": "Checks",
-        "HINT": "Show checks in the menu."
+        "TITLE": "Checks"
       },
       "DAMAGE": {
-        "TITLE": "Damage formula",
-        "HINT": "Show damage formula in the menu."
+        "TITLE": "Damage formula"
       },
       "HEAL": {
-        "TITLE": "Healing formula",
-        "HINT": "Show healing formula in the menu."
+        "TITLE": "Healing formula"
       },
       "WEAPONMASTERIES": {
-        "TITLE": "Weapon Masteries",
-        "HINT": "Show Weapon Masteries in the menu. (PHB required)"
+        "TITLE": "Weapon Masteries"
       },
       "AREATARGETTYPES": {
-        "TITLE": "Area Target Types",
-        "HINT": "Show area target types in the menu."
+        "TITLE": "Area Target Types"
       },
       "ITEMPROPERTIES": {
-        "TITLE": "Spell Properties",
-        "HINT": "Show spell properties in the menu."
+        "TITLE": "Spell Properties"
       },
       "ABILITIES": {
-        "TITLE": "Abilities",
-        "HINT": "Show abilities in the menu."
+        "TITLE": "Abilities"
       },
       "SKILLS": {
-        "TITLE": "Skills",
-        "HINT": "Show skills in the menu."
+        "TITLE": "Skills"
       },
       "DAMAGETYPES": {
-        "TITLE": "Damage Types",
-        "HINT": "Show damage types in the menu."
+        "TITLE": "Damage Types"
       },
       "CREATURETYPES": {
-        "TITLE": "Creature Types",
-        "HINT": "Show creature types in the menu."
+        "TITLE": "Creature Types"
       },
       "STYLE": {
         "TITLE": "Styles",
