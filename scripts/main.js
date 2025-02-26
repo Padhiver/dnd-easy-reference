@@ -51,27 +51,49 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   // Fonctions d'insertion pour les références, sauvegardes et tests
   const insertions = {
     reference: (item, category) => {
-      // Ajoute le préfixe weaponMastery= si la catégorie est weaponMasteries
       const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
       insertText(`&Reference[${reference}]`);
     },
-    save: (save) => {
-      const format = game.settings.get('dnd-easy-reference', 'formatType');
-      const formatString = format === 'long' ? ' format=long' : '';
-      insertText(`[[/save ${save.replace('-save', '')} dc=15${formatString}]]`);
+    
+    // Dialogue pour les jets de sauvegarde
+    save: () => {
+      new SaveDialogV2({
+        callback: (ability, dc, format) => {
+          const formatString = format === 'long' ? ' format=long' : '';
+          insertText(`[[/save ${ability} dc=${dc}${formatString}]]`);
+        }
+      }).render(true);
     },
-    check: (check) => {
-      const format = game.settings.get('dnd-easy-reference', 'formatType');
-      const formatString = format === 'long' ? ' format=long' : '';
-      insertText(`[[/check ${check.replace('-check', '')} dc=15${formatString}]]`);
+    
+    // Dialogue pour les jets d'opposition
+    check: () => {
+      new CheckDialogV2({
+        callback: (checkType, dc, format) => {
+          const formatString = format === 'long' ? ' format=long' : '';
+          insertText(`[[/check ${checkType} dc=${dc}${formatString}]]`);
+        }
+      }).render(true);
     },
-    damage: (damage) => {
-      insertText(`[[/damage formula=1d6 type=${damage.replace('-damage', '')} average=false]]`);
+    
+    // Dialogue pour les dégâts
+    damage: () => {
+      new DamageDialogV2({
+        callback: (formula, damageType, average) => {
+          insertText(`[[/damage formula=${formula} type=${damageType} average=${average}]]`);
+        }
+      }).render(true);
     },
-    heal: (healType) => {
-      insertText(`[[/heal formula=2d4 type=${healType}]]`);
+    
+    // Dialogue pour les soins
+    heal: () => {
+      new HealDialogV2({
+        callback: (formula, healType) => {
+          insertText(`[[/heal formula=${formula} type=${healType}]]`);
+        }
+      }).render(true);
     }
   };
+  
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
   const createMenuEntries = (category, items) => {
@@ -185,13 +207,43 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   //region Menu final
   dropdowns.journalEnrichers = {
     action: 'enricher',
-    title: game.i18n.localize('DND.MENU.TITLE'), // Titre localisé du menu
+    title: game.i18n.localize('DND.MENU.TITLE'),
     entries: [
-      ...enabledMenus.map(([key, items]) => ({
-        title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`), // Titre localisé de la catégorie
-        action: key,
-        children: createMenuEntries(key, items) // Entrées de menu pour la catégorie
-      })),
+      // Menu simplifié pour sauvegarde, check, damage et heal
+      ...(game.settings.get('dnd-easy-reference', 'showsaves') ? [{
+        title: game.i18n.localize('DND.MENU.SAVES.TITLE'),
+        action: 'save-dialog',
+        cmd: () => insertions.save()
+      }] : []),
+      
+      ...(game.settings.get('dnd-easy-reference', 'showchecks') ? [{
+        title: game.i18n.localize('DND.MENU.CHECKS.TITLE'),
+        action: 'check-dialog',
+        cmd: () => insertions.check()
+      }] : []),
+      
+      ...(game.settings.get('dnd-easy-reference', 'showdamage') ? [{
+        title: game.i18n.localize('DND.MENU.DAMAGE.TITLE'),
+        action: 'damage-dialog',
+        cmd: () => insertions.damage()
+      }] : []),
+      
+      ...(game.settings.get('dnd-easy-reference', 'showheal') ? [{
+        title: game.i18n.localize('DND.MENU.HEAL.TITLE'),
+        action: 'heal-dialog',
+        cmd: () => insertions.heal()
+      }] : []),
+      
+      // Pour les autres catégories, on garde une approche par sous-menu
+      ...enabledMenus
+        .filter(([key]) => !['saves', 'checks', 'damage', 'heal'].includes(key))
+        .map(([key, items]) => ({
+          title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
+          action: key,
+          children: createMenuEntries(key, items)
+        })),
+      
+      // Menu des styles (inchangé)
       {
         title: game.i18n.localize('DND.MENU.STYLE.TITLE'),
         action: 'styles',
@@ -202,3 +254,201 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     ]
   };
 });
+
+const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
+
+export class SaveDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
+  static DEFAULT_OPTIONS = {
+    id: "reference-dialog-v2",
+    tag: "form",
+    form: {
+      handler: SaveDialogV2.handleFormSubmit,
+      submitOnChange: false,
+      closeOnSubmit: true
+    },
+    window: {
+      title: "DND.MENU.DIALOG",
+      contentClasses: ["dialog-form"]
+    }
+  };
+  static PARTS = {
+    form: {
+      template: "modules/dnd-easy-reference/templates/save-dialog.hbs"
+    },
+    footer: {
+      template: "templates/generic/form-footer.hbs",
+    }
+  }
+  
+  static async handleFormSubmit(event, form, formData) {
+    const ability = formData.get("ability");
+    const dc = formData.get("dc");
+    const format = formData.get("format");
+    this.callback(ability, dc, format);
+  }
+
+  constructor(data) {
+    super(data);
+    this.callback = data.callback;
+  }
+
+  async _prepareContext() {
+    return {
+      abilities: CONFIG.DND5E.abilities,
+      buttons: [
+        {
+          type: "submit",
+          icon: "fas fa-check",
+          label: "DND5E.Confirm"
+        }
+      ]
+    };
+  }
+}
+
+export class CheckDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
+  static DEFAULT_OPTIONS = {
+    id: "reference-dialog-v2",
+    tag: "form",
+    form: {
+      handler: CheckDialogV2.handleFormSubmit,
+      submitOnChange: false,
+      closeOnSubmit: true
+    },
+    window: {
+      title: "DND.MENU.DIALOG",
+      contentClasses: ["dialog-form"]
+    }
+  };
+  static PARTS = {
+    form: {
+      template: "modules/dnd-easy-reference/templates/check-dialog.hbs"
+    },
+    footer: {
+      template: "templates/generic/form-footer.hbs",
+    }
+  }
+  
+  static async handleFormSubmit(event, form, formData) {
+    const checkType = formData.get("checkType");
+    const dc = formData.get("dc");
+    const format = formData.get("format");
+    this.callback(checkType, dc, format);
+  }
+
+  constructor(data) {
+    super(data);
+    this.callback = data.callback;
+  }
+
+  async _prepareContext() {
+    return {
+      abilities: CONFIG.DND5E.abilities,
+      skills: CONFIG.DND5E.skills,
+      buttons: [
+        {
+          type: "submit",
+          icon: "fas fa-check",
+          label: "DND5E.Confirm"
+        }
+      ]
+    };
+  }
+}
+
+export class DamageDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
+  static DEFAULT_OPTIONS = {
+    id: "reference-dialog-v2",
+    tag: "form",
+    form: {
+      handler: DamageDialogV2.handleFormSubmit,
+      submitOnChange: false,
+      closeOnSubmit: true
+    },
+    window: {
+      title: "DND.MENU.DIALOG",
+      contentClasses: ["dialog-form"]
+    }
+  };
+  static PARTS = {
+    form: {
+      template: "modules/dnd-easy-reference/templates/damage-dialog.hbs"
+    },
+    footer: {
+      template: "templates/generic/form-footer.hbs",
+    }
+  }
+  
+  static async handleFormSubmit(event, form, formData) {
+    const formula = formData.get("formula");
+    const damageType = formData.get("damageType");
+    const average = formData.get("average");
+    this.callback(formula, damageType, average);
+  }
+
+  constructor(data) {
+    super(data);
+    this.callback = data.callback;
+  }
+
+  async _prepareContext() {
+    return {
+      damageTypes: CONFIG.DND5E.damageTypes,
+      buttons: [
+        {
+          type: "submit",
+          icon: "fas fa-check",
+          label: "DND5E.Confirm"
+        }
+      ]
+    };
+  }
+}
+
+export class HealDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
+  static DEFAULT_OPTIONS = {
+    id: "reference-dialog-v2",
+    tag: "form",
+    form: {
+      handler: HealDialogV2.handleFormSubmit,
+      submitOnChange: false,
+      closeOnSubmit: true
+    },
+    window: {
+      title: "DND.MENU.DIALOG",
+      contentClasses: ["dialog-form"]
+    }
+  };
+  static PARTS = {
+    form: {
+      template: "modules/dnd-easy-reference/templates/heal-dialog.hbs"
+    },
+    footer: {
+      template: "templates/generic/form-footer.hbs",
+    }
+  }
+  
+  static async handleFormSubmit(event, form, formData) {
+    const formula = formData.get("formula");
+    const healType = formData.get("healType");
+    this.callback(formula, healType);
+  }
+
+  constructor(data) {
+    super(data);
+    this.callback = data.callback;
+  }
+
+  async _prepareContext() {
+    return {
+      healingTypes: CONFIG.DND5E.healingTypes,
+      buttons: [
+        {
+          type: "submit",
+          icon: "fas fa-check",
+          label: "DND5E.Confirm"
+        }
+      ]
+    };
+  }
+}

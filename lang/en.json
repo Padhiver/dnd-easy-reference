@@ -4,6 +4,7 @@
       "TITLE": "D&D",
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
       "DESCRIPTION": "Select the menus to be displayed in ProseMirror.",
+      "DIALOG": "Configure enricher",
       "CONDITIONTYPES": {
         "TITLE": "Conditions"
       },
@@ -57,8 +58,6 @@
     },
     "SETTINGS": {
       "FORMAT": {
-        "TITLE": "Enricher Format",
-        "HINT": "Choose between short or long format for save and check enricher",
         "SHORT": "Short Format",
         "LONG": "Long Format"
       },
@@ -67,6 +66,38 @@
         "LABEL": "Configure Menu Items",
         "HINT": "Configure which items appear in the D&D menu"
       }
+    },
+    "DIALOG": {
+      "SAVE": {
+        "TITLE": "Saving Throw",
+        "ABILITY": "Ability",
+        "DC": "Difficulty (DC)",
+        "FORMAT": "Format"
+      },
+      "CHECK": {
+        "TITLE": "Check",
+        "TYPE": "Type",
+        "ABILITIES": "Abilities",
+        "SKILLS": "Skills",
+        "DC": "Difficulty (DC)",
+        "FORMAT": "Format"
+      },
+      "DAMAGE": {
+        "TITLE": "Damage Formula",
+        "FORMULA": "Formula",
+        "TYPE": "Damage Type",
+        "AVERAGE": "Average",
+        "USE_DICE": "Use Dice",
+        "USE_AVERAGE": "Use Average"
+      },
+      "HEAL": {
+        "TITLE": "Healing Formula",
+        "FORMULA": "Formula",
+        "TYPE": "Healing Type"
+      },
+      "CONFIRM": "Confirm",
+      "CANCEL": "Cancel",
+      "FORMAT": "Format"
     }
   }
 }

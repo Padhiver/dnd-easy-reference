@@ -1,0 +1,21 @@
+<div class="dialog-form">
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.DAMAGE.FORMULA"}}</label>
+    <input type="text" id="formula" name="formula" value="1d6">
+  </div>
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.DAMAGE.TYPE"}}</label>
+    <select id="damageType" name="damageType">
+      {{#each damageTypes}}
+        <option value="{{@key}}">{{this.label}}</option>
+      {{/each}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.DAMAGE.AVERAGE"}}</label>
+    <select id="average" name="average">
+      <option value="false">{{localize "DND.DIALOG.DAMAGE.USE_DICE"}}</option>
+      <option value="true">{{localize "DND.DIALOG.DAMAGE.USE_AVERAGE"}}</option>
+    </select>
+  </div>
+</div>
