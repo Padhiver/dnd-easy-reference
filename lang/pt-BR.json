@@ -5,48 +5,37 @@
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
       "DESCRIPTION": "Selecione os menus a serem exibidos no ProseMirror.",
       "CONDITIONTYPES": {
-        "TITLE": "Condições",
-        "HINT": "Mostrar tipos de condições no menu."
+        "TITLE": "Condições"
       },
       "SAVES": {
-        "TITLE": "Salvaguardas",
-        "HINT": "Mostrar salvaguardas no menu."
+        "TITLE": "Salvaguardas"
       },
       "CHECKS": {
-        "TITLE": "Testes",
-        "HINT": "Mostrar testes no menu."
+        "TITLE": "Testes"
       },
       "DAMAGE": {
-        "TITLE": "Fórmula de dano",
-        "HINT": "Mostra fórmula de dano no menu."
+        "TITLE": "Fórmula de dano"
       },
       "WEAPONMASTERIES": {
-        "TITLE": "Maestrias de Arma",
-        "HINT": "Mostrar Maestrias de Arma no menu. (Requer PHB)"
+        "TITLE": "Maestrias de Arma"
       },
       "AREATARGETTYPES": {
-        "TITLE": "Tipos de Área",
-        "HINT": "Mostrar tipos de área que podem ser alvo no menu."
+        "TITLE": "Tipos de Área"
       },
       "ITEMPROPERTIES": {
-        "TITLE": "Propriedades de Magia",
-        "HINT": "Mostrar propriedades de magia no menu."
+        "TITLE": "Propriedades de Magia"
       },
       "ABILITIES": {
-        "TITLE": "Atributos",
-        "HINT": "Mostrar atributos no menu."
+        "TITLE": "Atributos"
       },
       "SKILLS": {
-        "TITLE": "Perícias",
-        "HINT": "Mostrar perícias no menu."
+        "TITLE": "Perícias"
       },
       "DAMAGETYPES": {
-        "TITLE": "Tipos de Dano",
-        "HINT": "Mostrar tipos de dano no menu."
+        "TITLE": "Tipos de Dano"
       },
       "CREATURETYPES": {
-        "TITLE": "Tipos de Criatura",
-        "HINT": "Mostrar tipos de criatura no menu."
+        "TITLE": "Tipos de Criatura"
       },
       "STYLE": {
         "TITLE": "Estilos",

@@ -5,52 +5,40 @@
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
       "DESCRIPTION": "Sélectionnez les menus à afficher dans ProseMirror.",
       "CONDITIONTYPES": {
-        "TITLE": "États",
-        "HINT": "Afficher les états."
+        "TITLE": "États"
       },
       "SAVES": {
-        "TITLE": "Jets de sauvegarde",
-        "HINT": "Afficher les jets de sauvegarde."
+        "TITLE": "Jets de sauvegarde"
       },
       "CHECKS": {
-        "TITLE": "Jets d'opposition",
-        "HINT": "Afficher les jets d'opposition."
+        "TITLE": "Jets d'opposition"
       },
       "DAMAGE": {
-        "TITLE": "Formule de dégâts",
-        "HINT": "Afficher les formules de dégâts."
+        "TITLE": "Formule de dégâts"
       },
       "HEAL": {
-        "TITLE": "Formule de soins",
-        "HINT": "Afficher les formules de soins."
+        "TITLE": "Formule de soins"
       },
       "WEAPONMASTERIES": {
-        "TITLE": "Bottes d'armes",
-        "HINT": "Afficher les bottes d'armes"
+        "TITLE": "Bottes d'armes"
       },
       "AREATARGETTYPES": {
-        "TITLE": "Types de zones",
-        "HINT": "Afficher les types de zones."
+        "TITLE": "Types de zones"
       },
       "ITEMPROPERTIES": {
-        "TITLE": "Propriétés des sorts",
-        "HINT": "Afficher les propriétés des sorts."
+        "TITLE": "Propriétés des sorts"
       },
       "ABILITIES": {
-        "TITLE": "Caractéristiques",
-        "HINT": "Afficher les caractéristiques."
+        "TITLE": "Caractéristiques"
       },
       "SKILLS": {
-        "TITLE": "Compétences",
-        "HINT": "Afficher les compétences."
+        "TITLE": "Compétences"
       },
       "DAMAGETYPES": {
-        "TITLE": "Types de dégâts",
-        "HINT": "Afficher les types de dégâts."
+        "TITLE": "Types de dégâts"
       },
       "CREATURETYPES": {
-        "TITLE": "Types de créatures",
-        "HINT": "Afficher les types de créatures."
+        "TITLE": "Types de créatures"
       },
       "STYLE": {
         "TITLE": "Styles",

@@ -1,4 +1,4 @@
-<form id="menu-window">
+<div class="reference-form">
   <div class="menu-header">
     <img src="icons/svg/d20-highlight.svg" alt="Icon" width="96" height="96" />
     <div class="title-description">
@@ -9,177 +9,15 @@
   <hr class="ampersand">
   <div class="menu-config">
     {{#each categories}}
-    <div class="menu-item">
-      <label class="menu-label" for="{{this.id}}">
-        <span class="menu-name">{{this.name}}</span>
-        <input type="checkbox" name="show{{this.id}}" id="{{this.id}}" {{#if this.checked}}checked{{/if}}>
-        <span class="toggle-indicator"></span>
-      </label>
-      <p class="hint">{{this.hint}}</p>
+    <div class="form-group">
+      <div class="menu-item">
+        <label class="menu-label" for="{{this.id}}">
+          <span class="menu-name">{{this.name}}</span>
+          <input type="checkbox" name="show{{this.id}}" id="{{this.id}}" {{#if this.checked}}checked{{/if}}>
+          <span class="toggle-indicator"></span>
+        </label>
+      </div>
     </div>
     {{/each}}
   </div>
-  <footer class="sheet-footer">
-    <button type="submit" name="submit" class="preset">
-      <i class="far fa-save"></i> {{localize "Save Changes"}}
-    </button>
-  </footer>
-</form>
-
-<style>
-  #dnd-menu-config {
-    border: var(--dnd5e-border-gold);
-    background: url(systems/dnd5e/ui/texture-gray1.webp) no-repeat top left,
-      url(systems/dnd5e/ui/texture-gray2.webp) no-repeat bottom right,
-      var(--dnd5e-color-parchment);
-    padding: 10px;
-    border-radius: 6px;
-  }
-
-  #dnd-menu-config .window-header h4 {
-    color: transparent;
-  }
-
-  #dnd-menu-config img {
-    border: none;
-  }
-
-  #dnd-menu-config .window-header {
-    flex-wrap: nowrap;
-    background: transparent;
-    position: relative;
-    z-index: 1;
-    border: none;
-    align-items: center;
-    padding: 10px;
-    color: black;
-  }
-
-  #dnd-menu-config .window-content {
-    background: none;
-  }
-
-  #dnd-menu-config h2 {
-    text-align: center;
-    font-size: var(--font-size-36);
-    font-family: var(--dnd5e-font-modesto);
-    font-weight: bold;
-    border: none;
-    text-align: left;
-  }
-
-  #dnd-menu-config .menu-item {
-    padding: 6px 12px;
-    font-size: 0.9em;
-    font-weight: bold;
-    background: var(--dnd5e-background-card);
-    box-shadow: 0 0 6px var(--dnd5e-shadow-45);
-    border: var(--dnd5e-border-gold);
-    cursor: pointer;
-    color: black;
-    border-radius: 4px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  #dnd-menu-config .menu-item:hover {
-    transform: scale(1.02);
-  }
-
-  #dnd-menu-config .sheet-footer button.preset {
-    padding: 6px 12px;
-    font-size: 0.9em;
-    font-weight: bold;
-    background: var(--dnd5e-background-card);
-    box-shadow: 0 0 6px var(--dnd5e-shadow-45);
-    border: var(--dnd5e-border-gold);
-    cursor: pointer;
-    color: black;
-    border-radius: 4px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  #dnd-menu-config .sheet-footer button.preset:hover {
-    transform: scale(1.0);
-    box-shadow: 0 0 12px var(--dnd5e-shadow-60);
-  }
-
-  #dnd-menu-config .menu-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--dnd5e-font-modesto);
-    font-size: var(--font-size-32);
-    font-weight: bold;
-  }
-
-  #dnd-menu-config .ampersand {
-    border: none;
-    border-top: 1px solid #9f9275;
-    margin: 10px 0;
-  }
-
-  #dnd-menu-config .menu-config {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 6px;
-    padding: 10px;
-  }
-
-  #dnd-menu-config .menu-label {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    font-weight: bold;
-    gap: 8px;
-  }
-
-  #dnd-menu-config .menu-name {
-    flex-grow: 1;
-  }
-
-  #dnd-menu-config input[type="checkbox"] {
-    display: none;
-  }
-
-  #dnd-menu-config .toggle-indicator {
-    width: 16px;
-    height: 16px;
-    background: red;
-    /* Couleur par défaut (non coché) */
-    border-radius: 50%;
-    transition: background 0.3s ease;
-  }
-
-  #dnd-menu-config input[type="checkbox"]:checked+.toggle-indicator {
-    background: green;
-    /* Couleur lorsque coché */
-  }
-
-  #dnd-menu-config .hint {
-    color: var(--color-text-dark-secondary);
-    margin-top: 4px;
-    text-align: left;
-  }
-
-  #dnd-menu-config .sheet-footer {
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px;
-    background: var(--color-background-light);
-    border-radius: 0 0 6px 6px;
-  }
-
-  #dnd-menu-config .title-description {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #dnd-menu-config .title-description p {
-    margin: 0;
-    font-size: var(--font-size-16);
-    color: var(--color-text-dark-secondary);
-    font-family: var(--font-primary);
-  }
-</style>
+</div>
