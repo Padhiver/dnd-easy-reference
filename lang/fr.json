@@ -63,27 +63,41 @@
       },
       "MENU": {
         "TITLE": "Configuration du menu",
-        "LABEL": "Configurer les éléments du menu",
-        "HINT": "Configurer les éléments qui apparaissent dans le menu D&D"
+        "LABEL": "Configurer les enrichisseurs du menu",
+        "HINT": "Configurer les enrichisseurs qui apparaissent dans le menu D&D"
       }
     },
     "DIALOG": {
       "SAVE": {
         "TITLE": "Jet de sauvegarde",
-        "ABILITY": "Caractéristique",
-        "DC": "Difficulté (DC)",
-        "FORMAT": "Format"
+        "ABILITY_PRIMARY": "Caractéristique",
+        "ABILITY_SECONDARY": "Seconde caractéristique",
+        "COMBINATION": "Combinaison",
+        "COMBINATION_NONE": "Aucune",
+        "COMBINATION_OR": "Ou (L'un des jets réussit)",
+        "DC": "Difficulté"
       },
       "CHECK": {
         "TITLE": "Jet d'opposition",
-        "TYPE": "Type",
+        "TYPE_PRIMARY": "Type",
+        "TYPE_SECONDARY": "Second type",
+        "COMBINATION": "Combinaison",
+        "COMBINATION_NONE": "Aucune",
+        "COMBINATION_OR": "Ou (L'un des jets réussit)",
         "ABILITIES": "Caractéristiques",
         "SKILLS": "Compétences",
-        "DC": "Difficulté (DC)",
-        "FORMAT": "Format"
+        "DC": "Difficulté"
       },
       "DAMAGE": {
         "TITLE": "Formule de dégâts",
+        "FORMULA_PRIMARY": "Formule primaire",
+        "TYPE_PRIMARY": "Type primaire",
+        "FORMULA_SECONDARY": "Formule secondaire",
+        "TYPE_SECONDARY": "Type secondaire",
+        "COMBINATION": "Combinaison",
+        "COMBINATION_NONE": "Aucune",
+        "COMBINATION_OR": "Ou (Même formule, type différent)",
+        "COMBINATION_AND": "Et (Formule et type différents)",
         "FORMULA": "Formule",
         "TYPE": "Type de dégâts",
         "AVERAGE": "Moyenne",
