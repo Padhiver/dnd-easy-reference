@@ -205,8 +205,8 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     .filter(([key]) => game.settings.get('dnd-easy-reference', `show${key}`));
 
   //region Menu final
-  dropdowns.journalEnrichers = {
-    action: 'enricher',
+  dropdowns.dndeasyreference = {
+    action: 'reference',
     title: game.i18n.localize('DND.MENU.TITLE'),
     entries: [
       // Menu simplifié pour sauvegarde, check, damage et heal
