@@ -47,53 +47,55 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       proseMirrorMenu.view.state.tr.insertText(text).scrollIntoView()
     );
   };
-  //region Fonctions
+
   // Fonctions d'insertion pour les références, sauvegardes et tests
   const insertions = {
     reference: (item, category) => {
       const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
       insertText(`&Reference[${reference}]`);
     },
-    
+
     // Dialogue pour les jets de sauvegarde
     save: () => {
       new SaveDialogV2({
-        callback: (ability, dc, format) => {
-          const formatString = format === 'long' ? ' format=long' : '';
-          insertText(`[[/save ${ability} dc=${dc}${formatString}]]`);
+        callback: (saveString) => {
+          // Utiliser la fonction insertText qui est en portée
+          insertText(`[[/save ${saveString}]]`);
         }
       }).render(true);
     },
-    
+
     // Dialogue pour les jets d'opposition
     check: () => {
       new CheckDialogV2({
-        callback: (checkType, dc, format) => {
-          const formatString = format === 'long' ? ' format=long' : '';
-          insertText(`[[/check ${checkType} dc=${dc}${formatString}]]`);
+        callback: (checkString) => {
+          // Utiliser la fonction insertText qui est en portée
+          insertText(`[[/check ${checkString}]]`);
         }
       }).render(true);
     },
-    
+
     // Dialogue pour les dégâts
     damage: () => {
       new DamageDialogV2({
-        callback: (formula, damageType, average) => {
-          insertText(`[[/damage formula=${formula} type=${damageType} average=${average}]]`);
+        callback: (damageString) => {
+          // Utiliser la fonction insertText qui est en portée
+          insertText(`[[/damage ${damageString}]]`);
         }
       }).render(true);
     },
-    
+
     // Dialogue pour les soins
     heal: () => {
       new HealDialogV2({
         callback: (formula, healType) => {
+          // Utiliser la fonction insertText qui est en portée
           insertText(`[[/heal formula=${formula} type=${healType}]]`);
         }
       }).render(true);
     }
   };
-  
+
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
   const createMenuEntries = (category, items) => {
@@ -215,26 +217,26 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         action: 'save-dialog',
         cmd: () => insertions.save()
       }] : []),
-      
+
       ...(game.settings.get('dnd-easy-reference', 'showchecks') ? [{
         title: game.i18n.localize('DND.MENU.CHECKS.TITLE'),
         action: 'check-dialog',
         cmd: () => insertions.check()
       }] : []),
-      
+
       ...(game.settings.get('dnd-easy-reference', 'showdamage') ? [{
         title: game.i18n.localize('DND.MENU.DAMAGE.TITLE'),
         action: 'damage-dialog',
         cmd: () => insertions.damage()
       }] : []),
-      
+
       ...(game.settings.get('dnd-easy-reference', 'showheal') ? [{
         title: game.i18n.localize('DND.MENU.HEAL.TITLE'),
         action: 'heal-dialog',
         cmd: () => insertions.heal()
       }] : []),
-      
-      // Pour les autres catégories, on garde une approche par sous-menu
+
+      // Pour les autres catégories, approche par sous-menu
       ...enabledMenus
         .filter(([key]) => !['saves', 'checks', 'damage', 'heal'].includes(key))
         .map(([key, items]) => ({
@@ -242,8 +244,8 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
           action: key,
           children: createMenuEntries(key, items)
         })),
-      
-      // Menu des styles (inchangé)
+
+      // Menu des styles
       {
         title: game.i18n.localize('DND.MENU.STYLE.TITLE'),
         action: 'styles',
@@ -255,20 +257,23 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   };
 });
 
+//region Application V2
+// Importation des classes ApplicationV2 et HandlebarsApplicationMixin depuis l'API foundry.applications
 const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
+// Jets de sauvegarde
 export class SaveDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
-    id: "reference-dialog-v2",
-    tag: "form",
+    id: "reference-dialog-v2", // Identifiant unique de la boîte de dialogue.
+    tag: "form", // Type d'élément HTML utilisé pour la boîte de dialogue.
     form: {
       handler: SaveDialogV2.handleFormSubmit,
       submitOnChange: false,
-      closeOnSubmit: true
+      closeOnSubmit: true // Indique si la boîte de dialogue doit se fermer après la soumission du formulaire.
     },
     window: {
-      title: "DND.MENU.DIALOG",
-      contentClasses: ["dialog-form"]
+      title: "DND.MENU.DIALOG", // Titre de la fenêtre de la boîte de dialogue.
+      contentClasses: ["dialog-form"] // Classes CSS appliquées au contenu de la boîte de dialogue.
     }
   };
   static PARTS = {
@@ -279,12 +284,31 @@ export class SaveDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
       template: "templates/generic/form-footer.hbs",
     }
   }
-  
+
   static async handleFormSubmit(event, form, formData) {
-    const ability = formData.get("ability");
+    const abilityPrimary = formData.get("abilityPrimary");
+    const combination = formData.get("combination");
+    const abilitySecondary = formData.get("abilitySecondary");
     const dc = formData.get("dc");
     const format = formData.get("format");
-    this.callback(ability, dc, format);
+
+    // Construire la chaîne de sauvegarde en fonction de la combinaison
+    let saveString = '';
+
+    if (combination === "none") {
+      // Cas simple: une seule caractéristique
+      saveString = `${abilityPrimary} dc=${dc}`;
+    } else if (combination === "or") {
+      // Combinaison "ou" entre deux caractéristiques
+      saveString = `${abilityPrimary} ${abilitySecondary} dc=${dc}`;
+    }
+
+    // Ajouter l'option de format si nécessaire
+    if (format === 'long') {
+      saveString += ' format=long';
+    }
+
+    this.callback(saveString);
   }
 
   constructor(data) {
@@ -306,6 +330,7 @@ export class SaveDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 }
 
+// Jets de caractéristiques
 export class CheckDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: "reference-dialog-v2",
@@ -328,12 +353,27 @@ export class CheckDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
       template: "templates/generic/form-footer.hbs",
     }
   }
-  
+
   static async handleFormSubmit(event, form, formData) {
-    const checkType = formData.get("checkType");
+    const checkTypePrimary = formData.get("checkTypePrimary");
+    const combination = formData.get("combination");
+    const checkTypeSecondary = formData.get("checkTypeSecondary");
     const dc = formData.get("dc");
     const format = formData.get("format");
-    this.callback(checkType, dc, format);
+
+    let checkString = '';
+
+    if (combination === "none") {
+      checkString = `${checkTypePrimary} dc=${dc}`;
+    } else if (combination === "or") {
+      checkString = `${checkTypePrimary} ${checkTypeSecondary} dc=${dc}`;
+    }
+
+    if (format === 'long') {
+      checkString += ' format=long';
+    }
+
+    this.callback(checkString);
   }
 
   constructor(data) {
@@ -356,6 +396,7 @@ export class CheckDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 }
 
+// Formule de dégâts
 export class DamageDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: "reference-dialog-v2",
@@ -378,12 +419,30 @@ export class DamageDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
       template: "templates/generic/form-footer.hbs",
     }
   }
-  
+
   static async handleFormSubmit(event, form, formData) {
-    const formula = formData.get("formula");
-    const damageType = formData.get("damageType");
+    // Récupérer les valeurs des champs
+    const formulaPrimary = formData.get("formulaPrimary");
+    const damageTypePrimary = formData.get("damageTypePrimary");
+    const combination = formData.get("combination");
+    const formulaSecondary = formData.get("formulaSecondary");
+    const damageTypeSecondary = formData.get("damageTypeSecondary");
     const average = formData.get("average");
-    this.callback(formula, damageType, average);
+
+    let damageFormula = '';
+
+    if (combination === "none") {
+
+      damageFormula = `formula=${formulaPrimary} type=${damageTypePrimary} average=${average}`;
+    } else if (combination === "or") {
+
+      damageFormula = `formula=${formulaPrimary} type=${damageTypePrimary}|${damageTypeSecondary} average=${average}`;
+    } else if (combination === "and") {
+
+      damageFormula = `formula=${formulaPrimary} type=${damageTypePrimary} & formula=${formulaSecondary} type=${damageTypeSecondary} average=${average}`;
+    }
+
+    this.callback(damageFormula);
   }
 
   constructor(data) {
@@ -405,6 +464,7 @@ export class DamageDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   }
 }
 
+// Formule de soins
 export class HealDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     id: "reference-dialog-v2",
@@ -427,7 +487,7 @@ export class HealDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
       template: "templates/generic/form-footer.hbs",
     }
   }
-  
+
   static async handleFormSubmit(event, form, formData) {
     const formula = formData.get("formula");
     const healType = formData.get("healType");
