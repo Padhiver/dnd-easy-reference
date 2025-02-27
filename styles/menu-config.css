@@ -4,10 +4,14 @@
   padding: 10px;
 }
 
+#dnd-menu-config .menu-item,
+#dnd-menu-config .menu-label {
+  font-weight: bold;
+}
+
 #dnd-menu-config .menu-item {
   padding: 6px 12px;
   font-size: 0.9em;
-  font-weight: bold;
 }
 
 #dnd-menu-config .menu-item:hover {
@@ -19,7 +23,6 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  font-weight: bold;
   gap: 8px;
   font-size: 14px;
   padding-top: 5px;
@@ -55,31 +58,29 @@
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
-#dnd-menu-config input[type="checkbox"]:checked + .toggle-indicator {
+#dnd-menu-config input[type="checkbox"]:checked+.toggle-indicator {
   background: var(--dnd5e-color-gold);
 }
 
-#dnd-menu-config input[type="checkbox"]:checked + .toggle-indicator::before {
+#dnd-menu-config input[type="checkbox"]:checked+.toggle-indicator::before {
   transform: translateX(20px);
-  background: white; 
+  background: white;
 }
 
 #dnd-menu-config hr {
   margin-block: 5px;
   border: none;
-  height: 1px; 
-  background: linear-gradient(
-      to right,
+  height: 1px;
+  background: linear-gradient(to right,
       transparent,
       var(--dnd5e-color-gold),
-      transparent
-  );
+      transparent);
 }
 
 #dnd-menu-config hr.ampersand {
   position: relative;
   height: 20px;
-  background: url('./assets/ampersand-gold.svg') no-repeat center / contain;
+  background: url("./assets/ampersand-gold.svg") no-repeat center / contain;
   margin: 0;
   margin-bottom: -4px;
 }
@@ -131,33 +132,45 @@
   border-bottom: none;
 }
 
-.theme-light #dnd-menu-config .title-description p {
-  margin: 0;
-  font-size: 1rem;
-  color: #4b4a44;
-  font-family: "Signika", sans-serif;
-}
-
 #dnd-menu-config .title-description p {
   margin: 0;
   font-size: 1rem;
-  color: #999;
   font-family: "Signika", sans-serif;
 }
 
-#dnd-menu-config button[type="submit"] {
-  width: 100%; 
-  margin-top: 10px; 
+.theme-light #dnd-menu-config .title-description p {
+  color: #4b4a44;
 }
+
+#dnd-menu-config .title-description p {
+  color: #999;
+}
+
+#dnd-menu-config button[type="submit"],
 #reference-dialog-v2 button[type="submit"] {
-  width: 100%; 
-  margin-top: 10px; 
+  width: 100%;
+  margin-top: 10px;
+}
+
+#reference-dialog-v2 {
+  width: 400px !important;
 }
 
 #reference-dialog-v2 .dialog-form {
-  padding: 9px;
+  padding: 10px;
 }
 
 #reference-dialog-v2 .dialog-form .form-group {
-  padding: 5px;
+  margin-bottom: 8px;
+}
+
+#reference-dialog-v2 .dialog-form label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+#reference-dialog-v2 .form-group input,
+#reference-dialog-v2 .form-group select {
+  padding: 6px;
 }
