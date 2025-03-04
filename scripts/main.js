@@ -1,4 +1,7 @@
 //region Constantes
+
+import DamageFormulaDialog from "./applications/damage-formula.js";
+
 // Configuration des menus
 const MENU_CONFIGS = {
   conditionTypes: 'conditionTypes',
@@ -43,6 +46,7 @@ const STYLE_BLOCKS = {
 Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   // Fonction pour insérer du texte dans l'éditeur
   const insertText = (text) => {
+    if (!text) return;
     proseMirrorMenu.view.dispatch(
       proseMirrorMenu.view.state.tr.insertText(text).scrollIntoView()
     );
@@ -76,13 +80,9 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
 
     // Dialogue pour les dégâts
-    damage: () => {
-      new DamageDialogV2({
-        callback: (damageString) => {
-          // Utiliser la fonction insertText qui est en portée
-          insertText(`[[/damage ${damageString}]]`);
-        }
-      }).render(true);
+    damage: async () => {
+      const text = await DamageFormulaDialog.create();
+      if (text) insertText(text);
     },
 
     // Dialogue pour les soins
@@ -385,74 +385,6 @@ export class CheckDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
     return {
       abilities: CONFIG.DND5E.abilities,
       skills: CONFIG.DND5E.skills,
-      buttons: [
-        {
-          type: "submit",
-          icon: "fas fa-check",
-          label: "DND5E.Confirm"
-        }
-      ]
-    };
-  }
-}
-
-// Formule de dégâts
-export class DamageDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
-  static DEFAULT_OPTIONS = {
-    id: "reference-dialog-v2",
-    tag: "form",
-    form: {
-      handler: DamageDialogV2.handleFormSubmit,
-      submitOnChange: false,
-      closeOnSubmit: true
-    },
-    window: {
-      title: "DND.MENU.DIALOG",
-      contentClasses: ["dialog-form"]
-    }
-  };
-  static PARTS = {
-    form: {
-      template: "modules/dnd-easy-reference/templates/damage-dialog.hbs"
-    },
-    footer: {
-      template: "templates/generic/form-footer.hbs",
-    }
-  }
-
-  static async handleFormSubmit(event, form, formData) {
-    // Récupérer les valeurs des champs
-    const formulaPrimary = formData.get("formulaPrimary");
-    const damageTypePrimary = formData.get("damageTypePrimary");
-    const combination = formData.get("combination");
-    const formulaSecondary = formData.get("formulaSecondary");
-    const damageTypeSecondary = formData.get("damageTypeSecondary");
-    const average = formData.get("average");
-
-    let damageFormula = '';
-
-    if (combination === "none") {
-
-      damageFormula = `formula=${formulaPrimary} type=${damageTypePrimary} average=${average}`;
-    } else if (combination === "or") {
-
-      damageFormula = `formula=${formulaPrimary} type=${damageTypePrimary}|${damageTypeSecondary} average=${average}`;
-    } else if (combination === "and") {
-
-      damageFormula = `formula=${formulaPrimary} type=${damageTypePrimary} & formula=${formulaSecondary} type=${damageTypeSecondary} average=${average}`;
-    }
-
-    this.callback(damageFormula);
-  }
-
-  constructor(data) {
-    super(data);
-    this.callback = data.callback;
-  }
-
-  async _prepareContext() {
-    return {
-      damageTypes: CONFIG.DND5E.damageTypes,
       buttons: [
         {
           type: "submit",

@@ -93,6 +93,10 @@
         "DC": "Difficulty"
       },
       "DAMAGE": {
+        "ADD": "Add Damage",
+        "DELETE": "Delete this part",
+        "EXTENDED": "Extended",
+        "PARTS": "Damage Parts",
         "TITLE": "Damage Formula",
         "FORMULA_PRIMARY": "Primary Formula",
         "TYPE_PRIMARY": "Primary Type",
@@ -104,6 +108,7 @@
         "COMBINATION_AND": "And (Different formula & type)",
         "FORMULA": "Formula",
         "TYPE": "Damage Type",
+        "TYPES": "Damage Types",
         "AVERAGE": "Average",
         "USE_DICE": "Use Dice",
         "USE_AVERAGE": "Use Average"
