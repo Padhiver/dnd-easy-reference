@@ -179,3 +179,14 @@
 .dnd-widen-windows .app.window-app.dnd5e2.sheet.item .prosemirror menu {
   gap: 1px;
 }
+
+/* Damage Formula Dialog */
+.damage-formula-dialog {
+  .flex0 {
+    flex: 0;
+  }
+
+  .formulas {
+    overflow: auto;
+  }
+}
