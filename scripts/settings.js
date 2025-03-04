@@ -30,8 +30,8 @@ Hooks.once("init", () => {
 
   // Elargir ou non la fenêtre item
   game.settings.register("dnd-easy-reference", "widenItemWindows", {
-    name: game.i18n.localize("DND.SETTINGS.WINDOW_WIDTH.TITLE"),
-    hint: game.i18n.localize("DND.SETTINGS.WINDOW_WIDTH.HINT"),
+    name: game.i18n.localize("DND.SETTINGS.PROSEGAP.TITLE"),
+    hint: game.i18n.localize("DND.SETTINGS.PROSEGAP.HINT"),
     scope: "world",
     config: true, // Visible dans le menu des paramètres
     type: Boolean,

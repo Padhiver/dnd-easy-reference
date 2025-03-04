@@ -66,9 +66,9 @@
         "LABEL": "Configurer les enrichisseurs du menu",
         "HINT": "Configurer les enrichisseurs qui apparaissent dans le menu D&D"
       },
-      "WINDOW_WIDTH": {
-        "TITLE": "Élargir les fiches d'objets",
-        "HINT": "Élargir la fiche des objets. Cela peut résoudre des problèmes d'apparence lorsque l'éditeur est ouvert (double ligne ProseMirror)."
+      "PROSEGAP": {
+        "TITLE": "Réduction de l'écart ProseMirror",
+        "HINT": "Réduit l'écart de ProseMirror pour éviter que l'ajout du menu D&D ne force à passer sur deux lignes."
       }
     },
     "DIALOG": {

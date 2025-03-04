@@ -176,6 +176,6 @@
 }
 
 /* Si l'option est activée */
-.dnd-widen-windows .app.window-app.dnd5e2.sheet.item {
-  min-width: 520px;
+.dnd-widen-windows .app.window-app.dnd5e2.sheet.item .prosemirror menu {
+  gap: 1px;
 }

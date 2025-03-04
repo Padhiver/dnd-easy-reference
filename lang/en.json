@@ -66,9 +66,9 @@
         "LABEL": "Configure Menu Items",
         "HINT": "Configure which items appear in the D&D menu"
       },
-      "WINDOW_WIDTH": {
-        "TITLE": "Enlarge Items Sheets",
-        "HINT": "Enlarge the item sheet. This may resolve appearance issues when the editor is open (double ProseMirror line)."
+      "PROSEGAP": {
+        "TITLE": "ProseMirror Gap Reduction",
+        "HINT": "Reduces the gap to prevent ProseMirror from breaking into two lines when adding D&D menu."
       }
     },
     "DIALOG": {
