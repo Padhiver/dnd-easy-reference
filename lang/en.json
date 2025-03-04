@@ -97,21 +97,9 @@
         "DELETE": "Delete this part",
         "EXTENDED": "Extended",
         "PARTS": "Damage Parts",
-        "TITLE": "Damage Formula",
-        "FORMULA_PRIMARY": "Primary Formula",
-        "TYPE_PRIMARY": "Primary Type",
-        "FORMULA_SECONDARY": "Secondary Formula",
-        "TYPE_SECONDARY": "Secondary Type",
-        "COMBINATION": "Combination",
-        "COMBINATION_NONE": "None",
-        "COMBINATION_OR": "Or (Same formula, different type)",
-        "COMBINATION_AND": "And (Different formula & type)",
         "FORMULA": "Formula",
-        "TYPE": "Damage Type",
         "TYPES": "Damage Types",
-        "AVERAGE": "Average",
-        "USE_DICE": "Use Dice",
-        "USE_AVERAGE": "Use Average"
+        "AVERAGE": "Average"
       },
       "HEAL": {
         "TITLE": "Healing Formula",
