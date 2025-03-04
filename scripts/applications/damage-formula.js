@@ -58,10 +58,21 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
+   * The configuration to inject.
+   * @type {object|null}
+   */
+  #config = null;
+  get config() {
+    return this.#config;
+  }
+
+  /* -------------------------------------------------- */
+
+  /**
    * The text to inject.
    * @type {string|null}
    */
-  get text() {
+  get #text() {
     let parts = [];
     for (const { formula, types } of this.#model.parts) {
       if (!formula) continue;
@@ -136,10 +147,14 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
    * @param {object} submitOptions          Submit options.
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
-    if (event.type === "change") {
-      this.#model.updateSource(formData.object);
-    } else {
-      this.close();
+    switch (event.type) {
+      case "change":
+        this.#model.updateSource(formData.object);
+        break;
+      case "submit":
+        this.#config = this.#text;
+        this.close();
+        break;
     }
   }
 
@@ -184,13 +199,9 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
    * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
    */
   static async create(options = {}) {
-    const {promise, resolve, reject} = Promise.withResolvers();
+    const {promise, resolve} = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => {
-      const text = application.text;
-      if (text) resolve(text);
-      else reject(null);
-    }, {once: true});
+    application.addEventListener("close", () => resolve(application.config), {once: true});
     application.render({force: true});
     return promise;
   }
