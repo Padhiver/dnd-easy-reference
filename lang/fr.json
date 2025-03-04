@@ -93,20 +93,13 @@
         "DC": "Difficulté"
       },
       "DAMAGE": {
-        "TITLE": "Formule de dégâts",
-        "FORMULA_PRIMARY": "Formule primaire",
-        "TYPE_PRIMARY": "Type primaire",
-        "FORMULA_SECONDARY": "Formule secondaire",
-        "TYPE_SECONDARY": "Type secondaire",
-        "COMBINATION": "Combinaison",
-        "COMBINATION_NONE": "Aucune",
-        "COMBINATION_OR": "Ou (Même formule, type différent)",
-        "COMBINATION_AND": "Et (Formule et type différents)",
+        "ADD": "Ajouter des dégâts",
+        "DELETE": "Supprimer cette section",
+        "EXTENDED": "Étendue",
+        "PARTS": "Section de dégâts",
         "FORMULA": "Formule",
-        "TYPE": "Type de dégâts",
-        "AVERAGE": "Moyenne",
-        "USE_DICE": "Utiliser les dés",
-        "USE_AVERAGE": "Utiliser la moyenne"
+        "TYPES": "Types de dégâts",
+        "AVERAGE": "Moyenne"
       },
       "HEAL": {
         "TITLE": "Formule de soins",
