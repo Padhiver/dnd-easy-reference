@@ -174,3 +174,8 @@
 #reference-dialog-v2 .form-group select {
   padding: 6px;
 }
+
+/* Si l'option est activée */
+.dnd-widen-windows .app.window-app.dnd5e2.sheet.item {
+  min-width: 520px;
+}
