@@ -17,6 +17,9 @@
       "DAMAGE": {
         "TITLE": "Formule de dégâts"
       },
+      "ATTACK": {
+        "TITLE": "Formule d'attaque"
+      },
       "HEAL": {
         "TITLE": "Formule de soins"
       },
@@ -100,6 +103,10 @@
         "FORMULA": "Formule",
         "TYPES": "Types de dégâts",
         "AVERAGE": "Moyenne"
+      },
+      "ATTACK": {
+        "FORMULA": "Formule",
+        "EXTENDED": "Étendue"
       },
       "HEAL": {
         "TITLE": "Formule de soins",

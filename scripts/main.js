@@ -1,6 +1,7 @@
 //region Constantes
 
 import DamageFormulaDialog from "./applications/damage-formula.js";
+import AttackFormulaDialog from "./applications/attack-formula.js";
 
 // Configuration des menus
 const MENU_CONFIGS = {
@@ -85,6 +86,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       if (text) insertText(text);
     },
 
+    // Dialogue pour les attaques
+    attack: async () => {
+      const text = await AttackFormulaDialog.create();
+      if (text) insertText(text);
+    },
+
     // Dialogue pour les soins
     heal: () => {
       new HealDialogV2({
@@ -95,7 +102,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       }).render(true);
     }
   };
-
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
   const createMenuEntries = (category, items) => {
@@ -228,6 +234,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         title: game.i18n.localize('DND.MENU.DAMAGE.TITLE'),
         action: 'damage-dialog',
         cmd: () => insertions.damage()
+      }] : []),
+
+      ...(game.settings.get('dnd-easy-reference', 'showattack') ? [{
+        title: game.i18n.localize('DND.MENU.ATTACK.TITLE'),
+        action: 'attack-dialog',
+        cmd: () => insertions.attack()
       }] : []),
 
       ...(game.settings.get('dnd-easy-reference', 'showheal') ? [{

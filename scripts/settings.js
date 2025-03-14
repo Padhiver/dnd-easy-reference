@@ -6,6 +6,7 @@ const MENU_CATEGORIES = [
   "saves",
   "checks",
   "damage",
+  "attack",
   "heal",
   "weaponMasteries",
   "areaTargetTypes",
@@ -13,7 +14,7 @@ const MENU_CATEGORIES = [
   "abilities",
   "skills",
   "damageTypes",
-  "creatureTypes",
+  "creatureTypes"
 ];
 
 //region Hook

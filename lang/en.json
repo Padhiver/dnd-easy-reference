@@ -17,6 +17,9 @@
       "DAMAGE": {
         "TITLE": "Damage formula"
       },
+      "ATTACK": {
+        "TITLE": "Attack formula"
+      },
       "HEAL": {
         "TITLE": "Healing formula"
       },
@@ -100,6 +103,10 @@
         "FORMULA": "Formula",
         "TYPES": "Damage Types",
         "AVERAGE": "Average"
+      },
+      "ATTACK": {
+        "EXTENDED": "Extended",
+        "FORMULA": "Formula"
       },
       "HEAL": {
         "TITLE": "Healing Formula",

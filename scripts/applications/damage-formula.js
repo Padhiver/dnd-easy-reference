@@ -69,31 +69,47 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
-   * The text to inject.
-   * @type {string|null}
-   */
-  get #text() {
-    let parts = [];
-    for (const { formula, types } of this.#model.parts) {
-      if (!formula) continue;
-      const type = types.size ? `type=${Array.from(types).join("|")}` : "";
-      parts.push([formula, type].join(" "));
-    }
-    if (!parts.length) return null;
-    parts = parts.join(" & ");
-
-    parts = [
-      parts,
-      this.#model.average ? "average" : null,
-      this.#model.extended ? "extended" : null,
-    ].filterJoin(" ");
-    return `[[/damage ${parts}]]`;
+ * The text to inject.
+ * @type {string|null}
+ */
+get #text() {
+  let parts = [];
+  for (const { formula, types } of this.#model.parts) {
+    if (!formula) continue;
+    const type = types.size ? `type=${Array.from(types).join("|")}` : "";
+    parts.push([formula, type].join(" "));
   }
+  
+  // Vérifier si nous avons des options supplémentaires (average ou extended)
+  const hasOptions = this.#model.average || this.#model.extended;
+  
+  // Si nous n'avons pas de parties de dégâts mais que nous avons des options, 
+  // créer quand même la commande
+  if (!parts.length && !hasOptions) return null;
+  
+  // Joindre les parties s'il y en a
+  let command = parts.length ? parts.join(" & ") : "";
+  
+  // Ajouter les options
+  const options = [
+    this.#model.average ? "average" : null,
+    this.#model.extended ? "extended" : null,
+  ].filter(Boolean);
+  
+  // Construire la commande complète
+  if (options.length > 0) {
+    // Si nous avons à la fois des formules et des options, les séparer par un espace
+    if (command) command += " ";
+    command += options.join(" ");
+  }
+  
+  return `[[/damage ${command}]]`;
+}
 
-  /* -------------------------------------------------- */
+/* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  async _prepareContext(options) {
+/** @inheritdoc */
+async _prepareContext(options) {
     const context = {};
 
     const parts = context.parts = [];
