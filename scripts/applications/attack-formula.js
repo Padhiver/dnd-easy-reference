@@ -32,7 +32,7 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
   /** @inheritdoc */
   static PARTS = {
     form: {
-      template: "modules/dnd-easy-reference/templates/attack/formula.hbs",
+      template: "modules/dnd-easy-reference/templates/attack/formulas.hbs",
     },
     footer: {
       template: "templates/generic/form-footer.hbs",

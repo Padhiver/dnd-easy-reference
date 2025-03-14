@@ -181,7 +181,7 @@
 }
 
 /* Damage Formula Dialog */
-.damage-formula-dialog {
+.damage-formula-dialog, .check-formula-dialog, .save-formula-dialog  {
   .flex0 {
     flex: 0;
   }

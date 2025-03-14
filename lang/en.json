@@ -76,21 +76,15 @@
     },
     "DIALOG": {
       "SAVE": {
-        "TITLE": "Saving Throw",
-        "ABILITY_PRIMARY": "Ability",
-        "ABILITY_SECONDARY": "Second Ability",
         "COMBINATION": "Combination",
-        "COMBINATION_NONE": "None",
-        "COMBINATION_OR": "Or (Either save succeeds)",
+        "TYPES": "Abilities",
+        "DELETE": "Delete",
         "DC": "Difficulty"
       },
       "CHECK": {
-        "TITLE": "Check",
-        "TYPE_PRIMARY": "Type",
-        "TYPE_SECONDARY": "Second Type",
-        "COMBINATION": "Combination",
-        "COMBINATION_NONE": "None",
-        "COMBINATION_OR": "Or (Either check succeeds)",
+        "TYPES": "Abilities or Skills",
+        "COMBINATION": "Add a combination",
+        "DELETE": "Delete",
         "ABILITIES": "Abilities",
         "SKILLS": "Skills",
         "DC": "Difficulty"
@@ -109,9 +103,10 @@
         "FORMULA": "Formula"
       },
       "HEAL": {
-        "TITLE": "Healing Formula",
         "FORMULA": "Formula",
-        "TYPE": "Healing Type"
+        "TYPE": "Healing Type",
+        "AVERAGE": "Average",
+        "EXTENDED": "Extended"
       },
       "CONFIRM": "Confirm",
       "CANCEL": "Cancel",

@@ -2,6 +2,9 @@
 
 import DamageFormulaDialog from "./applications/damage-formula.js";
 import AttackFormulaDialog from "./applications/attack-formula.js";
+import CheckFormulaDialog from "./applications/check-formula.js"; 
+import SaveFormulaDialog from "./applications/save-formula.js";
+import HealFormulaDialog from "./applications/heal-formula.js";
 
 // Configuration des menus
 const MENU_CONFIGS = {
@@ -61,23 +64,15 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
 
     // Dialogue pour les jets de sauvegarde
-    save: () => {
-      new SaveDialogV2({
-        callback: (saveString) => {
-          // Utiliser la fonction insertText qui est en portée
-          insertText(`[[/save ${saveString}]]`);
-        }
-      }).render(true);
+    save: async () => {
+      const text = await SaveFormulaDialog.create();
+      if (text) insertText(`[[/save ${text}]]`);
     },
 
     // Dialogue pour les jets d'opposition
-    check: () => {
-      new CheckDialogV2({
-        callback: (checkString) => {
-          // Utiliser la fonction insertText qui est en portée
-          insertText(`[[/check ${checkString}]]`);
-        }
-      }).render(true);
+    check: async () => {
+      const text = await CheckFormulaDialog.create();
+      if (text) insertText(`[[/check ${text}]]`);
     },
 
     // Dialogue pour les dégâts
@@ -93,14 +88,10 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
 
     // Dialogue pour les soins
-    heal: () => {
-      new HealDialogV2({
-        callback: (formula, healType) => {
-          // Utiliser la fonction insertText qui est en portée
-          insertText(`[[/heal formula=${formula} type=${healType}]]`);
-        }
-      }).render(true);
-    }
+    heal: async () => {
+      const text = await HealFormulaDialog.create();
+      if (text) insertText(text);
+    },
   };
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
@@ -268,191 +259,3 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     ]
   };
 });
-
-//region Application V2
-// Importation des classes ApplicationV2 et HandlebarsApplicationMixin depuis l'API foundry.applications
-const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
-
-// Jets de sauvegarde
-export class SaveDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
-  static DEFAULT_OPTIONS = {
-    id: "reference-dialog-v2", // Identifiant unique de la boîte de dialogue.
-    tag: "form", // Type d'élément HTML utilisé pour la boîte de dialogue.
-    form: {
-      handler: SaveDialogV2.handleFormSubmit,
-      submitOnChange: false,
-      closeOnSubmit: true // Indique si la boîte de dialogue doit se fermer après la soumission du formulaire.
-    },
-    window: {
-      title: "DND.MENU.DIALOG", // Titre de la fenêtre de la boîte de dialogue.
-      contentClasses: ["dialog-form"] // Classes CSS appliquées au contenu de la boîte de dialogue.
-    }
-  };
-  static PARTS = {
-    form: {
-      template: "modules/dnd-easy-reference/templates/save-dialog.hbs"
-    },
-    footer: {
-      template: "templates/generic/form-footer.hbs",
-    }
-  }
-
-  static async handleFormSubmit(event, form, formData) {
-    const abilityPrimary = formData.get("abilityPrimary");
-    const combination = formData.get("combination");
-    const abilitySecondary = formData.get("abilitySecondary");
-    const dc = formData.get("dc");
-    const format = formData.get("format");
-
-    // Construire la chaîne de sauvegarde en fonction de la combinaison
-    let saveString = '';
-
-    if (combination === "none") {
-      // Cas simple: une seule caractéristique
-      saveString = `${abilityPrimary} dc=${dc}`;
-    } else if (combination === "or") {
-      // Combinaison "ou" entre deux caractéristiques
-      saveString = `${abilityPrimary} ${abilitySecondary} dc=${dc}`;
-    }
-
-    // Ajouter l'option de format si nécessaire
-    if (format === 'long') {
-      saveString += ' format=long';
-    }
-
-    this.callback(saveString);
-  }
-
-  constructor(data) {
-    super(data);
-    this.callback = data.callback;
-  }
-
-  async _prepareContext() {
-    return {
-      abilities: CONFIG.DND5E.abilities,
-      buttons: [
-        {
-          type: "submit",
-          icon: "fas fa-check",
-          label: "DND5E.Confirm"
-        }
-      ]
-    };
-  }
-}
-
-// Jets de caractéristiques
-export class CheckDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
-  static DEFAULT_OPTIONS = {
-    id: "reference-dialog-v2",
-    tag: "form",
-    form: {
-      handler: CheckDialogV2.handleFormSubmit,
-      submitOnChange: false,
-      closeOnSubmit: true
-    },
-    window: {
-      title: "DND.MENU.DIALOG",
-      contentClasses: ["dialog-form"]
-    }
-  };
-  static PARTS = {
-    form: {
-      template: "modules/dnd-easy-reference/templates/check-dialog.hbs"
-    },
-    footer: {
-      template: "templates/generic/form-footer.hbs",
-    }
-  }
-
-  static async handleFormSubmit(event, form, formData) {
-    const checkTypePrimary = formData.get("checkTypePrimary");
-    const combination = formData.get("combination");
-    const checkTypeSecondary = formData.get("checkTypeSecondary");
-    const dc = formData.get("dc");
-    const format = formData.get("format");
-
-    let checkString = '';
-
-    if (combination === "none") {
-      checkString = `${checkTypePrimary} dc=${dc}`;
-    } else if (combination === "or") {
-      checkString = `${checkTypePrimary} ${checkTypeSecondary} dc=${dc}`;
-    }
-
-    if (format === 'long') {
-      checkString += ' format=long';
-    }
-
-    this.callback(checkString);
-  }
-
-  constructor(data) {
-    super(data);
-    this.callback = data.callback;
-  }
-
-  async _prepareContext() {
-    return {
-      abilities: CONFIG.DND5E.abilities,
-      skills: CONFIG.DND5E.skills,
-      buttons: [
-        {
-          type: "submit",
-          icon: "fas fa-check",
-          label: "DND5E.Confirm"
-        }
-      ]
-    };
-  }
-}
-
-// Formule de soins
-export class HealDialogV2 extends HandlebarsApplicationMixin(ApplicationV2) {
-  static DEFAULT_OPTIONS = {
-    id: "reference-dialog-v2",
-    tag: "form",
-    form: {
-      handler: HealDialogV2.handleFormSubmit,
-      submitOnChange: false,
-      closeOnSubmit: true
-    },
-    window: {
-      title: "DND.MENU.DIALOG",
-      contentClasses: ["dialog-form"]
-    }
-  };
-  static PARTS = {
-    form: {
-      template: "modules/dnd-easy-reference/templates/heal-dialog.hbs"
-    },
-    footer: {
-      template: "templates/generic/form-footer.hbs",
-    }
-  }
-
-  static async handleFormSubmit(event, form, formData) {
-    const formula = formData.get("formula");
-    const healType = formData.get("healType");
-    this.callback(formula, healType);
-  }
-
-  constructor(data) {
-    super(data);
-    this.callback = data.callback;
-  }
-
-  async _prepareContext() {
-    return {
-      healingTypes: CONFIG.DND5E.healingTypes,
-      buttons: [
-        {
-          type: "submit",
-          icon: "fas fa-check",
-          label: "DND5E.Confirm"
-        }
-      ]
-    };
-  }
-}

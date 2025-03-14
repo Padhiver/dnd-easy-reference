@@ -76,21 +76,15 @@
     },
     "DIALOG": {
       "SAVE": {
-        "TITLE": "Jet de sauvegarde",
-        "ABILITY_PRIMARY": "Caractéristique",
-        "ABILITY_SECONDARY": "Seconde caractéristique",
-        "COMBINATION": "Combinaison",
-        "COMBINATION_NONE": "Aucune",
-        "COMBINATION_OR": "Ou (L'un des jets réussit)",
+        "COMBINATION": "Ajouter une combinaison",
+        "DELETE": "Supprimer",
+        "TYPES": "Caractéristiques",
         "DC": "Difficulté"
       },
       "CHECK": {
-        "TITLE": "Jet d'opposition",
-        "TYPE_PRIMARY": "Type",
-        "TYPE_SECONDARY": "Second type",
-        "COMBINATION": "Combinaison",
-        "COMBINATION_NONE": "Aucune",
-        "COMBINATION_OR": "Ou (L'un des jets réussit)",
+        "TYPES": "Caractéristiques ou compétences",
+        "COMBINATION": "Ajouter une combinaison",
+        "DELETE": "Supprimer",
         "ABILITIES": "Caractéristiques",
         "SKILLS": "Compétences",
         "DC": "Difficulté"
@@ -109,9 +103,10 @@
         "EXTENDED": "Étendue"
       },
       "HEAL": {
-        "TITLE": "Formule de soins",
         "FORMULA": "Formule",
-        "TYPE": "Type de soins"
+        "TYPE": "Type de soins",
+        "EXTENDED": "Étendue",
+        "AVERAGE": "Moyenne"
       },
       "CONFIRM": "Confirmer",
       "CANCEL": "Annuler",
