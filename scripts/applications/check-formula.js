@@ -62,22 +62,28 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
       if (!type) continue;
       checks.push(type);
     }
-    
+
     if (!checks.length) return null;
-    
+
     let command = checks.join(" ");
-    
+
     // Ajouter le DC
     if (this.#model.dc) {
       command += ` dc=${this.#model.dc}`;
     }
-    
+
     // Ajouter le format si nécessaire
     if (this.#model.format === "long") {
       command += " format=long";
     }
-    
-    return command;
+
+    // Ajouter "passive" si la case est cochée
+    if (this.#model.passive) {
+      command += " passive";
+    }
+
+    // Retourner la commande avec la balise [[/check ...]]
+    return `[[/check ${command}]]`;
   }
 
   /** @inheritdoc */
@@ -105,6 +111,11 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
     context.format = {
       field: this.#model.schema.getField("format"),
       value: this.#model.format,
+    };
+
+    context.passive = {
+      field: this.#model.schema.getField("passive"),
+      value: this.#model.passive,
     };
 
     // Pour les listes déroulantes
@@ -179,10 +190,10 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
    * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
    */
   static async create(options = {}) {
-    const {promise, resolve} = Promise.withResolvers();
+    const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), {once: true});
-    application.render({force: true});
+    application.addEventListener("close", () => resolve(application.config), { once: true });
+    application.render({ force: true });
     return promise;
   }
 }
@@ -209,6 +220,9 @@ class CheckFormulaModel extends foundry.abstract.DataModel {
           "long": "DND.SETTINGS.FORMAT.LONG"
         },
         label: "DND.DIALOG.FORMAT",
+      }),
+      passive: new foundry.data.fields.BooleanField({
+        label: "DND.DIALOG.CHECK.PASSIVE",
       }),
       checks: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
         type: new foundry.data.fields.StringField({ required: true }),

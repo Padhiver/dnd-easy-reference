@@ -77,7 +77,8 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
       command += " format=long";
     }
     
-    return command;
+    // Retourner la commande complète avec la balise [[/save ...]]
+    return `[[/save ${command}]]`;
   }
 
   /** @inheritdoc */

@@ -2,7 +2,7 @@
 
 import DamageFormulaDialog from "./applications/damage-formula.js";
 import AttackFormulaDialog from "./applications/attack-formula.js";
-import CheckFormulaDialog from "./applications/check-formula.js"; 
+import CheckFormulaDialog from "./applications/check-formula.js";
 import SaveFormulaDialog from "./applications/save-formula.js";
 import HealFormulaDialog from "./applications/heal-formula.js";
 
@@ -66,13 +66,13 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     // Dialogue pour les jets de sauvegarde
     save: async () => {
       const text = await SaveFormulaDialog.create();
-      if (text) insertText(`[[/save ${text}]]`);
+      if (text) insertText(text);
     },
 
     // Dialogue pour les jets d'opposition
     check: async () => {
       const text = await CheckFormulaDialog.create();
-      if (text) insertText(`[[/check ${text}]]`);
+      if (text) insertText(text);
     },
 
     // Dialogue pour les dégâts

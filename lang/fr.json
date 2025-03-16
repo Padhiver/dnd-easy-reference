@@ -83,6 +83,7 @@
       },
       "CHECK": {
         "TYPES": "Caractéristiques ou compétences",
+        "PASSIVE": "Passif",
         "COMBINATION": "Ajouter une combinaison",
         "DELETE": "Supprimer",
         "ABILITIES": "Caractéristiques",

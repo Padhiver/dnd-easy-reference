@@ -10,9 +10,18 @@
     <label>{{localize "DND.DIALOG.FORMAT"}}</label>
     <div class="form-fields">
       <select id="format" name="format">
-        <option value="short" {{#if (eq format.value "short")}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.SHORT"}}</option>
-        <option value="long" {{#if (eq format.value "long")}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.LONG"}}</option>
+        <option value="short" {{#if (eq format.value "short" )}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.SHORT"}}
+        </option>
+        <option value="long" {{#if (eq format.value "long" )}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.LONG"}}
+        </option>
       </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "DND.DIALOG.CHECK.PASSIVE"}}</label>
+    <div class="form-fields">
+      {{ formInput passive.field value=passive.value name="passive" type="checkbox" }}
     </div>
   </div>
 

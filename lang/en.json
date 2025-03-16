@@ -83,6 +83,7 @@
       },
       "CHECK": {
         "TYPES": "Abilities or Skills",
+        "PASSIVE": "Passive",
         "COMBINATION": "Add a combination",
         "DELETE": "Delete",
         "ABILITIES": "Abilities",
