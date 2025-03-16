@@ -1,0 +1,18 @@
+<section class="attributes">
+  <fieldset>
+    <legend>{{localize "DND.DIALOG.LOOKUP.ATTRIBUTES"}}</legend>
+    <div class="form-group">
+      <label>{{localize "DND.DIALOG.LOOKUP.SELECT_ATTRIBUTE"}}</label>
+      <div class="form-fields">
+        <select name="attributePath">
+          <option value="">{{localize "DND.DIALOG.LOOKUP.CHOOSE_ATTRIBUTE"}}</option>
+          {{#each trackableOptions}}
+          <option value="{{this.value}}" {{#if (eq ../attributePath.value this.value)}}selected{{/if}}>
+            {{this.label}}
+          </option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  </fieldset>
+</section>

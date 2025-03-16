@@ -23,6 +23,9 @@
       "HEAL": {
         "TITLE": "Healing formula"
       },
+      "LOOKUP": {
+        "TITLE": "Lookup"
+      },
       "WEAPONMASTERIES": {
         "TITLE": "Weapon Masteries"
       },
@@ -108,6 +111,20 @@
         "TYPE": "Healing Type",
         "AVERAGE": "Average",
         "EXTENDED": "Extended"
+      },
+      "LOOKUP" : {
+        "NAME_OPTIONS" : "Name options",
+        "USE_NAME" : "Actor name",
+        "NAME_FORMAT" : {
+          "LABEL" : "Name format",
+          "NONE" : "",
+          "LOWERCASE" : "lowercase",
+          "UPPERCASE" : "UPPERCASE",
+          "CAPITALIZE" : "Capitalize"
+        },
+        "ATTRIBUTES" : "Attributes",
+        "SELECT_ATTRIBUTE" : "Select attribute",
+        "CHOOSE_ATTRIBUTE" : ""
       },
       "CONFIRM": "Confirm",
       "CANCEL": "Cancel",

@@ -23,6 +23,9 @@
       "HEAL": {
         "TITLE": "Formule de soins"
       },
+      "LOOKUP": {
+        "TITLE": "Lookup"
+      },
       "WEAPONMASTERIES": {
         "TITLE": "Bottes d'armes"
       },
@@ -108,6 +111,20 @@
         "TYPE": "Type de soins",
         "EXTENDED": "Étendue",
         "AVERAGE": "Moyenne"
+      },
+      "LOOKUP" : {
+        "NAME_OPTIONS" : "Options de nom",
+        "USE_NAME" : "Nom de l'acteur",
+        "NAME_FORMAT" : {
+          "LABEL" : "Format du nom",
+          "NONE" : "",
+          "LOWERCASE" : "minuscules",
+          "UPPERCASE" : "MAJUSCULES",
+          "CAPITALIZE" : "Majuscules"
+        },
+        "ATTRIBUTES" : "Attributs",
+        "SELECT_ATTRIBUTE" : "Choix d'attribut",
+        "CHOOSE_ATTRIBUTE" : ""
       },
       "CONFIRM": "Confirmer",
       "CANCEL": "Annuler",

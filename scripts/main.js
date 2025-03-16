@@ -5,6 +5,7 @@ import AttackFormulaDialog from "./applications/attack-formula.js";
 import CheckFormulaDialog from "./applications/check-formula.js";
 import SaveFormulaDialog from "./applications/save-formula.js";
 import HealFormulaDialog from "./applications/heal-formula.js";
+import LookupFormulaDialog from "./applications/lookup-formula.js";
 
 // Configuration des menus
 const MENU_CONFIGS = {
@@ -92,6 +93,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       const text = await HealFormulaDialog.create();
       if (text) insertText(text);
     },
+
+        // Dialogue pour les lookups
+        lookup: async () => {
+          const text = await LookupFormulaDialog.create();
+          if (text) insertText(text);
+        },
   };
 
   // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
@@ -239,9 +246,15 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         cmd: () => insertions.heal()
       }] : []),
 
+      ...(game.settings.get('dnd-easy-reference', 'showlookup') ? [{
+        title: game.i18n.localize('DND.MENU.LOOKUP.TITLE'),
+        action: 'lookup-dialog',
+        cmd: () => insertions.lookup()
+      }] : []),
+
       // Pour les autres catégories, approche par sous-menu
       ...enabledMenus
-        .filter(([key]) => !['saves', 'checks', 'damage', 'heal'].includes(key))
+        .filter(([key]) => !['saves', 'checks', 'damage', 'heal', 'lookup'].includes(key))
         .map(([key, items]) => ({
           title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
           action: key,

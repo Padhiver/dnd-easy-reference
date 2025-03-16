@@ -8,6 +8,7 @@ const MENU_CATEGORIES = [
   "damage",
   "attack",
   "heal",
+  "lookup",
   "weaponMasteries",
   "areaTargetTypes",
   "itemProperties",
