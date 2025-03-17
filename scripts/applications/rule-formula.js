@@ -21,7 +21,7 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
       height: "auto",
     },
     window: {
-      title: "DND.MENU.RULE.TITLE",
+      title: "DND.MENU.DIALOG",
       contentClasses: ["standard-form"]
     }
   };
