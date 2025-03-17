@@ -7,34 +7,60 @@ import SaveFormulaDialog from "./applications/save-formula.js";
 import HealFormulaDialog from "./applications/heal-formula.js";
 import LookupFormulaDialog from "./applications/lookup-formula.js";
 
-// Configuration des menus
+// Configuration des menus - structure harmonisée sans suffixes
 const MENU_CONFIGS = {
-  conditionTypes: 'conditionTypes',
+  conditionTypes: {
+    source: 'conditionTypes',
+    reference: true
+  },
   saves: {
-    items: ['str', 'dex', 'con', 'int', 'wis', 'cha'],
-    suffix: '-save'
+    source: 'abilities',
+    reference: false
   },
   checks: {
-    abilities: ['str', 'dex', 'con', 'int', 'wis', 'cha'],
-    skills: ['acr', 'arc', 'ath', 'ste', 'ani', 'slt', 'his', 'itm', 'ins', 'inv',
-      'med', 'nat', 'prc', 'per', 'rel', 'prf', 'sur', 'dec'],
-    suffix: '-check'
+    source: {
+      abilities: 'abilities',
+      skills: 'skills'
+      // Les Tools sont dans _prepareContext de check-formula.js
+    },
+    reference: false
   },
   damage: {
-    items: ['acid', 'bludgeoning', 'cold', 'fire', 'force', 'lightning', 'necrotic',
-      'piercing', 'poison', 'psychic', 'radiant', 'slashing', 'thunder'],
-    suffix: '-damage'
+    source: 'damageTypes',
+    reference: false
   },
   heal: {
-    items: ['healing', 'temphp'],
+    source: 'healingTypes',
+    reference: false
   },
-  weaponMasteries: 'weaponMasteries',
-  areaTargetTypes: 'areaTargetTypes',
-  itemProperties: 'itemProperties',
-  abilities: 'abilities',
-  skills: 'skills',
-  damageTypes: 'damageTypes',
-  creatureTypes: 'creatureTypes',
+  weaponMasteries: {
+    source: 'weaponMasteries',
+    reference: true
+  },
+  areaTargetTypes: {
+    source: 'areaTargetTypes',
+    reference: true
+  },
+  itemProperties: {
+    source: 'itemProperties',
+    reference: true
+  },
+  abilities: {
+    source: 'abilities',
+    reference: true
+  },
+  skills: {
+    source: 'skills',
+    reference: true
+  },
+  damageTypes: {
+    source: 'damageTypes',
+    reference: true
+  },
+  creatureTypes: {
+    source: 'creatureTypes',
+    reference: true
+  }
 };
 
 // Configuration des blocs de style
@@ -65,20 +91,26 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
 
     // Dialogue pour les jets de sauvegarde
-    save: async () => {
-      const text = await SaveFormulaDialog.create();
+    save: async (abilityId) => {
+      // Ouvrir le dialogue avec la capacité pré-remplie si fournie
+      const options = abilityId ? { defaultAbility: abilityId } : {};
+      const text = await SaveFormulaDialog.create(options);
       if (text) insertText(text);
     },
 
     // Dialogue pour les jets d'opposition
-    check: async () => {
-      const text = await CheckFormulaDialog.create();
+    check: async (skillOrAbility) => {
+      // Ouvrir le dialogue avec la compétence ou capacité pré-remplie si fournie
+      const options = skillOrAbility ? { defaultType: skillOrAbility } : {};
+      const text = await CheckFormulaDialog.create(options);
       if (text) insertText(text);
     },
 
     // Dialogue pour les dégâts
-    damage: async () => {
-      const text = await DamageFormulaDialog.create();
+    damage: async (damageType) => {
+      // Ouvrir le dialogue avec le type de dégât pré-rempli si fourni
+      const options = damageType ? { defaultType: damageType } : {};
+      const text = await DamageFormulaDialog.create(options);
       if (text) insertText(text);
     },
 
@@ -89,68 +121,74 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
 
     // Dialogue pour les soins
-    heal: async () => {
-      const text = await HealFormulaDialog.create();
+    heal: async (healType) => {
+      // Ouvrir le dialogue avec le type de soin pré-rempli si fourni
+      const options = healType ? { defaultType: healType } : {};
+      const text = await HealFormulaDialog.create(options);
       if (text) insertText(text);
     },
 
-        // Dialogue pour les lookups
-        lookup: async () => {
-          const text = await LookupFormulaDialog.create();
-          if (text) insertText(text);
-        },
+    // Dialogue pour les lookups
+    lookup: async () => {
+      const text = await LookupFormulaDialog.create();
+      if (text) insertText(text);
+    },
   };
 
-  // Fonction pour créer les entrées de menu en fonction de la catégorie et des éléments
-  const createMenuEntries = (category, items) => {
+
+  // Fonction pour créer les entrées de menu en fonction de la catégorie et de la configuration
+  const createMenuEntries = (category, config) => {
+    // Cas spécial pour les jets de sauvegarde
     if (category === 'saves') {
-      // Jets de sauvegarde
-      return items.items.map(item => ({
-        title: CONFIG.DND5E.abilities[item]?.label || item, // Titre de l'entrée
-        action: `${item}${items.suffix}`, // Action associée
-        cmd: () => insertions.save(`${item}${items.suffix}`) // Commande à exécuter
-      }));
+      return Object.keys(CONFIG.DND5E[config.source] || {})
+        .map(item => ({
+          title: CONFIG.DND5E[config.source][item]?.label || item,
+          action: item,
+          cmd: () => insertions.save(item)
+        }));
     }
 
+    // Cas spécial pour les tests de caractéristiques et compétences
     if (category === 'checks') {
-      // Caractéristiques et de compétences
       return [
-        ...items.abilities.map(ability => ({
-          title: CONFIG.DND5E.abilities[ability]?.label || ability,
-          action: `${ability}${items.suffix}`,
-          cmd: () => insertions.check(`${ability}${items.suffix}`)
+        ...Object.keys(CONFIG.DND5E[config.source.abilities] || {}).map(ability => ({
+          title: CONFIG.DND5E[config.source.abilities][ability]?.label || ability,
+          action: ability,
+          cmd: () => insertions.check(ability)
         })),
-        ...items.skills.map(skill => ({
-          title: CONFIG.DND5E.skills[skill]?.label || skill,
-          action: `${skill}${items.suffix}`,
-          cmd: () => insertions.check(`${skill}${items.suffix}`)
+        ...Object.keys(CONFIG.DND5E[config.source.skills] || {}).map(skill => ({
+          title: CONFIG.DND5E[config.source.skills][skill]?.label || skill,
+          action: skill,
+          cmd: () => insertions.check(skill)
         }))
       ];
     }
 
-    // Dégâts
+    // Cas pour les dégâts
     if (category === 'damage') {
-      return items.items.map(item => ({
-        title: CONFIG.DND5E.damageTypes[item]?.label || item,
-        action: `${item}${items.suffix}`,
-        cmd: () => insertions.damage(`${item}${items.suffix}`)
-      }));
+      return Object.keys(CONFIG.DND5E[config.source] || {})
+        .map(item => ({
+          title: CONFIG.DND5E[config.source][item]?.label || item,
+          action: item,
+          cmd: () => insertions.damage(item)
+        }));
     }
 
-    // Soins
+    // Cas pour les soins
     if (category === 'heal') {
-      return items.items.map(item => ({
-        title: CONFIG.DND5E.healingTypes[item]?.label || item,
-        action: item,
-        cmd: () => insertions.heal(item)
-      }));
+      return Object.keys(CONFIG.DND5E[config.source] || {})
+        .map(item => ({
+          title: CONFIG.DND5E[config.source][item]?.label || item,
+          action: item,
+          cmd: () => insertions.heal(item)
+        }));
     }
 
     // Cas standard pour les références
-    return Object.keys(CONFIG.DND5E?.[items] || {})
-      .filter(item => CONFIG.DND5E[items][item]?.reference)
+    return Object.keys(CONFIG.DND5E[config.source] || {})
+      .filter(item => !config.reference || CONFIG.DND5E[config.source][item]?.reference)
       .map(item => ({
-        title: CONFIG.DND5E[items][item]?.label || item,
+        title: CONFIG.DND5E[config.source][item]?.label || item,
         action: item,
         cmd: () => insertions.reference(item, category)
       }));
@@ -215,7 +253,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     action: 'reference',
     title: game.i18n.localize('DND.MENU.TITLE'),
     entries: [
-      // Menu simplifié pour sauvegarde, check, damage et heal
+      // Menu simplifié pour sauvegarde, check, damage, attack, heal et lookup
       ...(game.settings.get('dnd-easy-reference', 'showsaves') ? [{
         title: game.i18n.localize('DND.MENU.SAVES.TITLE'),
         action: 'save-dialog',
@@ -254,11 +292,11 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
       // Pour les autres catégories, approche par sous-menu
       ...enabledMenus
-        .filter(([key]) => !['saves', 'checks', 'damage', 'heal', 'lookup'].includes(key))
-        .map(([key, items]) => ({
+        .filter(([key]) => !['saves', 'checks', 'damage', 'heal', 'attack', 'lookup'].includes(key))
+        .map(([key, config]) => ({
           title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
           action: key,
-          children: createMenuEntries(key, items)
+          children: createMenuEntries(key, config)
         })),
 
       // Menu des styles

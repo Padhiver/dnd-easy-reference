@@ -60,76 +60,93 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
     let checks = [];
     for (const { type } of this.#model.checks) {
       if (!type) continue;
-      checks.push(type);
+      
+      // Vérifier si c'est un outil et formater correctement
+      if (Object.keys(this.toolsMap || {}).includes(type)) {
+        checks.push(`tool=${type}`); // ou "tool." + type si vous préférez cette notation
+      } else {
+        checks.push(type);
+      }
     }
-
+  
     if (!checks.length) return null;
-
+  
     let command = checks.join(" ");
-
+  
     // Ajouter le DC
     if (this.#model.dc) {
       command += ` dc=${this.#model.dc}`;
     }
-
+  
     // Ajouter le format si nécessaire
     if (this.#model.format === "long") {
       command += " format=long";
     }
-
+  
     // Ajouter "passive" si la case est cochée
     if (this.#model.passive) {
       command += " passive";
     }
-
+  
     // Retourner la commande avec la balise [[/check ...]]
     return `[[/check ${command}]]`;
   }
 
   /** @inheritdoc */
-  async _prepareContext(options) {
-    const context = {};
+async _prepareContext(options) {
+  const context = {};
 
-    const checks = context.checks = [];
-    for (const [i, check] of this.#model.checks.entries()) {
-      checks.push({
-        idx: i,
-        rule: i > 0,
-        type: {
-          field: this.#model.schema.getField("checks.element.type"),
-          value: check.type,
-          name: `checks.${i}.type`,
-        }
-      });
-    }
-
-    context.dc = {
-      field: this.#model.schema.getField("dc"),
-      value: this.#model.dc,
-    };
-
-    context.format = {
-      field: this.#model.schema.getField("format"),
-      value: this.#model.format,
-    };
-
-    context.passive = {
-      field: this.#model.schema.getField("passive"),
-      value: this.#model.passive,
-    };
-
-    // Pour les listes déroulantes
-    context.abilities = CONFIG.DND5E.abilities;
-    context.skills = CONFIG.DND5E.skills;
-
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
-
-    return context;
+  const checks = context.checks = [];
+  for (const [i, check] of this.#model.checks.entries()) {
+    checks.push({
+      idx: i,
+      rule: i > 0,
+      type: {
+        field: this.#model.schema.getField("checks.element.type"),
+        value: check.type,
+        name: `checks.${i}.type`,
+      }
+    });
   }
+
+  context.dc = {
+    field: this.#model.schema.getField("dc"),
+    value: this.#model.dc,
+  };
+
+  context.format = {
+    field: this.#model.schema.getField("format"),
+    value: this.#model.format,
+  };
+
+  context.passive = {
+    field: this.#model.schema.getField("passive"),
+    value: this.#model.passive,
+  };
+
+  // Pour les listes déroulantes
+  context.abilities = CONFIG.DND5E.abilities;
+  context.skills = CONFIG.DND5E.skills;
+  
+  // Récupération des tools avec leurs labels localisés
+  let toolChoices = await dnd5e.documents.Trait.choices("tool");
+  const tools = toolChoices.asSet().reduce((acc, k) => {
+    acc[k] = dnd5e.documents.Trait.keyLabel(`tool:${k}`);
+    return acc;
+  }, {});
+  
+  // Stocker la liste des outils pour référence plus tard
+  this.toolsMap = tools;
+  context.tools = tools;
+
+  context.buttons = [{
+    type: "submit",
+    icon: "fa-solid fa-check",
+    label: "Confirm",
+  }];
+
+  return context;
+}
 
   /**
    * Handle form submission.
@@ -226,7 +243,13 @@ class CheckFormulaModel extends foundry.abstract.DataModel {
       }),
       checks: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
         type: new foundry.data.fields.StringField({ required: true }),
-      }), { initial: [{ type: "" }] })
+      }), { 
+        initial: () => {
+          // Utiliser la première valeur disponible comme valeur par défaut (par exemple une capacité)
+          const defaultType = Object.keys(CONFIG.DND5E.abilities)[0] || "";
+          return [{ type: defaultType }];
+        }
+      })
     };
   }
 }
