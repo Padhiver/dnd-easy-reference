@@ -201,7 +201,7 @@ class SaveFormulaModel extends foundry.abstract.DataModel {
         initial: 15,
         min: 0,
         integer: true,
-        label: "DND.DIALOG.SAVE.DC",
+        label: "DND.DIALOG.DC",
       }),
       format: new foundry.data.fields.StringField({
         required: true,
@@ -210,7 +210,7 @@ class SaveFormulaModel extends foundry.abstract.DataModel {
           "short": "DND.SETTINGS.FORMAT.SHORT",
           "long": "DND.SETTINGS.FORMAT.LONG"
         },
-        label: "DND.DIALOG.FORMAT",
+        label: "DND.SETTINGS.FORMAT.TITLE",
       }),
       saves: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
         ability: new foundry.data.fields.StringField({ 

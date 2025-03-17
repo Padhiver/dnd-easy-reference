@@ -1,6 +1,6 @@
 <section class="checks">
   <fieldset>
-    <legend>{{localize "DND.DIALOG.CHECK.TYPES"}}</legend>
+    <legend>{{localize "DND.DIALOG.TYPES"}}</legend>
     {{#each checks}}
     {{#if rule}}
     <hr>
@@ -8,17 +8,17 @@
     <div class="form-group">
       <div class="form-fields">
         <select name="checks.{{idx}}.type">
-          <optgroup label="{{localize "DND.DIALOG.CHECK.ABILITIES"}}">
+          <optgroup label="{{localize "DND.MENU.ABILITIES.TITLE"}}">
             {{#each ../abilities}}
             <option value="{{@key}}" {{#if (eq ../type.value @key)}}selected{{/if}}>{{this.label}}</option>
             {{/each}}
           </optgroup>
-          <optgroup label="{{localize "DND.DIALOG.CHECK.SKILLS"}}">
+          <optgroup label="{{localize "DND.MENU.SKILLS.TITLE"}}">
             {{#each ../skills}}
             <option value="{{@key}}" {{#if (eq ../type.value @key)}}selected{{/if}}>{{this.label}}</option>
             {{/each}}
           </optgroup>
-<optgroup label="{{localize "DND.DIALOG.CHECK.TOOLS"}}">
+<optgroup label="{{localize "DND.MENU.TOOLS.TITLE"}}">
   {{#each ../tools}}
   <option value="{{@key}}" {{#if (eq ../type.value @key)}}selected{{/if}}>{{this}}</option>
   {{/each}}
@@ -26,7 +26,7 @@
         </select>
       </div>
       <div class="controls flex0">
-        <button type="button" data-action="deleteCheck" data-idx="{{idx}}" data-tooltip="DND.DIALOG.CHECK.DELETE">
+        <button type="button" data-action="deleteCheck" data-idx="{{idx}}" data-tooltip="DND.DIALOG.DELETE">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>

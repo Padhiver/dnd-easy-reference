@@ -2,13 +2,14 @@ const { ApplicationV2, HandlebarsApplicationMixin } = foundry.applications.api;
 
 //region Constantes
 const MENU_CATEGORIES = [
-  "conditionTypes",
   "saves",
   "checks",
-  "damage",
   "attack",
+  "damage",
   "heal",
   "lookup",
+  "rules",
+  "conditionTypes",
   "weaponMasteries",
   "areaTargetTypes",
   "itemProperties",

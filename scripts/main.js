@@ -6,60 +6,87 @@ import CheckFormulaDialog from "./applications/check-formula.js";
 import SaveFormulaDialog from "./applications/save-formula.js";
 import HealFormulaDialog from "./applications/heal-formula.js";
 import LookupFormulaDialog from "./applications/lookup-formula.js";
+import RuleFormulaDialog from "./applications/rule-formula.js";
 
-// Configuration des menus - structure harmonisée sans suffixes
+// Configuration des menus - structure harmonisée
 const MENU_CONFIGS = {
   conditionTypes: {
     source: 'conditionTypes',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   saves: {
     source: 'abilities',
-    reference: false
+    reference: false,
+    dialogHandler: 'save'
   },
   checks: {
     source: {
       abilities: 'abilities',
       skills: 'skills'
-      // Les Tools sont dans _prepareContext de check-formula.js
     },
-    reference: false
+    reference: false,
+    dialogHandler: 'check'
   },
   damage: {
     source: 'damageTypes',
-    reference: false
+    reference: false,
+    dialogHandler: 'damage'
+  },
+  attack: {
+    source: null,
+    reference: false,
+    dialogHandler: 'attack'
   },
   heal: {
     source: 'healingTypes',
-    reference: false
+    reference: false,
+    dialogHandler: 'heal'
+  },
+  lookup: {
+    source: null,
+    reference: false,
+    dialogHandler: 'lookup'
+  },
+  rules: {
+    source: 'rules',
+    reference: true,
+    dialogHandler: 'rule'
   },
   weaponMasteries: {
     source: 'weaponMasteries',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   areaTargetTypes: {
     source: 'areaTargetTypes',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   itemProperties: {
     source: 'itemProperties',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   abilities: {
     source: 'abilities',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   skills: {
     source: 'skills',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   damageTypes: {
     source: 'damageTypes',
-    reference: true
+    reference: true,
+    dialogHandler: null
   },
   creatureTypes: {
     source: 'creatureTypes',
-    reference: true
+    reference: true,
+    dialogHandler: null
   }
 };
 
@@ -125,6 +152,11 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
       // Ouvrir le dialogue avec le type de soin pré-rempli si fourni
       const options = healType ? { defaultType: healType } : {};
       const text = await HealFormulaDialog.create(options);
+      if (text) insertText(text);
+    },
+
+    rule: async () => {
+      const text = await RuleFormulaDialog.create();
       if (text) insertText(text);
     },
 
@@ -251,48 +283,20 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   //region Menu final
   dropdowns.dndeasyreference = {
     action: 'reference',
-    title: game.i18n.localize('DND.MENU.TITLE'),
+    title: '<i class="fa-solid fa-books"></i>', // Icône FontAwesome,
     entries: [
-      // Menu simplifié pour sauvegarde, check, damage, attack, heal et lookup
-      ...(game.settings.get('dnd-easy-reference', 'showsaves') ? [{
-        title: game.i18n.localize('DND.MENU.SAVES.TITLE'),
-        action: 'save-dialog',
-        cmd: () => insertions.save()
-      }] : []),
-
-      ...(game.settings.get('dnd-easy-reference', 'showchecks') ? [{
-        title: game.i18n.localize('DND.MENU.CHECKS.TITLE'),
-        action: 'check-dialog',
-        cmd: () => insertions.check()
-      }] : []),
-
-      ...(game.settings.get('dnd-easy-reference', 'showdamage') ? [{
-        title: game.i18n.localize('DND.MENU.DAMAGE.TITLE'),
-        action: 'damage-dialog',
-        cmd: () => insertions.damage()
-      }] : []),
-
-      ...(game.settings.get('dnd-easy-reference', 'showattack') ? [{
-        title: game.i18n.localize('DND.MENU.ATTACK.TITLE'),
-        action: 'attack-dialog',
-        cmd: () => insertions.attack()
-      }] : []),
-
-      ...(game.settings.get('dnd-easy-reference', 'showheal') ? [{
-        title: game.i18n.localize('DND.MENU.HEAL.TITLE'),
-        action: 'heal-dialog',
-        cmd: () => insertions.heal()
-      }] : []),
-
-      ...(game.settings.get('dnd-easy-reference', 'showlookup') ? [{
-        title: game.i18n.localize('DND.MENU.LOOKUP.TITLE'),
-        action: 'lookup-dialog',
-        cmd: () => insertions.lookup()
-      }] : []),
-
-      // Pour les autres catégories, approche par sous-menu
+      // Entrées de menu pour les dialogues
       ...enabledMenus
-        .filter(([key]) => !['saves', 'checks', 'damage', 'heal', 'attack', 'lookup'].includes(key))
+        .filter(([_, config]) => config.dialogHandler)
+        .map(([key, config]) => ({
+          title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
+          action: `${key}-dialog`,
+          cmd: () => insertions[config.dialogHandler]()
+        })),
+
+      // Entrées de menu pour les catégories avec sous-menus
+      ...enabledMenus
+        .filter(([_, config]) => !config.dialogHandler && config.source)
         .map(([key, config]) => ({
           title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
           action: key,

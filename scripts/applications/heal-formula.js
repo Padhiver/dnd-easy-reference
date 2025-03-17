@@ -173,19 +173,19 @@ class HealFormulaModel extends foundry.abstract.DataModel {
       formula: new foundry.data.fields.StringField({
         required: true,
         initial: "2d4",
-        label: "DND.DIALOG.HEAL.FORMULA",
+        label: "DND.DIALOG.FORMULA",
       }),
       healType: new foundry.data.fields.StringField({
         required: true,
         initial: "healing",
         choices: Object.keys(CONFIG.DND5E.healingTypes),
-        label: "DND.DIALOG.HEAL.TYPE",
+        label: "DND.DIALOG.TYPE",
       }),
       average: new BooleanField({
-        label: "DND.DIALOG.HEAL.AVERAGE",
+        label: "DND.DIALOG.AVERAGE",
       }),
       extended: new BooleanField({
-        label: "DND.DIALOG.HEAL.EXTENDED",
+        label: "DND.DIALOG.EXTENDED",
       }),
     };
   }

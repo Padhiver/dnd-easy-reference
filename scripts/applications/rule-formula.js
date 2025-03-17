@@ -1,19 +1,18 @@
-const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
-const { BooleanField, SchemaField, StringField } = foundry.data.fields;
+const {HandlebarsApplicationMixin, ApplicationV2} = foundry.applications.api;
+const {StringField} = foundry.data.fields;
 
 /**
- * @typedef {object} AttackConfig
- * @property {string} formula     The attack formula.
- * @property {boolean} extended   Whether to show extended information.
+ * @typedef {object} RuleConfig
+ * @property {string} rule     La règle sélectionnée.
  */
 
-export default class AttackFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class RuleFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
-    classes: ["attack-formula-dialog"],
+    classes: ["rule-formula-dialog"],
     tag: "form",
     form: {
-      handler: AttackFormulaDialog.handleFormSubmit,
+      handler: RuleFormulaDialog.handleFormSubmit,
       submitOnChange: true,
       closeOnSubmit: false,
     },
@@ -22,7 +21,7 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
       height: "auto",
     },
     window: {
-      title: "DND.MENU.DIALOG",
+      title: "DND.MENU.RULE.TITLE",
       contentClasses: ["standard-form"]
     }
   };
@@ -31,8 +30,8 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
 
   /** @inheritdoc */
   static PARTS = {
-    form: {
-      template: "modules/dnd-easy-reference/templates/attack/formulas.hbs",
+    config: {
+      template: "modules/dnd-easy-reference/templates/rule/config.hbs",
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
@@ -43,9 +42,9 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
 
   /**
    * A data model to hold the data and perform runtime validation.
-   * @type {AttackFormulaModel}
+   * @type {RuleFormulaModel}
    */
-  #model = new AttackFormulaModel();
+  #model = new RuleFormulaModel();
 
   /* -------------------------------------------------- */
 
@@ -65,52 +64,40 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
    * @type {string|null}
    */
   get #text() {
-    // Récupérer la formule
-    const formula = this.#model.formula?.trim();
-
-    // Construire les options
-    const extended = this.#model.extended ? "extended" : null;
-
-    // Si ni formule ni option, ne rien retourner
-    if (!formula && !extended) return null;
-
-    // Construire la commande
-    let command = "";
-    if (formula) command += formula;
-    if (extended) {
-      if (command) command += " ";
-      command += extended;
-    }
-
-    return `[[/attack ${command}]]`;
+    if (!this.#model.rule) return null;
+    return `&Reference[${this.#model.rule}]`;
   }
 
   /* -------------------------------------------------- */
 
-  /** @inheritdoc */
-  async _prepareContext(options) {
-    const context = {};
+/** @inheritdoc */
+async _prepareContext(options) {
+  const context = {};
 
-    context.formula = {
-      field: this.#model.schema.getField("formula"),
-      value: this.#model.formula,
-      placeholder: game.i18n.localize("DND.DIALOG.FORMULA"),
-      name: "formula",
-    };
+  // Vérifier si CONFIG.DND5E.rules existe
+  const rulesConfig = CONFIG.DND5E.rules || {};
+  
+  // Récupérer toutes les règles disponibles
+  const rules = Object.keys(rulesConfig).map(key => ({
+    value: key,
+    label: rulesConfig[key]?.label || key
+  }));
 
-    context.extended = {
-      field: this.#model.schema.getField("extended"),
-      value: this.#model.extended,
-    };
+  context.rule = {
+    field: this.#model.schema.getField("rule"),
+    value: this.#model.rule,
+    choices: rules,
+    placeholder: game.i18n.localize("DND.DIALOG.PLACEHOLDER")
+  };
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+  context.buttons = [{
+    type: "submit",
+    icon: "fa-solid fa-check",
+    label: "Confirm",
+  }];
 
-    return context;
-  }
+  return context;
+}
 
   /* -------------------------------------------------- */
   /*   Event handlers                                   */
@@ -118,7 +105,7 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
 
   /**
    * Handle form submission.
-   * @this {AttackFormulaDialog}
+   * @this {RuleFormulaDialog}
    * @param {SubmitEvent} event             The submit event.
    * @param {HTMLFormElement} form          The form element.
    * @param {FormDataExtended} formData     The form data.
@@ -146,10 +133,10 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
    * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
    */
   static async create(options = {}) {
-    const { promise, resolve } = Promise.withResolvers();
+    const {promise, resolve} = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
-    application.render({ force: true });
+    application.addEventListener("close", () => resolve(application.config), {once: true});
+    application.render({force: true});
     return promise;
   }
 }
@@ -159,15 +146,28 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
 /**
  * Utility data model for holding onto the data across re-renders.
  */
-class AttackFormulaModel extends foundry.abstract.DataModel {
+class RuleFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */
   static defineSchema() {
+    // Récupérer les règles disponibles
+    const rules = CONFIG.DND5E.rules || {};
+    const ruleKeys = Object.keys(rules);
+    
+    // Définir une valeur initiale avec la première règle si disponible
+    const initialRule = ruleKeys.length > 0 ? ruleKeys[0] : null;
+    
     return {
-      formula: new StringField({
-        label: "DND.DIALOG.FORMULA",
-      }),
-      extended: new BooleanField({
-        label: "DND.DIALOG.EXTENDED",
+      rule: new StringField({
+        label: "DND.DIALOG.RULES_SEARCH",
+        required: true,
+        initial: "",
+        blank: true,
+        choices: () => {
+          return Object.keys(rules).reduce((acc, key) => {
+            acc[key] = rules[key]?.label || key;
+            return acc;
+          }, {});
+        }
       })
     };
   }

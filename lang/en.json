@@ -1,134 +1,114 @@
 {
   "DND": {
+    "DIALOG": {
+      "ATTRIBUTES": "Attributes",
+      "AVERAGE": "Average",
+      "CANCEL": "Cancel",
+      "COMBINATION": "Combination",
+      "CONFIRM": "Confirm",
+      "DAMAGE_ADD": "Add damage section",
+      "DAMAGE_PARTS": "Damage section",
+      "DAMAGE_TYPES": "Damage types",
+      "DC": "Difficulty",
+      "DELETE": "Delete",
+      "EXTENDED": "Extended",
+      "FORMULA": "Formula",
+      "NAME_FORMAT": {
+        "CAPITALIZE": "Capitalize",
+        "LABEL": "Name format",
+        "LOWERCASE": "lowercase",
+        "UPPERCASE": "UPPERCASE"
+      },
+      "NAME_OPTIONS": "Name options",
+      "PASSIVE": "Passive",
+      "PLACEHOLDER": "",
+      "RULES_SEARCH": "Rule",
+      "SELECT_ATTRIBUTE": "Select attribute",
+      "TYPES": "Types",
+      "USE_NAME": "Actor name"
+    },
     "MENU": {
-      "TITLE": "D&D",
-      "TITLE_DESCRIPTION": "D&D - Easy Reference",
-      "DESCRIPTION": "Select the menus to be displayed in ProseMirror.",
-      "DIALOG": "Configure enricher",
-      "CONDITIONTYPES": {
-        "TITLE": "Conditions"
-      },
-      "SAVES": {
-        "TITLE": "Saving Throws"
-      },
-      "CHECKS": {
-        "TITLE": "Checks"
-      },
-      "DAMAGE": {
-        "TITLE": "Damage formula"
-      },
-      "ATTACK": {
-        "TITLE": "Attack formula"
-      },
-      "HEAL": {
-        "TITLE": "Healing formula"
-      },
-      "LOOKUP": {
-        "TITLE": "Lookup"
-      },
-      "WEAPONMASTERIES": {
-        "TITLE": "Weapon Masteries"
+      "ABILITIES": {
+        "TITLE": "Abilities"
       },
       "AREATARGETTYPES": {
         "TITLE": "Area Target Types"
       },
-      "ITEMPROPERTIES": {
-        "TITLE": "Spell Properties"
+      "ATTACK": {
+        "TITLE": "Attack formula"
       },
-      "ABILITIES": {
-        "TITLE": "Abilities"
+      "CHECKS": {
+        "TITLE": "Checks"
       },
-      "SKILLS": {
-        "TITLE": "Skills"
-      },
-      "DAMAGETYPES": {
-        "TITLE": "Damage Types"
+      "CONDITIONTYPES": {
+        "TITLE": "Conditions"
       },
       "CREATURETYPES": {
         "TITLE": "Creature Types"
       },
+      "DAMAGE": {
+        "TITLE": "Damage formula"
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Damage Types"
+      },
+      "DESCRIPTION": "Select the menus to be displayed in ProseMirror.",
+      "DIALOG": "Configure enricher",
+      "HEAL": {
+        "TITLE": "Healing formula"
+      },
+      "ITEMPROPERTIES": {
+        "TITLE": "Spell Properties"
+      },
+      "LOOKUP": {
+        "TITLE": "Lookup"
+      },
+      "RULES": {
+        "TITLE": "Rules"
+      },
+      "SAVES": {
+        "TITLE": "Saving Throws"
+      },
+      "SKILLS": {
+        "TITLE": "Skills"
+      },
       "STYLE": {
-        "TITLE": "Styles",
         "ADVICE": "Advice",
-        "ADVICE_TITLE": "Advice",
         "ADVICE_CONTENT": "This is an advice block.",
-        "QUEST": "Quest",
-        "QUEST_TITLE": "Quest",
-        "QUEST_CONTENT": "This is a quest block.",
-        "TREASURE": "Treasure",
-        "TREASURE_TITLE": "Treasure",
-        "TREASURE_CONTENT": "This is a treasure block.",
+        "ADVICE_TITLE": "Advice",
         "NARRATIVE": "Narrative",
-        "NOTABLE": "Notable"
+        "NOTABLE": "Notable",
+        "QUEST": "Quest",
+        "QUEST_CONTENT": "This is a quest block.",
+        "QUEST_TITLE": "Quest",
+        "TITLE": "Styles",
+        "TREASURE": "Treasure",
+        "TREASURE_CONTENT": "This is a treasure block.",
+        "TREASURE_TITLE": "Treasure"
+      },
+      "TITLE": "D&D - Easy Reference",
+      "TOOLS": {
+        "TITLE": "Tools"
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Weapon Masteries"
       }
     },
     "SETTINGS": {
       "FORMAT": {
+        "LONG": "Long Format",
         "SHORT": "Short Format",
-        "LONG": "Long Format"
+        "TITLE": "Format"
       },
       "MENU": {
-        "TITLE": "Menu Configuration",
+        "HINT": "Configure which items appear in the D&D menu",
         "LABEL": "Configure Menu Items",
-        "HINT": "Configure which items appear in the D&D menu"
+        "TITLE": "Menu Configuration"
       },
       "PROSEGAP": {
-        "TITLE": "ProseMirror Gap Reduction",
-        "HINT": "Reduces the gap to prevent ProseMirror from breaking into two lines when adding D&D menu."
+        "HINT": "Reduces the gap to prevent ProseMirror from breaking into two lines when adding D&D menu.",
+        "TITLE": "ProseMirror Gap Reduction"
       }
-    },
-    "DIALOG": {
-      "SAVE": {
-        "COMBINATION": "Combination",
-        "TYPES": "Abilities",
-        "DELETE": "Delete",
-        "DC": "Difficulty"
-      },
-      "CHECK": {
-        "TYPES": "Abilities or Skills",
-        "PASSIVE": "Passive",
-        "COMBINATION": "Add a combination",
-        "DELETE": "Delete",
-        "ABILITIES": "Abilities",
-        "SKILLS": "Skills",
-        "DC": "Difficulty"
-      },
-      "DAMAGE": {
-        "ADD": "Add Damage",
-        "DELETE": "Delete this part",
-        "EXTENDED": "Extended",
-        "PARTS": "Damage Parts",
-        "FORMULA": "Formula",
-        "TYPES": "Damage Types",
-        "AVERAGE": "Average"
-      },
-      "ATTACK": {
-        "EXTENDED": "Extended",
-        "FORMULA": "Formula"
-      },
-      "HEAL": {
-        "FORMULA": "Formula",
-        "TYPE": "Healing Type",
-        "AVERAGE": "Average",
-        "EXTENDED": "Extended"
-      },
-      "LOOKUP" : {
-        "NAME_OPTIONS" : "Name options",
-        "USE_NAME" : "Actor name",
-        "NAME_FORMAT" : {
-          "LABEL" : "Name format",
-          "NONE" : "",
-          "LOWERCASE" : "lowercase",
-          "UPPERCASE" : "UPPERCASE",
-          "CAPITALIZE" : "Capitalize"
-        },
-        "ATTRIBUTES" : "Attributes",
-        "SELECT_ATTRIBUTE" : "Select attribute",
-        "CHOOSE_ATTRIBUTE" : ""
-      },
-      "CONFIRM": "Confirm",
-      "CANCEL": "Cancel",
-      "FORMAT": "Format"
     }
   }
 }

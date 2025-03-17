@@ -213,16 +213,16 @@ class LookupFormulaModel extends foundry.abstract.DataModel {
         required: false,
         initial: "none",
         choices: {
-          "none": "DND.DIALOG.LOOKUP.NAME_FORMAT.NONE",
-          "lowercase": "DND.DIALOG.LOOKUP.NAME_FORMAT.LOWERCASE",
-          "uppercase": "DND.DIALOG.LOOKUP.NAME_FORMAT.UPPERCASE",
-          "capitalize": "DND.DIALOG.LOOKUP.NAME_FORMAT.CAPITALIZE"
+          "none": "DND.DIALOG.PLACEHOLDER",
+          "lowercase": "DND.DIALOG.NAME_FORMAT.LOWERCASE",
+          "uppercase": "DND.DIALOG.NAME_FORMAT.UPPERCASE",
+          "capitalize": "DND.DIALOG.NAME_FORMAT.CAPITALIZE"
         },
-        label: "DND.DIALOG.LOOKUP.NAME_FORMAT.LABEL",
+        label: "DND.DIALOG.NAME_FORMAT.LABEL",
       }),
       attributePath: new foundry.data.fields.StringField({
         required: false,
-        label: "DND.DIALOG.LOOKUP.ATTRIBUTE_PATH",
+        label: "DND.DIALOG.ATTRIBUTE_PATH",
       })
     };
   }

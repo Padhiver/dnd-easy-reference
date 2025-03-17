@@ -1,134 +1,114 @@
 {
   "DND": {
+    "DIALOG": {
+      "ATTRIBUTES": "Attributs",
+      "AVERAGE": "Moyenne",
+      "CANCEL": "Annuler",
+      "COMBINATION": "Ajouter une combinaison",
+      "CONFIRM": "Confirmer",
+      "DAMAGE_ADD": "Ajouter une séction de dégâts",
+      "DAMAGE_PARTS": "Séction de dégâts",
+      "DAMAGE_TYPES": "Type de dégâts",
+      "DC": "Difficulté",
+      "DELETE": "Supprimer",
+      "EXTENDED": "Étendue",
+      "FORMULA": "Formule",
+      "NAME_FORMAT": {
+        "CAPITALIZE": "Majuscules",
+        "LABEL": "Format du nom",
+        "LOWERCASE": "minuscules",
+        "UPPERCASE": "MAJUSCULES"
+      },
+      "NAME_OPTIONS": "Options de nom",
+      "PASSIVE": "Passif",
+      "PLACEHOLDER": "",
+      "RULES_SEARCH": "Règle",
+      "SELECT_ATTRIBUTE": "Choix d'attribut",
+      "TYPES": "Types",
+      "USE_NAME": "Nom de l'acteur"
+    },
     "MENU": {
-      "TITLE": "D&D",
-      "TITLE_DESCRIPTION": "D&D - Easy Reference",
-      "DESCRIPTION": "Sélectionnez les menus à afficher dans ProseMirror.",
-      "DIALOG": "Configurer l'enrichisseur",
-      "CONDITIONTYPES": {
-        "TITLE": "États"
-      },
-      "SAVES": {
-        "TITLE": "Jets de sauvegarde"
-      },
-      "CHECKS": {
-        "TITLE": "Jets d'opposition"
-      },
-      "DAMAGE": {
-        "TITLE": "Formule de dégâts"
-      },
-      "ATTACK": {
-        "TITLE": "Formule d'attaque"
-      },
-      "HEAL": {
-        "TITLE": "Formule de soins"
-      },
-      "LOOKUP": {
-        "TITLE": "Lookup"
-      },
-      "WEAPONMASTERIES": {
-        "TITLE": "Bottes d'armes"
+      "ABILITIES": {
+        "TITLE": "Caractéristiques"
       },
       "AREATARGETTYPES": {
         "TITLE": "Types de zones"
       },
-      "ITEMPROPERTIES": {
-        "TITLE": "Propriétés des sorts"
+      "ATTACK": {
+        "TITLE": "Formule d'attaque"
       },
-      "ABILITIES": {
-        "TITLE": "Caractéristiques"
+      "CHECKS": {
+        "TITLE": "Jets d'opposition"
       },
-      "SKILLS": {
-        "TITLE": "Compétences"
-      },
-      "DAMAGETYPES": {
-        "TITLE": "Types de dégâts"
+      "CONDITIONTYPES": {
+        "TITLE": "États"
       },
       "CREATURETYPES": {
         "TITLE": "Types de créatures"
       },
+      "DAMAGE": {
+        "TITLE": "Formule de dégâts"
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Types de dégâts"
+      },
+      "DESCRIPTION": "Sélectionnez les menus à afficher dans ProseMirror.",
+      "DIALOG": "Configurer l'enrichisseur",
+      "HEAL": {
+        "TITLE": "Formule de soins"
+      },
+      "ITEMPROPERTIES": {
+        "TITLE": "Propriétés des sorts"
+      },
+      "LOOKUP": {
+        "TITLE": "Lookup"
+      },
+      "RULES": {
+        "TITLE": "Règles"
+      },
+      "SAVES": {
+        "TITLE": "Jets de sauvegarde"
+      },
+      "SKILLS": {
+        "TITLE": "Compétences"
+      },
       "STYLE": {
-        "TITLE": "Styles",
         "ADVICE": "Conseil",
-        "ADVICE_TITLE": "Conseil",
         "ADVICE_CONTENT": "Ceci est un bloc de conseil.",
-        "QUEST": "Quête",
-        "QUEST_TITLE": "Quête",
-        "QUEST_CONTENT": "Ceci est un bloc de quête.",
-        "TREASURE": "Trésor",
-        "TREASURE_TITLE": "Trésor",
-        "TREASURE_CONTENT": "Ceci est un bloc de trésor.",
+        "ADVICE_TITLE": "Conseil",
         "NARRATIVE": "Narratif",
-        "NOTABLE": "Remarquable"
+        "NOTABLE": "Remarquable",
+        "QUEST": "Quête",
+        "QUEST_CONTENT": "Ceci est un bloc de quête.",
+        "QUEST_TITLE": "Quête",
+        "TITLE": "Styles",
+        "TREASURE": "Trésor",
+        "TREASURE_CONTENT": "Ceci est un bloc de trésor.",
+        "TREASURE_TITLE": "Trésor"
+      },
+      "TITLE": "D&D - Easy Reference",
+      "TOOLS": {
+        "TITLE": "Outils"
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Bottes d'armes"
       }
     },
     "SETTINGS": {
       "FORMAT": {
+        "LONG": "Format long",
         "SHORT": "Format court",
-        "LONG": "Format long"
+        "TITLE": "Format"
       },
       "MENU": {
-        "TITLE": "Configuration du menu",
+        "HINT": "Configurer les enrichisseurs qui apparaissent dans le menu D&D",
         "LABEL": "Configurer les enrichisseurs du menu",
-        "HINT": "Configurer les enrichisseurs qui apparaissent dans le menu D&D"
+        "TITLE": "Configuration du menu"
       },
       "PROSEGAP": {
-        "TITLE": "Réduction de l'écart ProseMirror",
-        "HINT": "Réduit l'écart de ProseMirror pour éviter que l'ajout du menu D&D ne force à passer sur deux lignes."
+        "HINT": "Réduit l'écart de ProseMirror pour éviter que l'ajout du menu D&D ne force à passer sur deux lignes.",
+        "TITLE": "Réduction de l'écart ProseMirror"
       }
-    },
-    "DIALOG": {
-      "SAVE": {
-        "COMBINATION": "Ajouter une combinaison",
-        "DELETE": "Supprimer",
-        "TYPES": "Caractéristiques",
-        "DC": "Difficulté"
-      },
-      "CHECK": {
-        "TYPES": "Caractéristiques ou compétences",
-        "PASSIVE": "Passif",
-        "COMBINATION": "Ajouter une combinaison",
-        "DELETE": "Supprimer",
-        "ABILITIES": "Caractéristiques",
-        "SKILLS": "Compétences",
-        "DC": "Difficulté"
-      },
-      "DAMAGE": {
-        "ADD": "Ajouter des dégâts",
-        "DELETE": "Supprimer cette section",
-        "EXTENDED": "Étendue",
-        "PARTS": "Section de dégâts",
-        "FORMULA": "Formule",
-        "TYPES": "Types de dégâts",
-        "AVERAGE": "Moyenne"
-      },
-      "ATTACK": {
-        "FORMULA": "Formule",
-        "EXTENDED": "Étendue"
-      },
-      "HEAL": {
-        "FORMULA": "Formule",
-        "TYPE": "Type de soins",
-        "EXTENDED": "Étendue",
-        "AVERAGE": "Moyenne"
-      },
-      "LOOKUP" : {
-        "NAME_OPTIONS" : "Options de nom",
-        "USE_NAME" : "Nom de l'acteur",
-        "NAME_FORMAT" : {
-          "LABEL" : "Format du nom",
-          "NONE" : "",
-          "LOWERCASE" : "minuscules",
-          "UPPERCASE" : "MAJUSCULES",
-          "CAPITALIZE" : "Majuscules"
-        },
-        "ATTRIBUTES" : "Attributs",
-        "SELECT_ATTRIBUTE" : "Choix d'attribut",
-        "CHOOSE_ATTRIBUTE" : ""
-      },
-      "CONFIRM": "Confirmer",
-      "CANCEL": "Annuler",
-      "FORMAT": "Format"
     }
   }
 }

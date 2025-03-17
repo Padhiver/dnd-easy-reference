@@ -120,7 +120,7 @@ async _prepareContext(options) {
         formula: {
           field: this.#model.schema.getField("parts.element.formula"),
           value: part.formula,
-          placeholder: game.i18n.localize("DND.DIALOG.DAMAGE.FORMULA"),
+          placeholder: game.i18n.localize("DND.DIALOG.FORMULA"),
           name: `parts.${i}.formula`,
         },
         types: {
@@ -233,10 +233,10 @@ class DamageFormulaModel extends foundry.abstract.DataModel {
   static defineSchema() {
     return {
       average: new BooleanField({
-        label: "DND.DIALOG.DAMAGE.AVERAGE",
+        label: "DND.DIALOG.AVERAGE",
       }),
       extended: new BooleanField({
-        label: "DND.DIALOG.DAMAGE.EXTENDED",
+        label: "DND.DIALOG.EXTENDED",
       }),
       parts: new ArrayField(new SchemaField({
         formula: new dnd5e.dataModels.fields.FormulaField({ required: true }),

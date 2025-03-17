@@ -227,7 +227,7 @@ class CheckFormulaModel extends foundry.abstract.DataModel {
         initial: 15,
         min: 0,
         integer: true,
-        label: "DND.DIALOG.CHECK.DC",
+        label: "DND.DIALOG.DC",
       }),
       format: new foundry.data.fields.StringField({
         required: true,
@@ -236,10 +236,10 @@ class CheckFormulaModel extends foundry.abstract.DataModel {
           "short": "DND.SETTINGS.FORMAT.SHORT",
           "long": "DND.SETTINGS.FORMAT.LONG"
         },
-        label: "DND.DIALOG.FORMAT",
+        label: "DND.SETTINGS.FORMAT.TITLE",
       }),
       passive: new foundry.data.fields.BooleanField({
-        label: "DND.DIALOG.CHECK.PASSIVE",
+        label: "DND.DIALOG.PASSIVE",
       }),
       checks: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
         type: new foundry.data.fields.StringField({ required: true }),
