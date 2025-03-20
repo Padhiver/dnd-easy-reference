@@ -43,6 +43,12 @@
             "name": "Português (Brasil)",
             "path": "lang/pt-BR.json",
             "flags": {}
+        },
+        {
+            "lang": "pl",
+            "name": "Polski",
+            "path": "lang/pl.json",
+            "flags": {}
         }
     ],
     "esmodules": [
