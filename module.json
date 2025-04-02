@@ -1,6 +1,7 @@
 {
     "id": "dnd-easy-reference",
     "title": "D&D - Easy Reference",
+    "description": "Simple solution: add a menu in ProseMirror to get the system references directly in the journal.",
     "version": "0.0.0.1",
     "compatibility": {
         "minimum": "12",
