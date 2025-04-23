@@ -50,6 +50,12 @@
             "name": "Polski",
             "path": "lang/pl.json",
             "flags": {}
+        },
+        {
+            "lang": "cn",
+            "name": "Simplified Chinese",
+            "path": "lang/cn.json",
+            "flags": {}
         }
     ],
     "esmodules": [
