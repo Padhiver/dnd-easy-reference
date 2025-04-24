@@ -1,10 +1,12 @@
 {
   "DND": {
     "DIALOG": {
+      "APPLY": "Apply",
       "ATTRIBUTES": "Attributes",
       "AVERAGE": "Average",
       "CANCEL": "Cancel",
       "COMBINATION": "Combination",
+      "CONCENTRATION": "Concentration",
       "CONFIRM": "Confirm",
       "DAMAGE_ADD": "Add damage section",
       "DAMAGE_PARTS": "Damage section",

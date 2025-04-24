@@ -77,8 +77,11 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
       command += " format=long";
     }
     
-    // Retourner la commande complète avec la balise [[/save ...]]
-    return `[[/save ${command}]]`;
+    // Utiliser /concentration au lieu de /save si l'option est cochée
+    const commandType = this.#model.useConcentration ? "concentration" : "save";
+    
+    // Retourner la commande complète avec la balise appropriée
+    return `[[/${commandType} ${command}]]`;
   }
 
   /** @inheritdoc */
@@ -106,6 +109,11 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
     context.format = {
       field: this.#model.schema.getField("format"),
       value: this.#model.format,
+    };
+    
+    context.useConcentration = {
+      field: this.#model.schema.getField("useConcentration"),
+      value: this.#model.useConcentration,
     };
 
     // Pour les listes déroulantes
@@ -211,6 +219,11 @@ class SaveFormulaModel extends foundry.abstract.DataModel {
           "long": "DND.SETTINGS.FORMAT.LONG"
         },
         label: "DND.SETTINGS.FORMAT.TITLE",
+      }),
+      useConcentration: new foundry.data.fields.BooleanField({
+        required: true,
+        initial: false,
+        label: "DND.DIALOG.CONCENTRATION",
       }),
       saves: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
         ability: new foundry.data.fields.StringField({ 

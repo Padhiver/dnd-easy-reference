@@ -7,14 +7,10 @@ import SaveFormulaDialog from "./applications/save-formula.js";
 import HealFormulaDialog from "./applications/heal-formula.js";
 import LookupFormulaDialog from "./applications/lookup-formula.js";
 import RuleFormulaDialog from "./applications/rule-formula.js";
+import ConditionFormulaDialog from "./applications/condition-formula.js";
 
 // Configuration des menus - structure harmonisée
 const MENU_CONFIGS = {
-  conditionTypes: {
-    source: 'conditionTypes',
-    reference: true,
-    dialogHandler: null
-  },
   saves: {
     source: 'abilities',
     reference: false,
@@ -42,6 +38,11 @@ const MENU_CONFIGS = {
     source: 'healingTypes',
     reference: false,
     dialogHandler: 'heal'
+  },
+  conditionTypes: {
+    source: 'conditionTypes',
+    reference: true,
+    dialogHandler: 'condition'
   },
   lookup: {
     source: null,
@@ -115,6 +116,14 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     reference: (item, category) => {
       const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
       insertText(`&Reference[${reference}]`);
+    },
+
+    // Dialogue pour les états
+    condition: async (conditionId) => {
+      // Pré-remplir la condition si l'utilisateur a cliqué sur une entrée spécifique du sous-menu
+      const options = conditionId ? { initialData: { condition: conditionId } } : {};
+      const text = await ConditionFormulaDialog.create(options);
+      if (text) insertText(text);
     },
 
     // Dialogue pour les jets de sauvegarde

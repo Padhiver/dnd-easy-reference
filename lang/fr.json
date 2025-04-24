@@ -1,10 +1,12 @@
 {
   "DND": {
     "DIALOG": {
+      "APPLY": "Appliquer",
       "ATTRIBUTES": "Attributs",
       "AVERAGE": "Moyenne",
       "CANCEL": "Annuler",
       "COMBINATION": "Ajouter une combinaison",
+      "CONCENTRATION": "Concentration",
       "CONFIRM": "Confirmer",
       "DAMAGE_ADD": "Ajouter une séction de dégâts",
       "DAMAGE_PARTS": "Séction de dégâts",
@@ -102,7 +104,7 @@
       },
       "MENU": {
         "HINT": "Configurer les enrichisseurs qui apparaissent dans le menu D&D",
-        "LABEL": "Configurer les enrichisseurs du menu",
+        "LABEL": "Configurer les enrichisseurs",
         "TITLE": "Configuration du menu"
       },
       "PROSEGAP": {
