@@ -11,7 +11,8 @@ I'm open to requests if you think other references or other things would be usef
 ## Supported languages
 - French
 - English
-- Polish
+- Polish - Need a update !
+- Simple Chinese - Need a update !
 - Russian - Need a update !
 - Português (Brasil) - Need a update !
 - Submit a PR to add your own!
