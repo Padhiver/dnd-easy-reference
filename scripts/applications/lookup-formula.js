@@ -34,13 +34,13 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
   }
 
   /**
-   * A data model to hold the data and perform runtime validation.
+   * Modèle de données.
    * @type {LookupFormulaModel}
    */
   #model = new LookupFormulaModel();
 
   /**
-   * The configuration to inject.
+   * Configuration résultante.
    * @type {object|null}
    */
   #config = null;
@@ -49,29 +49,24 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
   }
 
   /**
-   * The text to inject.
+   * Texte à injecter.
    * @type {string|null}
    */
   get #text() {
-    // Si aucune option sélectionnée, retourner null
     if (!this.#model.useName && !this.#model.attributePath) return null;
 
     let command = "";
 
-    // Traiter @name si sélectionné
     if (this.#model.useName) {
       command = "@name";
-      // Ajouter le format si nécessaire
       if (this.#model.nameFormat && this.#model.nameFormat !== "none") {
         command += ` ${this.#model.nameFormat}`;
       }
-    } 
-    // Sinon utiliser le chemin d'attribut sélectionné
+    }
     else if (this.#model.attributePath) {
       command = this.#model.attributePath;
     }
 
-    // Retourner la commande avec la balise [[lookup ...]]
     return `[[lookup ${command}]]`;
   }
 
@@ -79,7 +74,6 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
   async _prepareContext(options) {
     const context = {};
 
-    // Options pour le nom
     context.useName = {
       field: this.#model.schema.getField("useName"),
       value: this.#model.useName,
@@ -90,16 +84,13 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
       value: this.#model.nameFormat,
     };
 
-    // Options pour les attributs traçables
     context.attributePath = {
       field: this.#model.schema.getField("attributePath"),
       value: this.#model.attributePath,
     };
 
-    // Préparer les options d'attributs traçables
     context.trackableOptions = this._prepareTrackableOptions();
 
-    // Boutons de confirmation
     context.buttons = [{
       type: "submit",
       icon: "fa-solid fa-check",
@@ -111,26 +102,22 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
 
   /**
    * Prépare les options pour le menu déroulant des attributs traçables.
-   * @returns {Array} Un tableau d'objets représentant les options disponibles.
+   * @returns {Array}
    */
   _prepareTrackableOptions() {
     const options = [];
     const trackable = CONFIG.DND5E.trackableAttributes;
 
-    // Fonction récursive pour explorer les objets imbriqués
     const processObject = (obj, path = "") => {
-      // Si c'est un objet, explorer ses propriétés
       if (obj && typeof obj === "object" && !Array.isArray(obj)) {
         for (const [key, value] of Object.entries(obj)) {
           const newPath = path ? `${path}.${key}` : `@${key}`;
-          // Si la valeur est true, ajouter l'option
           if (value === true) {
             options.push({
               value: newPath,
               label: newPath
             });
-          } 
-          // Si c'est un objet avec des propriétés imbriquées, explorer récursivement
+          }
           else if (value && typeof value === "object") {
             processObject(value, newPath);
           }
@@ -138,17 +125,14 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
       }
     };
 
-    // Explorer les attributs traçables
     processObject(trackable);
 
-    // Ajouter les options spécifiques mentionnées dans la demande
     const specificOptions = [
       { value: "@attributes.spell.dc", label: "@attributes.spell.dc" },
       { value: "@attributes.spell.attack", label: "@attributes.spell.attack" },
       { value: "@details.type.config.label", label: "@details.type.config.label" }
     ];
 
-    // Ajouter les options spécifiques s'ils ne sont pas déjà présents
     for (const option of specificOptions) {
       if (!options.some(o => o.value === option.value)) {
         options.push(option);
@@ -159,12 +143,12 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
   }
 
   /**
-   * Handle form submission.
+   * Gère la soumission du formulaire.
    * @this {LookupFormulaDialog}
-   * @param {SubmitEvent} event             The submit event.
-   * @param {HTMLFormElement} form          The form element.
-   * @param {FormDataExtended} formData     The form data.
-   * @param {object} submitOptions          Submit options.
+   * @param {SubmitEvent} event
+   * @param {HTMLFormElement} form
+   * @param {FormDataExtended} formData
+   * @param {object} submitOptions
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
     switch (event.type) {
@@ -185,9 +169,9 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
   }
 
   /**
-   * Render an asynchronous instance of this application.
-   * @param {object} [options]            Rendering options.
-   * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
+   * Crée une instance de l'application.
+   * @param {object} [options]            Options.
+   * @returns {Promise<string|null>}      Le texte, ou null.
    */
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
@@ -199,7 +183,7 @@ export default class LookupFormulaDialog extends HandlebarsApplicationMixin(Appl
 }
 
 /**
- * Utility data model for holding onto the data across re-renders.
+ * Modèle de données utilitaire.
  */
 class LookupFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */

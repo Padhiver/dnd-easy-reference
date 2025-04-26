@@ -5,13 +5,13 @@
       {{ formInput formula.field value=formula.value name="formula" type="text" }}
     </div>
   </div>
-  
+
   <div class="form-group">
     <label>{{localize "DND.DIALOG.TYPES"}}</label>
     <div class="form-fields">
       <select name="healType">
         {{#each healingTypes}}
-          <option value="{{@key}}" {{#if (eq ../healType.value @key)}}selected{{/if}}>{{this.label}}</option>
+        <option value="{{@key}}" {{#if (eq ../healType.value @key)}}selected{{/if}}>{{this.label}}</option>
         {{/each}}
       </select>
     </div>

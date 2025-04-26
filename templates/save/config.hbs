@@ -10,8 +10,10 @@
     <label>{{localize "DND.SETTINGS.FORMAT.TITLE"}}</label>
     <div class="form-fields">
       <select id="format" name="format">
-        <option value="short" {{#if (eq format.value "short")}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.SHORT"}}</option>
-        <option value="long" {{#if (eq format.value "long")}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.LONG"}}</option>
+        <option value="short" {{#if (eq format.value "short" )}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.SHORT"}}
+        </option>
+        <option value="long" {{#if (eq format.value "long" )}}selected{{/if}}>{{localize "DND.SETTINGS.FORMAT.LONG"}}
+        </option>
       </select>
     </div>
   </div>

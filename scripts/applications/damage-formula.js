@@ -1,10 +1,10 @@
-const {HandlebarsApplicationMixin, ApplicationV2} = foundry.applications.api;
-const {ArrayField, BooleanField, SchemaField, SetField, StringField} = foundry.data.fields;
+const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
+const { ArrayField, BooleanField, SchemaField, SetField, StringField } = foundry.data.fields;
 
 /**
  * @typedef {object} DamageConfig
- * @property {string} formula     The damage formula.
- * @property {string[]} types     The damage types.
+ * @property {string} formula     La formule de dégâts.
+ * @property {string[]} types     Les types de dégâts.
  */
 
 export default class DamageFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -50,7 +50,7 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
-   * A data model to hold the data and perform runtime validation.
+   * Modèle de données.
    * @type {DamageFormulaModel}
    */
   #model = new DamageFormulaModel();
@@ -58,7 +58,7 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
-   * The configuration to inject.
+   * Configuration résultante.
    * @type {object|null}
    */
   #config = null;
@@ -69,47 +69,40 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
- * The text to inject.
- * @type {string|null}
- */
-get #text() {
-  let parts = [];
-  for (const { formula, types } of this.#model.parts) {
-    if (!formula) continue;
-    const type = types.size ? `type=${Array.from(types).join("|")}` : "";
-    parts.push([formula, type].join(" "));
-  }
-  
-  // Vérifier si nous avons des options supplémentaires (average ou extended)
-  const hasOptions = this.#model.average || this.#model.extended;
-  
-  // Si nous n'avons pas de parties de dégâts mais que nous avons des options, 
-  // créer quand même la commande
-  if (!parts.length && !hasOptions) return null;
-  
-  // Joindre les parties s'il y en a
-  let command = parts.length ? parts.join(" & ") : "";
-  
-  // Ajouter les options
-  const options = [
-    this.#model.average ? "average" : null,
-    this.#model.extended ? "extended" : null,
-  ].filter(Boolean);
-  
-  // Construire la commande complète
-  if (options.length > 0) {
-    // Si nous avons à la fois des formules et des options, les séparer par un espace
-    if (command) command += " ";
-    command += options.join(" ");
-  }
-  
-  return `[[/damage ${command}]]`;
-}
+   * Texte final à injecter.
+   * @type {string|null}
+   */
+  get #text() {
+    let parts = [];
+    for (const { formula, types } of this.#model.parts) {
+      if (!formula) continue;
+      const type = types.size ? `type=${Array.from(types).join("|")}` : "";
+      parts.push([formula, type].filter(Boolean).join(" "));
+    }
 
-/* -------------------------------------------------- */
+    const hasOptions = this.#model.average || this.#model.extended;
 
-/** @inheritdoc */
-async _prepareContext(options) {
+    if (!parts.length && !hasOptions) return null;
+
+    let command = parts.length ? parts.join(" & ") : "";
+
+    const options = [
+      this.#model.average ? "average" : null,
+      this.#model.extended ? "extended" : null,
+    ].filter(Boolean);
+
+    if (options.length > 0) {
+      if (command) command += " ";
+      command += options.join(" ");
+    }
+
+    return `[[/damage ${command}]]`;
+  }
+
+  /* -------------------------------------------------- */
+
+  /** @inheritdoc */
+  async _prepareContext(options) {
     const context = {};
 
     const parts = context.parts = [];
@@ -151,16 +144,16 @@ async _prepareContext(options) {
   }
 
   /* -------------------------------------------------- */
-  /*   Event handlers                                   */
+  /* Gestionnaires d'événements                     */
   /* -------------------------------------------------- */
 
   /**
-   * Handle form submission.
+   * Gère la soumission du formulaire.
    * @this {DamageFormulaDialog}
-   * @param {SubmitEvent} event             The submit event.
-   * @param {HTMLFormElement} form          The form element.
-   * @param {FormDataExtended} formData     The form data.
-   * @param {object} submitOptions          Submit options.
+   * @param {SubmitEvent} event
+   * @param {HTMLFormElement} form
+   * @param {FormDataExtended} formData
+   * @param {object} submitOptions
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
     switch (event.type) {
@@ -169,6 +162,7 @@ async _prepareContext(options) {
         break;
       case "submit":
         this.#config = this.#text;
+        // Le callback (si défini) sera appelé via l'event listener 'close'
         this.close();
         break;
     }
@@ -177,10 +171,10 @@ async _prepareContext(options) {
   /* -------------------------------------------------- */
 
   /**
-   * Add a new damage part.
+   * Ajoute une nouvelle partie de dégâts.
    * @this {DamageFormulaDialog}
-   * @param {PointerEvent} event      The initiating click event.
-   * @param {HTMLElement} target      The element that defined the [data-action].
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
    */
   static #addPart(event, target) {
     const parts = this.#model.toObject().parts;
@@ -192,10 +186,10 @@ async _prepareContext(options) {
   /* -------------------------------------------------- */
 
   /**
-   * Remove a damage part.
+   * Supprime une partie de dégâts.
    * @this {DamageFormulaDialog}
-   * @param {PointerEvent} event      The initiating click event.
-   * @param {HTMLElement} target      The element that defined the [data-action].
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
    */
   static #deletePart(event, target) {
     const idx = parseInt(target.dataset.idx);
@@ -206,19 +200,19 @@ async _prepareContext(options) {
   }
 
   /* -------------------------------------------------- */
-  /*   Factory methods                                  */
+  /* Méthodes d'usine                               */
   /* -------------------------------------------------- */
 
   /**
-   * Render an asynchronous instance of this application.
-   * @param {object} [options]            Rendering options.
-   * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
+   * Crée et affiche une instance asynchrone de cette application.
+   * @param {object} [options]            Options.
+   * @returns {Promise<string|null>}      Le texte, ou `null`.
    */
   static async create(options = {}) {
-    const {promise, resolve} = Promise.withResolvers();
+    const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), {once: true});
-    application.render({force: true});
+    application.addEventListener("close", () => resolve(application.config), { once: true });
+    application.render({ force: true });
     return promise;
   }
 }
@@ -226,7 +220,7 @@ async _prepareContext(options) {
 /* -------------------------------------------------- */
 
 /**
- * Utility data model for holding onto the data across re-renders.
+ * Modèle de données utilitaire.
  */
 class DamageFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */

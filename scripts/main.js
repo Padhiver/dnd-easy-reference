@@ -111,7 +111,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     );
   };
 
-  // Fonctions d'insertion pour les références, sauvegardes et tests
+  // Fonctions d'insertion pour les références et dialogues
   const insertions = {
     reference: (item, category) => {
       const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
@@ -120,7 +120,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
     // Dialogue pour les états
     condition: async (conditionId) => {
-      // Pré-remplir la condition si l'utilisateur a cliqué sur une entrée spécifique du sous-menu
       const options = conditionId ? { initialData: { condition: conditionId } } : {};
       const text = await ConditionFormulaDialog.create(options);
       if (text) insertText(text);
@@ -128,7 +127,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
     // Dialogue pour les jets de sauvegarde
     save: async (abilityId) => {
-      // Ouvrir le dialogue avec la capacité pré-remplie si fournie
       const options = abilityId ? { defaultAbility: abilityId } : {};
       const text = await SaveFormulaDialog.create(options);
       if (text) insertText(text);
@@ -136,7 +134,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
     // Dialogue pour les jets d'opposition
     check: async (skillOrAbility) => {
-      // Ouvrir le dialogue avec la compétence ou capacité pré-remplie si fournie
       const options = skillOrAbility ? { defaultType: skillOrAbility } : {};
       const text = await CheckFormulaDialog.create(options);
       if (text) insertText(text);
@@ -144,7 +141,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
     // Dialogue pour les dégâts
     damage: async (damageType) => {
-      // Ouvrir le dialogue avec le type de dégât pré-rempli si fourni
       const options = damageType ? { defaultType: damageType } : {};
       const text = await DamageFormulaDialog.create(options);
       if (text) insertText(text);
@@ -158,7 +154,6 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
     // Dialogue pour les soins
     heal: async (healType) => {
-      // Ouvrir le dialogue avec le type de soin pré-rempli si fourni
       const options = healType ? { defaultType: healType } : {};
       const text = await HealFormulaDialog.create(options);
       if (text) insertText(text);
@@ -292,7 +287,7 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   //region Menu final
   dropdowns.dndeasyreference = {
     action: 'reference',
-    title: '<i class="fa-solid fa-books"></i>', // Icône FontAwesome,
+    title: '<i class="fa-solid fa-books"></i>', // Icône FontAwesome
     entries: [
       // Entrées de menu pour les dialogues
       ...enabledMenus

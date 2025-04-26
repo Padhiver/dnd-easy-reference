@@ -31,13 +31,13 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
   }
 
   /**
-   * A data model to hold the data and perform runtime validation.
+   * Modèle de données.
    * @type {HealFormulaModel}
    */
   #model = new HealFormulaModel();
 
   /**
-   * The configuration to inject.
+   * Configuration résultante.
    * @type {object|null}
    */
   #config = null;
@@ -46,47 +46,38 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
   }
 
   /**
-   * The text to inject.
+   * Texte à injecter.
    * @type {string|null}
    */
-  /**
- * The text to inject.
- * @type {string|null}
- */
-get #text() {
-  const formula = this.#model.formula;
-  const healType = this.#model.healType;
+  get #text() {
+    const formula = this.#model.formula;
+    const healType = this.#model.healType;
 
-  // Si ni formula ni healType ne sont définis, et que ni average ni extended ne sont cochés, retourner null
-  if (!formula && !healType && !this.#model.average && !this.#model.extended) return null;
+    if (!formula && !healType && !this.#model.average && !this.#model.extended) return null;
 
-  // Construire la commande de base
-  let command = "[[/heal";
+    let command = "[[/heal";
 
-  // Ajouter la formule si elle est définie
-  if (formula) {
-    command += ` formula=${formula}`;
+    if (formula) {
+      command += ` formula=${formula}`;
+    }
+
+    if (healType) {
+      command += ` type=${healType}`;
+    }
+
+    const options = [
+      this.#model.average ? "average" : null,
+      this.#model.extended ? "extended" : null,
+    ].filter(Boolean).join(" ");
+
+    if (options) {
+      command += ` ${options}`;
+    }
+
+    command += "]]";
+
+    return command;
   }
-
-  // Ajouter le type de soin si il est défini
-  if (healType) {
-    command += ` type=${healType}`;
-  }
-
-  // Ajouter les options "average" et "extended" si elles sont cochées
-  const options = [
-    this.#model.average ? "average" : null,
-    this.#model.extended ? "extended" : null,
-  ].filter(Boolean).join(" ");
-
-  if (options) {
-    command += ` ${options}`;
-  }
-
-  command += "]]";
-
-  return command;
-}
 
   /** @inheritdoc */
   async _prepareContext(options) {
@@ -124,12 +115,12 @@ get #text() {
   }
 
   /**
-   * Handle form submission.
+   * Gère la soumission du formulaire.
    * @this {HealFormulaDialog}
-   * @param {SubmitEvent} event             The submit event.
-   * @param {HTMLFormElement} form          The form element.
-   * @param {FormDataExtended} formData     The form data.
-   * @param {object} submitOptions          Submit options.
+   * @param {SubmitEvent} event
+   * @param {HTMLFormElement} form
+   * @param {FormDataExtended} formData
+   * @param {object} submitOptions
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
     switch (event.type) {
@@ -150,21 +141,21 @@ get #text() {
   }
 
   /**
-   * Render an asynchronous instance of this application.
-   * @param {object} [options]            Rendering options.
-   * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
+   * Crée une instance de l'application.
+   * @param {object} [options]            Options.
+   * @returns {Promise<string|null>}      Le texte, ou null.
    */
   static async create(options = {}) {
-    const {promise, resolve} = Promise.withResolvers();
+    const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), {once: true});
-    application.render({force: true});
+    application.addEventListener("close", () => resolve(application.config), { once: true });
+    application.render({ force: true });
     return promise;
   }
 }
 
 /**
- * Utility data model for holding onto the data across re-renders.
+ * Modèle de données utilitaire.
  */
 class HealFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */

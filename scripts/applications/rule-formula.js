@@ -1,5 +1,5 @@
-const {HandlebarsApplicationMixin, ApplicationV2} = foundry.applications.api;
-const {StringField} = foundry.data.fields;
+const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
+const { StringField } = foundry.data.fields;
 
 /**
  * @typedef {object} RuleConfig
@@ -41,7 +41,7 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
-   * A data model to hold the data and perform runtime validation.
+   * Modèle de données.
    * @type {RuleFormulaModel}
    */
   #model = new RuleFormulaModel();
@@ -49,7 +49,7 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
-   * The configuration to inject.
+   * Configuration résultante.
    * @type {object|null}
    */
   #config = null;
@@ -60,7 +60,7 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
   /* -------------------------------------------------- */
 
   /**
-   * The text to inject.
+   * Texte à injecter.
    * @type {string|null}
    */
   get #text() {
@@ -70,46 +70,44 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
 
   /* -------------------------------------------------- */
 
-/** @inheritdoc */
-async _prepareContext(options) {
-  const context = {};
+  /** @inheritdoc */
+  async _prepareContext(options) {
+    const context = {};
 
-  // Vérifier si CONFIG.DND5E.rules existe
-  const rulesConfig = CONFIG.DND5E.rules || {};
-  
-  // Récupérer toutes les règles disponibles
-  const rules = Object.keys(rulesConfig).map(key => ({
-    value: key,
-    label: rulesConfig[key]?.label || key
-  }));
+    const rulesConfig = CONFIG.DND5E.rules || {};
 
-  context.rule = {
-    field: this.#model.schema.getField("rule"),
-    value: this.#model.rule,
-    choices: rules,
-    placeholder: game.i18n.localize("DND.DIALOG.PLACEHOLDER")
-  };
+    const rules = Object.keys(rulesConfig).map(key => ({
+      value: key,
+      label: rulesConfig[key]?.label || key
+    }));
 
-  context.buttons = [{
-    type: "submit",
-    icon: "fa-solid fa-check",
-    label: "Confirm",
-  }];
+    context.rule = {
+      field: this.#model.schema.getField("rule"),
+      value: this.#model.rule,
+      choices: rules,
+      placeholder: game.i18n.localize("DND.DIALOG.PLACEHOLDER")
+    };
 
-  return context;
-}
+    context.buttons = [{
+      type: "submit",
+      icon: "fa-solid fa-check",
+      label: "Confirm",
+    }];
+
+    return context;
+  }
 
   /* -------------------------------------------------- */
-  /*   Event handlers                                   */
+  /* Gestionnaires d'événements                     */
   /* -------------------------------------------------- */
 
   /**
-   * Handle form submission.
+   * Gère la soumission du formulaire.
    * @this {RuleFormulaDialog}
-   * @param {SubmitEvent} event             The submit event.
-   * @param {HTMLFormElement} form          The form element.
-   * @param {FormDataExtended} formData     The form data.
-   * @param {object} submitOptions          Submit options.
+   * @param {SubmitEvent} event
+   * @param {HTMLFormElement} form
+   * @param {FormDataExtended} formData
+   * @param {object} submitOptions
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
     switch (event.type) {
@@ -124,19 +122,19 @@ async _prepareContext(options) {
   }
 
   /* -------------------------------------------------- */
-  /*   Factory methods                                  */
+  /* Méthodes d'usine                               */
   /* -------------------------------------------------- */
 
   /**
-   * Render an asynchronous instance of this application.
-   * @param {object} [options]            Rendering options.
-   * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
+   * Crée une instance de l'application.
+   * @param {object} [options]            Options.
+   * @returns {Promise<string|null>}      Le texte, ou null.
    */
   static async create(options = {}) {
-    const {promise, resolve} = Promise.withResolvers();
+    const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), {once: true});
-    application.render({force: true});
+    application.addEventListener("close", () => resolve(application.config), { once: true });
+    application.render({ force: true });
     return promise;
   }
 }
@@ -144,18 +142,14 @@ async _prepareContext(options) {
 /* -------------------------------------------------- */
 
 /**
- * Utility data model for holding onto the data across re-renders.
- */
+ * Modèle de données utilitaire. */
 class RuleFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */
   static defineSchema() {
-    // Récupérer les règles disponibles
     const rules = CONFIG.DND5E.rules || {};
     const ruleKeys = Object.keys(rules);
-    
-    // Définir une valeur initiale avec la première règle si disponible
     const initialRule = ruleKeys.length > 0 ? ruleKeys[0] : null;
-    
+
     return {
       rule: new StringField({
         label: "DND.DIALOG.RULES_SEARCH",

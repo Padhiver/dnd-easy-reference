@@ -38,13 +38,13 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
   }
 
   /**
-   * A data model to hold the data and perform runtime validation.
+   * Modèle de données.
    * @type {CheckFormulaModel}
    */
   #model = new CheckFormulaModel();
 
   /**
-   * The configuration to inject.
+   * Configuration résultante.
    * @type {object|null}
    */
   #config = null;
@@ -53,108 +53,100 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
   }
 
   /**
-   * The text to inject.
+   * Texte à injecter.
    * @type {string|null}
    */
   get #text() {
     let checks = [];
     for (const { type } of this.#model.checks) {
       if (!type) continue;
-      
-      // Vérifier si c'est un outil et formater correctement
+
       if (Object.keys(this.toolsMap || {}).includes(type)) {
-        checks.push(`tool=${type}`); // ou "tool." + type si vous préférez cette notation
+        checks.push(`tool=${type}`);
       } else {
         checks.push(type);
       }
     }
-  
+
     if (!checks.length) return null;
-  
+
     let command = checks.join(" ");
-  
-    // Ajouter le DC
+
     if (this.#model.dc) {
       command += ` dc=${this.#model.dc}`;
     }
-  
-    // Ajouter le format si nécessaire
+
     if (this.#model.format === "long") {
       command += " format=long";
     }
-  
-    // Ajouter "passive" si la case est cochée
+
     if (this.#model.passive) {
       command += " passive";
     }
-  
-    // Retourner la commande avec la balise [[/check ...]]
+
     return `[[/check ${command}]]`;
   }
 
   /** @inheritdoc */
-async _prepareContext(options) {
-  const context = {};
+  async _prepareContext(options) {
+    const context = {};
 
-  const checks = context.checks = [];
-  for (const [i, check] of this.#model.checks.entries()) {
-    checks.push({
-      idx: i,
-      rule: i > 0,
-      type: {
-        field: this.#model.schema.getField("checks.element.type"),
-        value: check.type,
-        name: `checks.${i}.type`,
-      }
-    });
+    const checks = context.checks = [];
+    for (const [i, check] of this.#model.checks.entries()) {
+      checks.push({
+        idx: i,
+        rule: i > 0,
+        type: {
+          field: this.#model.schema.getField("checks.element.type"),
+          value: check.type,
+          name: `checks.${i}.type`,
+        }
+      });
+    }
+
+    context.dc = {
+      field: this.#model.schema.getField("dc"),
+      value: this.#model.dc,
+    };
+
+    context.format = {
+      field: this.#model.schema.getField("format"),
+      value: this.#model.format,
+    };
+
+    context.passive = {
+      field: this.#model.schema.getField("passive"),
+      value: this.#model.passive,
+    };
+
+    context.abilities = CONFIG.DND5E.abilities;
+    context.skills = CONFIG.DND5E.skills;
+
+    let toolChoices = await dnd5e.documents.Trait.choices("tool");
+    const tools = toolChoices.asSet().reduce((acc, k) => {
+      acc[k] = dnd5e.documents.Trait.keyLabel(`tool:${k}`);
+      return acc;
+    }, {});
+
+    this.toolsMap = tools;
+    context.tools = tools;
+
+    context.buttons = [{
+      type: "submit",
+      icon: "fa-solid fa-check",
+      label: "Confirm",
+    }];
+
+    return context;
   }
 
-  context.dc = {
-    field: this.#model.schema.getField("dc"),
-    value: this.#model.dc,
-  };
-
-  context.format = {
-    field: this.#model.schema.getField("format"),
-    value: this.#model.format,
-  };
-
-  context.passive = {
-    field: this.#model.schema.getField("passive"),
-    value: this.#model.passive,
-  };
-
-  // Pour les listes déroulantes
-  context.abilities = CONFIG.DND5E.abilities;
-  context.skills = CONFIG.DND5E.skills;
-  
-  // Récupération des tools avec leurs labels localisés
-  let toolChoices = await dnd5e.documents.Trait.choices("tool");
-  const tools = toolChoices.asSet().reduce((acc, k) => {
-    acc[k] = dnd5e.documents.Trait.keyLabel(`tool:${k}`);
-    return acc;
-  }, {});
-  
-  // Stocker la liste des outils pour référence plus tard
-  this.toolsMap = tools;
-  context.tools = tools;
-
-  context.buttons = [{
-    type: "submit",
-    icon: "fa-solid fa-check",
-    label: "Confirm",
-  }];
-
-  return context;
-}
-
   /**
-   * Handle form submission.
+   * Gère la soumission du formulaire.
    * @this {CheckFormulaDialog}
-   * @param {SubmitEvent} event             The submit event.
-   * @param {HTMLFormElement} form          The form element.
-   * @param {FormDataExtended} formData     The form data.
-   * @param {object} submitOptions          Submit options.
+   * @param {SubmitEvent} event
+   * @param {HTMLFormElement} form
+   * @param {FormDataExtended} formData
+   * @param {object} submitOptions
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
     switch (event.type) {
@@ -170,10 +162,10 @@ async _prepareContext(options) {
   }
 
   /**
-   * Add a new check type.
+   * Ajoute un nouveau type de test.
    * @this {CheckFormulaDialog}
-   * @param {PointerEvent} event      The initiating click event.
-   * @param {HTMLElement} target      The element that defined the [data-action].
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
    */
   static #addCheck(event, target) {
     const checks = this.#model.toObject().checks;
@@ -183,10 +175,10 @@ async _prepareContext(options) {
   }
 
   /**
-   * Remove a check type.
+   * Supprime un type de test.
    * @this {CheckFormulaDialog}
-   * @param {PointerEvent} event      The initiating click event.
-   * @param {HTMLElement} target      The element that defined the [data-action].
+   * @param {PointerEvent} event
+   * @param {HTMLElement} target
    */
   static #deleteCheck(event, target) {
     const idx = parseInt(target.dataset.idx);
@@ -202,9 +194,9 @@ async _prepareContext(options) {
   }
 
   /**
-   * Render an asynchronous instance of this application.
-   * @param {object} [options]            Rendering options.
-   * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
+   * Crée une instance de cette application.
+   * @param {object} [options]            Options.
+   * @returns {Promise<string|null>}      Le texte, ou null.
    */
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
@@ -216,7 +208,7 @@ async _prepareContext(options) {
 }
 
 /**
- * Utility data model for holding onto the data across re-renders.
+ * Modèle de données utilitaire.
  */
 class CheckFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */
@@ -243,9 +235,8 @@ class CheckFormulaModel extends foundry.abstract.DataModel {
       }),
       checks: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
         type: new foundry.data.fields.StringField({ required: true }),
-      }), { 
+      }), {
         initial: () => {
-          // Utiliser la première valeur disponible comme valeur par défaut (par exemple une capacité)
           const defaultType = Object.keys(CONFIG.DND5E.abilities)[0] || "";
           return [{ type: defaultType }];
         }

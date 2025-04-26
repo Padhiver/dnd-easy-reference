@@ -26,9 +26,9 @@ Hooks.once("init", () => {
     name: game.i18n.localize("DND.SETTINGS.MENU.TITLE"),
     label: game.i18n.localize("DND.SETTINGS.MENU.LABEL"),
     hint: game.i18n.localize("DND.SETTINGS.MENU.HINT"),
-    icon: "fas fa-list", // Icône du sous-menu
-    type: DnDMenuConfigV2, // Type de formulaire associé au sous-menu
-    restricted: true, // Indique que ce sous-menu est restreint (accessible uniquement par les administrateurs)
+    icon: "fas fa-list",
+    type: DnDMenuConfigV2,
+    restricted: true,
   });
 
   // Elargir ou non la fenêtre item
@@ -36,7 +36,7 @@ Hooks.once("init", () => {
     name: game.i18n.localize("DND.SETTINGS.PROSEGAP.TITLE"),
     hint: game.i18n.localize("DND.SETTINGS.PROSEGAP.HINT"),
     scope: "world",
-    config: true, // Visible dans le menu des paramètres
+    config: true,
     type: Boolean,
     default: false,
     requiresReload: true,
@@ -63,46 +63,11 @@ Hooks.once("init", () => {
       hint: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.HINT`),
       scope: "world",
       config: false,
-      type: Boolean, // Type de données du paramètre
+      type: Boolean,
       default: true,
     });
   });
 });
-
-/* // Définition de la classe DnDMenuConfig qui hérite de FormApplication
-class DnDMenuConfigV2 extends HandlebarsApplicationMixin(ApplicationV2) {
-  // Méthode statique pour obtenir les options par défaut du formulaire
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      title: game.i18n.localize('DND.SETTINGS.MENU.TITLE'),
-      id: 'dnd-menu-config',
-      template: 'modules/dnd-easy-reference/templates/menu-config.hbs',
-      width: 480 
-    });
-  }
-
-  // Méthode pour obtenir les données à afficher dans le formulaire
-  getData() {
-    return {
-      categories: MENU_CATEGORIES.map(category => ({
-        id: category, 
-        name: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.TITLE`), 
-        hint: game.i18n.localize(`DND.MENU.${category.toUpperCase()}.HINT`), 
-        checked: game.settings.get('dnd-easy-reference', `show${category}`) 
-      }))
-    };
-  }
-
-  // Méthode pour mettre à jour les paramètres lors de la soumission du formulaire
-  async _updateObject(event, formData) {
-    const updates = Object.entries(formData).map(([key, value]) => {
-      const settingKey = key.startsWith('show') ? key : `show${key}`; // Clé du paramètre
-      return game.settings.set('dnd-easy-reference', settingKey, value); // Mise à jour du paramètre
-    });
-
-    await Promise.all(updates); // Attendre que toutes les mises à jour soient terminées
-  }
-} */
 
 class DnDMenuConfigV2 extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {

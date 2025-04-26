@@ -1,10 +1,5 @@
-{{!-- File: templates/condition/config.hbs --}}
 <fieldset>
-  {{!-- Menu déroulant pour sélectionner la condition --}}
-  {{!-- 'localize=false' car les labels sont déjà localisés dans _prepareContext --}}
-  {{ formGroup condition.field name="condition" value=condition.value choices=condition.choices localize=false label=condition.label blank=condition.placeholder }}
-
-  {{!-- Case à cocher pour l'option 'apply' --}}
-  {{!-- 'localize=true' car le label vient directement de la clé i18n --}}
+  {{ formGroup condition.field name="condition" value=condition.value choices=condition.choices localize=false
+  label=condition.label blank=condition.placeholder }}
   {{ formGroup apply.field name="apply" value=apply.value localize=true label=apply.label }}
 </fieldset>

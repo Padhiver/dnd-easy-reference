@@ -3,8 +3,8 @@ const { BooleanField, SchemaField, StringField } = foundry.data.fields;
 
 /**
  * @typedef {object} AttackConfig
- * @property {string} formula     The attack formula.
- * @property {boolean} extended   Whether to show extended information.
+ * @property {string} formula     La formule d'attaque.
+ * @property {boolean} extended   Indique si les informations étendues doivent être affichées.
  */
 
 export default class AttackFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
@@ -42,7 +42,7 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
-   * A data model to hold the data and perform runtime validation.
+   * Modèle de données pour les données du dialogue.
    * @type {AttackFormulaModel}
    */
   #model = new AttackFormulaModel();
@@ -50,7 +50,7 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
-   * The configuration to inject.
+   * Configuration résultante.
    * @type {object|null}
    */
   #config = null;
@@ -61,20 +61,15 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
   /* -------------------------------------------------- */
 
   /**
-   * The text to inject.
+   * Texte à injecter.
    * @type {string|null}
    */
   get #text() {
-    // Récupérer la formule
     const formula = this.#model.formula?.trim();
-
-    // Construire les options
     const extended = this.#model.extended ? "extended" : null;
 
-    // Si ni formule ni option, ne rien retourner
     if (!formula && !extended) return null;
 
-    // Construire la commande
     let command = "";
     if (formula) command += formula;
     if (extended) {
@@ -113,16 +108,16 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
   }
 
   /* -------------------------------------------------- */
-  /*   Event handlers                                   */
+  /* Gestionnaires d'événements                     */
   /* -------------------------------------------------- */
 
   /**
-   * Handle form submission.
+   * Gère la soumission du formulaire.
    * @this {AttackFormulaDialog}
-   * @param {SubmitEvent} event             The submit event.
-   * @param {HTMLFormElement} form          The form element.
-   * @param {FormDataExtended} formData     The form data.
-   * @param {object} submitOptions          Submit options.
+   * @param {SubmitEvent} event             L'événement.
+   * @param {HTMLFormElement} form          Le formulaire.
+   * @param {FormDataExtended} formData     Les données.
+   * @param {object} submitOptions          Les options.
    */
   static handleFormSubmit(event, form, formData, submitOptions) {
     switch (event.type) {
@@ -136,14 +131,10 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
     }
   }
 
-  /* -------------------------------------------------- */
-  /*   Factory methods                                  */
-  /* -------------------------------------------------- */
-
   /**
-   * Render an asynchronous instance of this application.
-   * @param {object} [options]            Rendering options.
-   * @returns {Promise<string|null>}      The text to inject, or `null` if the application was closed.
+   * Crée une instance de cette application.
+   * @param {object} [options]            Options.
+   * @returns {Promise<string|null>}      Le texte, ou null.
    */
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
@@ -157,7 +148,7 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
 /* -------------------------------------------------- */
 
 /**
- * Utility data model for holding onto the data across re-renders.
+ * Modèle de données utilitaire.
  */
 class AttackFormulaModel extends foundry.abstract.DataModel {
   /** @inheritdoc */
