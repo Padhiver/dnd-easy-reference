@@ -1,10 +1,12 @@
 {
   "DND": {
     "DIALOG": {
+      "APPLY": "Zastosuj",
       "ATTRIBUTES": "Atrybuty",
       "AVERAGE": "Średnia",
       "CANCEL": "Anuluj",
       "COMBINATION": "Połączenie",
+      "CONCENTRATION": "Koncentracja",
       "CONFIRM": "Zatwierdź",
       "DAMAGE_ADD": "Dodaj sekcję obrażeń",
       "DAMAGE_PARTS": "Sekcja obrażeń",
@@ -29,7 +31,7 @@
     },
     "MENU": {
       "ABILITIES": {
-        "TITLE": "Zdolności"
+        "TITLE": "Cechy"
       },
       "AREATARGETTYPES": {
         "TITLE": "Rodzaje celów obszarowych"
@@ -53,7 +55,7 @@
         "TITLE": "Typy obrażeń"
       },
       "DESCRIPTION": "Wybierz menu, które ma być wyświetlane w ProseMirror.",
-      "DIALOG": "Konfiguracja wzbogacania",
+      "DIALOG": "Konfiguracja wpisu",
       "HEAL": {
         "TITLE": "Formuła uzdrawiania"
       },
@@ -61,7 +63,7 @@
         "TITLE": "Właściwości zaklęcia"
       },
       "LOOKUP": {
-        "TITLE": "Sprawdzenie"
+        "TITLE": "Lookup"
       },
       "RULES": {
         "TITLE": "Zasady"
