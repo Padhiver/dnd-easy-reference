@@ -1,66 +1,115 @@
 {
   "DND": {
+    "DIALOG": {
+      "APPLY": "Применить",
+      "ATTRIBUTES": "Аттрибуты",
+      "AVERAGE": "Среднее значение",
+      "CANCEL": "Отмена",
+      "COMBINATION": "Комбинация",
+      "CONCENTRATION": "Концентрация",
+      "CONFIRM": "Подтвердить",
+      "DAMAGE_ADD": "Разделить урон",
+      "DAMAGE_PARTS": "Разделение урона",
+      "DAMAGE_TYPES": "Типы урона",
+      "DC": "СЛ",
+      "DELETE": "Удалить",
+      "EXTENDED": "Расширенное описание",
+      "FORMULA": "Формула",
+      "NAME_FORMAT": {
+        "CAPITALIZE": "Капитализация",
+        "LABEL": "Форматирование названия",
+        "LOWERCASE": "нижний регистр",
+        "UPPERCASE": "ВЕРХНИЙ РЕГИСТР"
+      },
+      "NAME_OPTIONS": "Настройки имени",
+      "PASSIVE": "Пассивное",
+      "PLACEHOLDER": "",
+      "RULES_SEARCH": "Правило",
+      "SELECT_ATTRIBUTE": "Выберите атрибут",
+      "TYPES": "Типы",
+      "USE_NAME": "Имя актёра"
+    },
     "MENU": {
-      "TITLE": "D&D",
-      "TITLE_DESCRIPTION": "D&D - Easy Reference",
-      "DESCRIPTION": "Выберите меню, которое будет отображаться в ProseMirror.",
-      "CONDITIONTYPES": {
-        "TITLE": "Состояния"
-      },
-      "SAVES": {
-        "TITLE": "Испытания"
-      },
-      "CHECKS": {
-        "TITLE": "Проверки"
-      },
-      "DAMAGE": {
-        "TITLE": "Урон"
-      },
-      "WEAPONMASTERIES": {
-        "TITLE": "Мастерство оружия"
+      "ABILITIES": {
+        "TITLE": "Характеристика"
       },
       "AREATARGETTYPES": {
-        "TITLE": "Тип областей действия"
+        "TITLE": "Тип области действия"
+      },
+      "ATTACK": {
+        "TITLE": "Формула атаки"
+      },
+      "CHECKS": {
+        "TITLE": "Проверка"
+      },
+      "CONDITIONTYPES": {
+        "TITLE": "Состояние"
+      },
+      "CREATURETYPES": {
+        "TITLE": "Тип существа"
+      },
+      "DAMAGE": {
+        "TITLE": "Формула урона"
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Тип урона"
+      },
+      "DESCRIPTION": "Выберите пункты меню, которые будут отображаться в редакторе.",
+      "DIALOG": "Настрока энричера",
+      "HEAL": {
+        "TITLE": "Формула лечения"
       },
       "ITEMPROPERTIES": {
         "TITLE": "Параметры заклинаний"
       },
-      "ABILITIES": {
-        "TITLE": "Характеристики"
+      "LOOKUP": {
+        "TITLE": "lookup"
+      },
+      "RULES": {
+        "TITLE": "Правило"
+      },
+      "SAVES": {
+        "TITLE": "Испытание"
       },
       "SKILLS": {
-        "TITLE": "Навыки"
-      },
-      "DAMAGETYPES": {
-        "TITLE": "Типы урона"
-      },
-      "CREATURETYPES": {
-        "TITLE": "Типы существ"
+        "TITLE": "Навык"
       },
       "STYLE": {
-        "TITLE": "Стили",
-        "ADVICE": "Совет",
-        "ADVICE_TITLE": "Совет",
+        "ADVICE": "Стиль",
         "ADVICE_CONTENT": "Это блок с советом.",
-        "QUEST": "Квест",
-        "QUEST_TITLE": "Квест",
-        "QUEST_CONTENT": "Это блок с квестом.",
-        "TREASURE": "Сокровища",
-        "TREASURE_TITLE": "Сокровища",
-        "TREASURE_CONTENT": "Это блок сокровищ.",
+        "ADVICE_TITLE": "Совет",
         "NARRATIVE": "Нарративный блок",
-        "NOTABLE": "Заметка"
+        "NOTABLE": "Заметки",
+        "QUEST": "Квест",
+        "QUEST_CONTENT": "Это блок с квестом.",
+        "QUEST_TITLE": "Квест",
+        "TITLE": "Стили",
+        "TREASURE": "Сокровища",
+        "TREASURE_CONTENT": "Это блок с сокровищами",
+        "TREASURE_TITLE": "Сокровища"
+      },
+      "TITLE": "D&D - Easy Reference",
+      "TOOLS": {
+        "TITLE": "Инструменты"
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Свойство мастерства"
       }
     },
     "SETTINGS": {
       "FORMAT": {
-        "SHORT": "Краткий формат",
-        "LONG": "Полный формат"
+        "LONG": "Полный формат",
+        "SHORT": "Короткий формат",
+        "TITLE": "Формат"
       },
       "MENU": {
-        "TITLE": "Настройка меню",
-        "LABEL": "Настроить элементы меню",
-        "HINT": "Настройка отображаемых элементов в меню D&D"
+        "HINT": "Настройте элементы, которые будут отображаться в меню",
+        "LABEL": "Настройка элементов меню",
+        "TITLE": "Настройка меню"
+      },
+      "PROSEGAP": {
+        "HINT": "Уменьшает расстояние между строками, чтобы редактора не разбивался на две строки после добавления пункта меню модуля",
+        "TITLE": "Уменьшение отступов"
       }
     }
   }
