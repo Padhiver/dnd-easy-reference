@@ -7,7 +7,9 @@ const { BooleanField, SchemaField, StringField } = foundry.data.fields;
  * @property {boolean} extended   Indique si les informations étendues doivent être affichées.
  */
 
-export default class AttackFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class AttackFormulaDialog extends HandlebarsApplicationMixin(
+  ApplicationV2
+) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["attack-formula-dialog"],
@@ -23,8 +25,8 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
     },
     window: {
       title: "DND.MENU.DIALOG",
-      contentClasses: ["standard-form"]
-    }
+      contentClasses: ["standard-form"],
+    },
   };
 
   /* -------------------------------------------------- */
@@ -36,8 +38,8 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
-    }
-  }
+    },
+  };
 
   /* -------------------------------------------------- */
 
@@ -98,11 +100,13 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
       value: this.#model.extended,
     };
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+    context.buttons = [
+      {
+        type: "submit",
+        icon: "fa-solid fa-check",
+        label: "Confirm",
+      },
+    ];
 
     return context;
   }
@@ -139,7 +143,20 @@ export default class AttackFormulaDialog extends HandlebarsApplicationMixin(Appl
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
+    //Overrides default data if initial data is found
+    if (options.initialData) {
+      const dataToApply = {
+        formula: options.initialData.formula,
+        extended: options.initialData.extended,
+      };
+      if (dataToApply.formula === undefined) delete dataToApply.formula;
+      if (dataToApply.extended === undefined) delete dataToApply.extended;
+
+      application.#model.updateSource(dataToApply);
+    }
+    application.addEventListener("close", () => resolve(application.config), {
+      once: true,
+    });
     application.render({ force: true });
     return promise;
   }
@@ -159,7 +176,7 @@ class AttackFormulaModel extends foundry.abstract.DataModel {
       }),
       extended: new BooleanField({
         label: "DND.DIALOG.EXTENDED",
-      })
+      }),
     };
   }
 }

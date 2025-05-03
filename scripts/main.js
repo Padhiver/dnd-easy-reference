@@ -8,96 +8,103 @@ import HealFormulaDialog from "./applications/heal-formula.js";
 import LookupFormulaDialog from "./applications/lookup-formula.js";
 import RuleFormulaDialog from "./applications/rule-formula.js";
 import ConditionFormulaDialog from "./applications/condition-formula.js";
+import { startPatternScan } from "./detection/pattern-scanner.js";
 
 // Configuration des menus - structure harmonisée
 const MENU_CONFIGS = {
   saves: {
-    source: 'abilities',
+    source: "abilities",
     reference: false,
-    dialogHandler: 'save'
+    dialogHandler: "save",
   },
   checks: {
     source: {
-      abilities: 'abilities',
-      skills: 'skills'
+      abilities: "abilities",
+      skills: "skills",
     },
     reference: false,
-    dialogHandler: 'check'
+    dialogHandler: "check",
   },
   damage: {
-    source: 'damageTypes',
+    source: "damageTypes",
     reference: false,
-    dialogHandler: 'damage'
+    dialogHandler: "damage",
   },
   attack: {
     source: null,
     reference: false,
-    dialogHandler: 'attack'
+    dialogHandler: "attack",
   },
   heal: {
-    source: 'healingTypes',
+    source: "healingTypes",
     reference: false,
-    dialogHandler: 'heal'
+    dialogHandler: "heal",
   },
   conditionTypes: {
-    source: 'conditionTypes',
+    source: "conditionTypes",
     reference: true,
-    dialogHandler: 'condition'
+    dialogHandler: "condition",
   },
   lookup: {
     source: null,
     reference: false,
-    dialogHandler: 'lookup'
+    dialogHandler: "lookup",
   },
   rules: {
-    source: 'rules',
+    source: "rules",
     reference: true,
-    dialogHandler: 'rule'
+    dialogHandler: "rule",
   },
   weaponMasteries: {
-    source: 'weaponMasteries',
+    source: "weaponMasteries",
     reference: true,
-    dialogHandler: null
+    dialogHandler: null,
   },
   areaTargetTypes: {
-    source: 'areaTargetTypes',
+    source: "areaTargetTypes",
     reference: true,
-    dialogHandler: null
+    dialogHandler: null,
   },
   itemProperties: {
-    source: 'itemProperties',
+    source: "itemProperties",
     reference: true,
-    dialogHandler: null
+    dialogHandler: null,
   },
   abilities: {
-    source: 'abilities',
+    source: "abilities",
     reference: true,
-    dialogHandler: null
+    dialogHandler: null,
   },
   skills: {
-    source: 'skills',
+    source: "skills",
     reference: true,
-    dialogHandler: null
+    dialogHandler: null,
   },
   damageTypes: {
-    source: 'damageTypes',
+    source: "damageTypes",
     reference: true,
-    dialogHandler: null
+    dialogHandler: null,
   },
   creatureTypes: {
-    source: 'creatureTypes',
+    source: "creatureTypes",
     reference: true,
-    dialogHandler: null
-  }
+    dialogHandler: null,
+  },
 };
 
 // Configuration des blocs de style
 const STYLE_BLOCKS = {
-  advice: { class: 'fvtt advice', icon: 'icons/vtt-512.png' },
-  quest: { class: 'fvtt quest', icon: 'icons/magic/symbols/question-stone-yellow.webp' },
-  treasure: { class: 'fvtt quest', icon: 'icons/containers/chest/chest-wooden-tied-white.webp' },
-  narrative: { class: 'fvtt narrative', type: 'div' },
-  notable: { class: 'notable', type: 'aside' }
+  advice: { class: "fvtt advice", icon: "icons/vtt-512.png" },
+  quest: {
+    class: "fvtt quest",
+    icon: "icons/magic/symbols/question-stone-yellow.webp",
+  },
+  treasure: {
+    class: "fvtt quest",
+    icon: "icons/containers/chest/chest-wooden-tied-white.webp",
+  },
+  narrative: { class: "fvtt narrative", type: "div" },
+  notable: { class: "notable", type: "aside" },
 };
 
 //region Hook
@@ -114,13 +121,16 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
   // Fonctions d'insertion pour les références et dialogues
   const insertions = {
     reference: (item, category) => {
-      const reference = category === 'weaponMasteries' ? `weaponMastery=${item}` : item;
+      const reference =
+        category === "weaponMasteries" ? `weaponMastery=${item}` : item;
       insertText(`&Reference[${reference}]`);
     },
 
     // Dialogue pour les états
     condition: async (conditionId) => {
-      const options = conditionId ? { initialData: { condition: conditionId } } : {};
+      const options = conditionId
+        ? { initialData: { condition: conditionId } }
+        : {};
       const text = await ConditionFormulaDialog.create(options);
       if (text) insertText(text);
     },
@@ -171,62 +181,66 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
     },
   };
 
-
   // Fonction pour créer les entrées de menu en fonction de la catégorie et de la configuration
   const createMenuEntries = (category, config) => {
     // Cas spécial pour les jets de sauvegarde
-    if (category === 'saves') {
-      return Object.keys(CONFIG.DND5E[config.source] || {})
-        .map(item => ({
-          title: CONFIG.DND5E[config.source][item]?.label || item,
-          action: item,
-          cmd: () => insertions.save(item)
-        }));
+    if (category === "saves") {
+      return Object.keys(CONFIG.DND5E[config.source] || {}).map((item) => ({
+        title: CONFIG.DND5E[config.source][item]?.label || item,
+        action: item,
+        cmd: () => insertions.save(item),
+      }));
     }
 
     // Cas spécial pour les tests de caractéristiques et compétences
-    if (category === 'checks') {
+    if (category === "checks") {
       return [
-        ...Object.keys(CONFIG.DND5E[config.source.abilities] || {}).map(ability => ({
-          title: CONFIG.DND5E[config.source.abilities][ability]?.label || ability,
-          action: ability,
-          cmd: () => insertions.check(ability)
-        })),
-        ...Object.keys(CONFIG.DND5E[config.source.skills] || {}).map(skill => ({
-          title: CONFIG.DND5E[config.source.skills][skill]?.label || skill,
-          action: skill,
-          cmd: () => insertions.check(skill)
-        }))
+        ...Object.keys(CONFIG.DND5E[config.source.abilities] || {}).map(
+          (ability) => ({
+            title:
+              CONFIG.DND5E[config.source.abilities][ability]?.label || ability,
+            action: ability,
+            cmd: () => insertions.check(ability),
+          })
+        ),
+        ...Object.keys(CONFIG.DND5E[config.source.skills] || {}).map(
+          (skill) => ({
+            title: CONFIG.DND5E[config.source.skills][skill]?.label || skill,
+            action: skill,
+            cmd: () => insertions.check(skill),
+          })
+        ),
       ];
     }
 
     // Cas pour les dégâts
-    if (category === 'damage') {
-      return Object.keys(CONFIG.DND5E[config.source] || {})
-        .map(item => ({
-          title: CONFIG.DND5E[config.source][item]?.label || item,
-          action: item,
-          cmd: () => insertions.damage(item)
-        }));
+    if (category === "damage") {
+      return Object.keys(CONFIG.DND5E[config.source] || {}).map((item) => ({
+        title: CONFIG.DND5E[config.source][item]?.label || item,
+        action: item,
+        cmd: () => insertions.damage(item),
+      }));
     }
 
     // Cas pour les soins
-    if (category === 'heal') {
-      return Object.keys(CONFIG.DND5E[config.source] || {})
-        .map(item => ({
-          title: CONFIG.DND5E[config.source][item]?.label || item,
-          action: item,
-          cmd: () => insertions.heal(item)
-        }));
+    if (category === "heal") {
+      return Object.keys(CONFIG.DND5E[config.source] || {}).map((item) => ({
+        title: CONFIG.DND5E[config.source][item]?.label || item,
+        action: item,
+        cmd: () => insertions.heal(item),
+      }));
     }
 
     // Cas standard pour les références
     return Object.keys(CONFIG.DND5E[config.source] || {})
-      .filter(item => !config.reference || CONFIG.DND5E[config.source][item]?.reference)
-      .map(item => ({
+      .filter(
+        (item) =>
+          !config.reference || CONFIG.DND5E[config.source][item]?.reference
+      )
+      .map((item) => ({
         title: CONFIG.DND5E[config.source][item]?.label || item,
         action: item,
-        cmd: () => insertions.reference(item, category)
+        cmd: () => insertions.reference(item, category),
       }));
   };
 
@@ -239,11 +253,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         action: type,
         node: proseMirrorMenu.schema.nodes[config.type],
         attrs: { class: config.class },
-        cmd: () => proseMirrorMenu._toggleBlock(
-          proseMirrorMenu.schema.nodes[config.type],
-          foundry.prosemirror.commands.wrapIn,
-          { attrs: { _preserve: { class: config.class } } }
-        )
+        cmd: () =>
+          proseMirrorMenu._toggleBlock(
+            proseMirrorMenu.schema.nodes[config.type],
+            foundry.prosemirror.commands.wrapIn,
+            { attrs: { _preserve: { class: config.class } } }
+          ),
       };
     }
 
@@ -256,46 +271,139 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         const divNode = schema.nodes.div.create(
           { _preserve: { class: config.class } },
           [
-            schema.nodes.figure.create(
-              { _preserve: { class: 'icon' } },
-              [schema.nodes.image.create({ src: config.icon, _preserve: { class: 'round' } })]
-            ),
+            schema.nodes.figure.create({ _preserve: { class: "icon" } }, [
+              schema.nodes.image.create({
+                src: config.icon,
+                _preserve: { class: "round" },
+              }),
+            ]),
             schema.nodes.article.create(null, [
               schema.nodes.heading.create(
                 { level: 4 },
-                schema.text(game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_TITLE`))
+                schema.text(
+                  game.i18n.localize(
+                    `DND.MENU.STYLE.${type.toUpperCase()}_TITLE`
+                  )
+                )
               ),
               schema.nodes.paragraph.create(
                 null,
-                schema.text(game.i18n.localize(`DND.MENU.STYLE.${type.toUpperCase()}_CONTENT`))
-              )
-            ])
+                schema.text(
+                  game.i18n.localize(
+                    `DND.MENU.STYLE.${type.toUpperCase()}_CONTENT`
+                  )
+                )
+              ),
+            ]),
           ]
         );
         proseMirrorMenu.view.dispatch(
           proseMirrorMenu.view.state.tr.replaceSelectionWith(divNode)
         );
         return true;
-      }
+      },
     };
   };
 
   // Filtre les menus activés en fonction des paramètres utilisateur
-  const enabledMenus = Object.entries(MENU_CONFIGS)
-    .filter(([key]) => game.settings.get('dnd-easy-reference', `show${key}`));
+  const enabledMenus = Object.entries(MENU_CONFIGS).filter(([key]) =>
+    game.settings.get("dnd-easy-reference", `show${key}`)
+  );
 
   //region Menu final
   dropdowns.dndeasyreference = {
-    action: 'reference',
+    action: "reference",
     title: '<i class="fa-solid fa-books"></i>', // Icône FontAwesome
     entries: [
+      // The Detect Patterns Menu and its' entries
+      {
+        title: game.i18n.localize("DND.DETECT.TITLE") || "Detect Patterns",
+        action: "detect-patterns",
+        children: [
+          {
+            title: game.i18n.localize("DND.MENU.HEAL.TITLE"),
+            action: "detect-heal",
+            cmd: () => startPatternScan(proseMirrorMenu, "heal", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.SAVES.TITLE"),
+            action: "detect-save",
+            cmd: () => startPatternScan(proseMirrorMenu, "save", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.CHECKS.TITLE"),
+            action: "detect-check",
+            cmd: () => startPatternScan(proseMirrorMenu, "check", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.DAMAGE.TITLE"),
+            action: "detect-damage",
+            cmd: () => startPatternScan(proseMirrorMenu, "damage", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.ATTACK.TITLE"),
+            action: "detect-attack",
+            cmd: () => startPatternScan(proseMirrorMenu, "attack", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.CONDITIONTYPES.TITLE"),
+            action: "detect-condition",
+            cmd: () =>
+              startPatternScan(proseMirrorMenu, "condition", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.RULES.TITLE"),
+            action: "detect-rule",
+            cmd: () => startPatternScan(proseMirrorMenu, "rule", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.WEAPONMASTERIES.TITLE"),
+            action: "detect-weaponMastery",
+            cmd: () =>
+              startPatternScan(proseMirrorMenu, "weaponMastery", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.AREATARGETTYPES.TITLE"),
+            action: "detect-areaTargetType",
+            cmd: () =>
+              startPatternScan(proseMirrorMenu, "areaTargetType", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.ITEMPROPERTIES.TITLE"),
+            action: "detect-spellProperty",
+            cmd: () =>
+              startPatternScan(proseMirrorMenu, "spellProperty", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.ABILITIES.TITLE"),
+            action: "detect-ability",
+            cmd: () => startPatternScan(proseMirrorMenu, "ability", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.SKILLS.TITLE"),
+            action: "detect-skill",
+            cmd: () => startPatternScan(proseMirrorMenu, "skill", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.DAMAGETYPES.TITLE"),
+            action: "detect-damageType",
+            cmd: () =>
+              startPatternScan(proseMirrorMenu, "damageType", insertText),
+          },
+          {
+            title: game.i18n.localize("DND.MENU.CREATURETYPES.TITLE"),
+            action: "detect-creatureType",
+            cmd: () => startPatternScan(proseMirrorMenu, "creatureType", insertText),
+          }
+        ],
+      },
       // Entrées de menu pour les dialogues
       ...enabledMenus
         .filter(([_, config]) => config.dialogHandler)
         .map(([key, config]) => ({
           title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
           action: `${key}-dialog`,
-          cmd: () => insertions[config.dialogHandler]()
+          cmd: () => insertions[config.dialogHandler](),
         })),
 
       // Entrées de menu pour les catégories avec sous-menus
@@ -304,17 +412,17 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
         .map(([key, config]) => ({
           title: game.i18n.localize(`DND.MENU.${key.toUpperCase()}.TITLE`),
           action: key,
-          children: createMenuEntries(key, config)
+          children: createMenuEntries(key, config),
         })),
 
       // Menu des styles
       {
-        title: game.i18n.localize('DND.MENU.STYLE.TITLE'),
-        action: 'styles',
+        title: game.i18n.localize("DND.MENU.STYLE.TITLE"),
+        action: "styles",
         children: Object.entries(STYLE_BLOCKS).map(([type, config]) =>
           createStyleEntry(type, config)
-        )
-      }
-    ]
+        ),
+      },
+    ],
   };
 });

@@ -1,5 +1,6 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
-const { ArrayField, BooleanField, SchemaField, SetField, StringField } = foundry.data.fields;
+const { ArrayField, BooleanField, SchemaField, SetField, StringField } =
+  foundry.data.fields;
 
 /**
  * @typedef {object} DamageConfig
@@ -7,7 +8,9 @@ const { ArrayField, BooleanField, SchemaField, SetField, StringField } = foundry
  * @property {string[]} types     Les types de dégâts.
  */
 
-export default class DamageFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class DamageFormulaDialog extends HandlebarsApplicationMixin(
+  ApplicationV2
+) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["damage-formula-dialog"],
@@ -23,7 +26,7 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
     },
     window: {
       title: "DND.MENU.DIALOG",
-      contentClasses: ["standard-form"]
+      contentClasses: ["standard-form"],
     },
     actions: {
       addPart: DamageFormulaDialog.#addPart,
@@ -40,12 +43,12 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
     },
     formulas: {
       template: "modules/dnd-easy-reference/templates/damage/formulas.hbs",
-      scrollable: [""]
+      scrollable: [""],
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
-    }
-  }
+    },
+  };
 
   /* -------------------------------------------------- */
 
@@ -105,7 +108,7 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   async _prepareContext(options) {
     const context = {};
 
-    const parts = context.parts = [];
+    const parts = (context.parts = []);
     for (const [i, part] of this.#model.parts.entries()) {
       parts.push({
         idx: i,
@@ -121,7 +124,7 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
           value: part.types,
           name: `parts.${i}.types`,
         },
-      })
+      });
     }
 
     context.average = {
@@ -134,11 +137,13 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
       value: this.#model.extended,
     };
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+    context.buttons = [
+      {
+        type: "submit",
+        icon: "fa-solid fa-check",
+        label: "Confirm",
+      },
+    ];
 
     return context;
   }
@@ -211,7 +216,39 @@ export default class DamageFormulaDialog extends HandlebarsApplicationMixin(Appl
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
+    //Overrides default data if initial data is found
+    if (options.initialData) {
+      const dataToApply = foundry.utils.deepClone(options.initialData);
+      if (dataToApply.parts && Array.isArray(dataToApply.parts)) {
+        dataToApply.parts.forEach((part) => {
+          if (part.types && !(part.types instanceof Set)) {
+            try {
+              part.types = new Set(
+                Array.isArray(part.types) ? part.types : [part.types]
+              );
+            } catch (e) {
+              console.warn(
+                "DamageFormulaDialog: Could not convert initial types to Set, defaulting to empty.",
+                e
+              );
+              part.types = new Set();
+            }
+          } else if (!part.types) {
+            part.types = new Set();
+          }
+        });
+      } else {
+        delete dataToApply.parts;
+      }
+      if (dataToApply.average === undefined) delete dataToApply.average;
+      if (dataToApply.extended === undefined) delete dataToApply.extended;
+
+      application.#model.updateSource(dataToApply);
+    }
+
+    application.addEventListener("close", () => resolve(application.config), {
+      once: true,
+    });
     application.render({ force: true });
     return promise;
   }
@@ -232,13 +269,17 @@ class DamageFormulaModel extends foundry.abstract.DataModel {
       extended: new BooleanField({
         label: "DND.DIALOG.EXTENDED",
       }),
-      parts: new ArrayField(new SchemaField({
-        formula: new dnd5e.dataModels.fields.FormulaField({ required: true }),
-        types: new SetField(new StringField({
-          required: true,
-          choices: CONFIG.DND5E.damageTypes,
-        })),
-      }))
+      parts: new ArrayField(
+        new SchemaField({
+          formula: new dnd5e.dataModels.fields.FormulaField({ required: true }),
+          types: new SetField(
+            new StringField({
+              required: true,
+              choices: CONFIG.DND5E.damageTypes,
+            })
+          ),
+        })
+      ),
     };
   }
 }

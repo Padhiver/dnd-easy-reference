@@ -1,6 +1,8 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
-export default class CheckFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class CheckFormulaDialog extends HandlebarsApplicationMixin(
+  ApplicationV2
+) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["check-formula-dialog"],
@@ -16,7 +18,7 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
     },
     window: {
       title: "DND.MENU.DIALOG",
-      contentClasses: ["standard-form"]
+      contentClasses: ["standard-form"],
     },
     actions: {
       addCheck: CheckFormulaDialog.#addCheck,
@@ -30,12 +32,12 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
     },
     checks: {
       template: "modules/dnd-easy-reference/templates/check/formulas.hbs",
-      scrollable: [""]
+      scrollable: [""],
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
-    }
-  }
+    },
+  };
 
   /**
    * Modèle de données.
@@ -91,7 +93,7 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
   async _prepareContext(options) {
     const context = {};
 
-    const checks = context.checks = [];
+    const checks = (context.checks = []);
     for (const [i, check] of this.#model.checks.entries()) {
       checks.push({
         idx: i,
@@ -100,7 +102,7 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
           field: this.#model.schema.getField("checks.element.type"),
           value: check.type,
           name: `checks.${i}.type`,
-        }
+        },
       });
     }
 
@@ -127,15 +129,17 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
       acc[k] = dnd5e.documents.Trait.keyLabel(`tool:${k}`);
       return acc;
     }, {});
-
+    console.log("tools", tools);
     this.toolsMap = tools;
     context.tools = tools;
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+    context.buttons = [
+      {
+        type: "submit",
+        icon: "fa-solid fa-check",
+        label: "Confirm",
+      },
+    ];
 
     return context;
   }
@@ -201,7 +205,25 @@ export default class CheckFormulaDialog extends HandlebarsApplicationMixin(Appli
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
+    //Overrides default data if initial data is found
+    if (options.initialData) {
+      const dataToApply = { ...options.initialData };
+      if (dataToApply.dc === undefined) {
+        delete dataToApply.dc;
+        if (
+          !Array.isArray(dataToApply.checks) ||
+          dataToApply.checks.length === 0
+        ) {
+          delete dataToApply.checks; 
+        }
+
+        application.#model.updateSource(dataToApply);
+      }
+    }
+
+    application.addEventListener("close", () => resolve(application.config), {
+      once: true,
+    });
     application.render({ force: true });
     return promise;
   }
@@ -225,22 +247,25 @@ class CheckFormulaModel extends foundry.abstract.DataModel {
         required: true,
         initial: "short",
         choices: {
-          "short": "DND.SETTINGS.FORMAT.SHORT",
-          "long": "DND.SETTINGS.FORMAT.LONG"
+          short: "DND.SETTINGS.FORMAT.SHORT",
+          long: "DND.SETTINGS.FORMAT.LONG",
         },
         label: "DND.SETTINGS.FORMAT.TITLE",
       }),
       passive: new foundry.data.fields.BooleanField({
         label: "DND.DIALOG.PASSIVE",
       }),
-      checks: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
-        type: new foundry.data.fields.StringField({ required: true }),
-      }), {
-        initial: () => {
-          const defaultType = Object.keys(CONFIG.DND5E.abilities)[0] || "";
-          return [{ type: defaultType }];
+      checks: new foundry.data.fields.ArrayField(
+        new foundry.data.fields.SchemaField({
+          type: new foundry.data.fields.StringField({ required: true }),
+        }),
+        {
+          initial: () => {
+            const defaultType = Object.keys(CONFIG.DND5E.abilities)[0] || "";
+            return [{ type: defaultType }];
+          },
         }
-      })
+      ),
     };
   }
 }

@@ -1,6 +1,8 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
-export default class SaveFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class SaveFormulaDialog extends HandlebarsApplicationMixin(
+  ApplicationV2
+) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["save-formula-dialog"],
@@ -16,7 +18,7 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
     },
     window: {
       title: "DND.MENU.DIALOG",
-      contentClasses: ["standard-form"]
+      contentClasses: ["standard-form"],
     },
     actions: {
       addSave: SaveFormulaDialog.#addSave,
@@ -30,12 +32,12 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
     },
     saves: {
       template: "modules/dnd-easy-reference/templates/save/formulas.hbs",
-      scrollable: [""]
+      scrollable: [""],
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
-    }
-  }
+    },
+  };
 
   /**
    * Modèle de données.
@@ -84,7 +86,7 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
   async _prepareContext(options) {
     const context = {};
 
-    const saves = context.saves = [];
+    const saves = (context.saves = []);
     for (const [i, save] of this.#model.saves.entries()) {
       saves.push({
         idx: i,
@@ -93,7 +95,7 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
           field: this.#model.schema.getField("saves.element.ability"),
           value: save.ability,
           name: `saves.${i}.ability`,
-        }
+        },
       });
     }
 
@@ -114,11 +116,13 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
 
     context.abilities = CONFIG.DND5E.abilities;
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+    context.buttons = [
+      {
+        type: "submit",
+        icon: "fa-solid fa-check",
+        label: "Confirm",
+      },
+    ];
 
     return context;
   }
@@ -185,7 +189,22 @@ export default class SaveFormulaDialog extends HandlebarsApplicationMixin(Applic
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
+    //Overrides default data if initial data is found
+    if (options.initialData) {
+      const dataToApply = { ...options.initialData };
+      if (
+        dataToApply.useConcentration &&
+        (!dataToApply.saves || dataToApply.saves.length === 0)
+      ) {
+        dataToApply.saves = [];
+      } else if (!dataToApply.saves && !dataToApply.useConcentration) {
+        delete dataToApply.saves;
+      }
+      application.#model.updateSource(dataToApply);
+    }
+    application.addEventListener("close", () => resolve(application.config), {
+      once: true,
+    });
     application.render({ force: true });
     return promise;
   }
@@ -209,8 +228,8 @@ class SaveFormulaModel extends foundry.abstract.DataModel {
         required: true,
         initial: "short",
         choices: {
-          "short": "DND.SETTINGS.FORMAT.SHORT",
-          "long": "DND.SETTINGS.FORMAT.LONG"
+          short: "DND.SETTINGS.FORMAT.SHORT",
+          long: "DND.SETTINGS.FORMAT.LONG",
         },
         label: "DND.SETTINGS.FORMAT.TITLE",
       }),
@@ -219,17 +238,20 @@ class SaveFormulaModel extends foundry.abstract.DataModel {
         initial: false,
         label: "DND.DIALOG.CONCENTRATION",
       }),
-      saves: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
-        ability: new foundry.data.fields.StringField({
-          required: true,
-          choices: () => CONFIG.DND5E.abilities
+      saves: new foundry.data.fields.ArrayField(
+        new foundry.data.fields.SchemaField({
+          ability: new foundry.data.fields.StringField({
+            required: true,
+            choices: () => CONFIG.DND5E.abilities,
+          }),
         }),
-      }), {
-        initial: () => {
-          const defaultAbility = Object.keys(CONFIG.DND5E.abilities)[0] || "";
-          return [{ ability: defaultAbility }];
+        {
+          initial: () => {
+            const defaultAbility = Object.keys(CONFIG.DND5E.abilities)[0] || "";
+            return [{ ability: defaultAbility }];
+          },
         }
-      })
+      ),
     };
   }
 }
