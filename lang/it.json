@@ -1,0 +1,116 @@
+{
+  "DND": {
+    "DIALOG": {
+      "APPLY": "Applica",
+      "ATTRIBUTES": "Attributi",
+      "AVERAGE": "Media",
+      "CANCEL": "Cancella",
+      "COMBINATION": "Combinazione",
+      "CONCENTRATION": "Concentrazione",
+      "CONFIRM": "Conferma",
+      "DAMAGE_ADD": "Aggiungi sezione danno",
+      "DAMAGE_PARTS": "Sezione danno",
+      "DAMAGE_TYPES": "Tipi danno",
+      "DC": "Difficoltà",
+      "DELETE": "Elimina",
+      "EXTENDED": "Esteso",
+      "FORMULA": "Formula",
+      "NAME_FORMAT": {
+        "CAPITALIZE": "Iniziale Maiuscola",
+        "LABEL": "Formato nome",
+        "LOWERCASE": "minuscolo",
+        "UPPERCASE": "MAIUSCOLO"
+      },
+      "NAME_OPTIONS": "Opzioni nome",
+      "PASSIVE": "Passivo",
+      "PLACEHOLDER": "",
+      "RULES_SEARCH": "Regola",
+      "SELECT_ATTRIBUTE": "Seleziona attributo",
+      "TYPES": "Tipi",
+      "USE_NAME": "Nome Personaggio"
+    },
+    "MENU": {
+      "ABILITIES": {
+        "TITLE": "Caratteristiche"
+      },
+      "AREATARGETTYPES": {
+        "TITLE": "Tipi Target Area"
+      },
+      "ATTACK": {
+        "TITLE": "Formula Attacco"
+      },
+      "CHECKS": {
+        "TITLE": "Prove"
+      },
+      "CONDITIONTYPES": {
+        "TITLE": "Condizioni"
+      },
+      "CREATURETYPES": {
+        "TITLE": "Tipi Creatura"
+      },
+      "DAMAGE": {
+        "TITLE": "Formula danno"
+      },
+      "DAMAGETYPES": {
+        "TITLE": "Tipi danno"
+      },
+      "DESCRIPTION": "Selezionare i menu da visualizzare in ProseMirror.",
+      "DIALOG": "Configura arricchitore",
+      "HEAL": {
+        "TITLE": "Formula Guarigione"
+      },
+      "ITEMPROPERTIES": {
+        "TITLE": "Proprietà incantesimo"
+      },
+      "LOOKUP": {
+        "TITLE": "Cerca"
+      },
+      "RULES": {
+        "TITLE": "Regole"
+      },
+      "SAVES": {
+        "TITLE": "Tiri Salvezza"
+      },
+      "SKILLS": {
+        "TITLE": "Abilità"
+      },
+      "STYLE": {
+        "ADVICE": "Consiglio",
+        "ADVICE_CONTENT": "Questo è un blocco di consigli.",
+        "ADVICE_TITLE": "Consiglio",
+        "NARRATIVE": "Narrativa",
+        "NOTABLE": "Notevole",
+        "QUEST": "Quest",
+        "QUEST_CONTENT": "Questo è un blocco quest.",
+        "QUEST_TITLE": "Quest",
+        "TITLE": "Stili",
+        "TREASURE": "Tesoro",
+        "TREASURE_CONTENT": "Questo è un blocco tesoro.",
+        "TREASURE_TITLE": "Tesoro"
+      },
+      "TITLE": "D&D - Easy Reference",
+      "TOOLS": {
+        "TITLE": "Utensili"
+      },
+      "WEAPONMASTERIES": {
+        "TITLE": "Maestrie Armi"
+      }
+    },
+    "SETTINGS": {
+      "FORMAT": {
+        "LONG": "Formato Lungo",
+        "SHORT": "Formato Corto",
+        "TITLE": "Formato"
+      },
+      "MENU": {
+        "HINT": "Configura quale oggetto appare nel menu D&D",
+        "LABEL": "Configura Menu Oggetti",
+        "TITLE": "Menu Configurazione"
+      },
+      "PROSEGAP": {
+        "HINT": "Riduce lo spazio per evitare che ProseMirror si divida in due righe quando si aggiunge un menu D&D.",
+        "TITLE": "Riduzione Spazio ProseMirror"
+      }
+    }
+  }
+}
