@@ -1,19 +1,13 @@
 # D&D - Easy Reference
-Adds a menu to ProseMirror containing references to the D&D system for quicker, easier additions.
+This is a fork of the original DnD - Easy Reference module, with the Pattern Detection feature added.
 
-https://github.com/user-attachments/assets/6a8b0f9f-9322-4aeb-917f-670c85a47d3b
+How it works:
 
-## About Request
-I'm open to requests if you think other references or other things would be useful in the menu, but I'm not a programmer, it's all just tinkering, so it'll depend on the difficulty!
+https://github.com/user-attachments/assets/d986f366-d0d0-497f-9fad-ace7fd6a8186
 
----
+A PR will be made eventually to the original module.
 
-## Supported languages
+
+## Supported languages of this new functionality
 - French
 - English
-- Italian
-- Polish
-- Russian
-- Simple Chinese - Need a update !
-- Português (Brasil) - Need a update !
-- Submit a PR to add your own!
