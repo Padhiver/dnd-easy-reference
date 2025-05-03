@@ -774,7 +774,7 @@ export const patternDefinitions = {
         "gi"
       ),
       //When DC is first:
-      // DC value 
+      // DC value
       dcGroup1: 1,
       // Ability name
       abilityGroup1: 2,
@@ -934,7 +934,7 @@ export const patternDefinitions = {
       concentrationGroup2: 9,
       concSaveKeywordGroup2: 10,
     },
-     // Matches "[DD XX] Ability (Skill/Tool) test/compétence", "[DD XX] Ability en/avec Tool test/compétence", "[DD XX] Skill test/compétence", "[DD XX] Tool test/compétence", or "passive Skill [de] XX [ou supérieur/plus]"
+    // Matches "[DD XX] Ability (Skill/Tool) test/compétence", "[DD XX] Ability en/avec Tool test/compétence", "[DD XX] Skill test/compétence", "[DD XX] Tool test/compétence", or "passive Skill [de] XX [ou supérieur/plus]"
     check: {
       pattern: new RegExp(
         String.raw`(?:(?:(?:(DD)\s+(\d+))\s+)?(?:(${frAbilityList})\s*(?:\(\s*(${frSkillList}|${frToolList})\s*\)| (?:en|avec)\s+(?:(?:un|une|des|ses)\s+)?(${frToolList}))?|(${frSkillList})|(${frToolList}))\s+(test|compétence)(?:\s+\(DD\s+(\d+)\))?)|(?:(passive)\s+(${frSkillList})\s+(?:de\s+)?(\d+)(?:\s+ou\s+(?:supérieur|plus))?)\b`,
@@ -953,18 +953,18 @@ export const patternDefinitions = {
       passiveSkill: 11,
       passiveDcValue: 12,
     },
-    // Matches "X (Formula) [type(s)] dégâts" OR "'Formula' [type(s)] dégâts"
+    // Matches "X (Formula) dégâts [type(s)]" OR "'Formula' dégâts [type(s)]"
     damage: {
       pattern: new RegExp(
-        String.raw`(?:(\d+)\s*\(\s*('?)(\d+(?:d\d+)?(?:\s*[+-]\s*\d+)*)\2\s*\)|('?)(\d+(?:d\d+)?(?:\s*[+-]\s*\d+)*)\4)\s+(?:(${frDamageTypeList}(?:\s+(?:ou|,)\s+${frDamageTypeList})*)?\s+)?(dégâts)\b`,
+        String.raw`(?:(\d+)\s*\(\s*('?)(\d+(?:d\d+)?(?:\s*[+-]\s*\d+)*)\2\s*\)|('?)(\d+(?:d\d+)?(?:\s*[+-]\s*\d+)*)\4)\s+(dégâts)(?:\s+((?:d'|de\s+)?${frDamageTypeList}(?:\s*(?:,|et)\s*(?:d'|de\s+)?${frDamageTypeList})*))?\b`,
         "gi"
       ),
       averageGroup: 1,
       formulaInParensGroup: 3,
       directFormulaQuoteGroup: 4,
       directFormulaGroup: 5,
-      damageTypesGroup: 6,
-      damageKeywordGroup: 7,
+      damageKeywordGroup: 6,
+      damageTypesGroup: 7,
     },
     // Matches "+X au toucher" or "-X pour toucher"
     attack: {
@@ -1007,7 +1007,7 @@ export const patternDefinitions = {
     },
     creatureType: {
       pattern: new RegExp(String.raw`\b(${frCreatureTypeList})\b`, "gi"),
-      typeNameGroup: 1, 
+      typeNameGroup: 1,
     },
   },
 };

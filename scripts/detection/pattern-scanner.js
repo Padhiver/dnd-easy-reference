@@ -19,6 +19,7 @@ let currentScanState = {
   langConfig: null, // Language-specific configuration (maps and patterns)
   currentSelectionRange: null, // {from, to} range of the last found match for potential replacement
   insertTextFunction: null, // Reference to the function used for direct text insertion
+  lang: null,
 };
 
 /**
@@ -97,6 +98,7 @@ export async function startPatternScan(
     langConfig: langConfig,
     currentSelectionRange: null,
     insertTextFunction: insertTextFunction,
+    lang: lang,
   };
 
   // Notifies user and start the first search iteration
@@ -116,7 +118,7 @@ async function findAndPromptNextMatch() {
   // Exit if scan was cancelled
   if (!currentScanState.active) return;
 
-  const { proseMirrorMenu, patternConfig, langConfig, lastIndex, type } =
+  const { proseMirrorMenu, patternConfig, langConfig, lastIndex, type, lang } =
     currentScanState;
 
   const view = proseMirrorMenu.view;
@@ -379,14 +381,41 @@ async function findAndPromptNextMatch() {
             ];
 
             if (damageTypesStr) {
-              const typeNames = damageTypesStr.split(/\s+(?:or|ou|,)\s+/i);
-              for (const name of typeNames) {
-                const key = currentDamageMap[name.toLowerCase().trim()];
+              let finalTypeNames = [];
+
+              // Language-specific processing
+              if (lang === "fr") {
+                let normalizedStr = damageTypesStr
+                  .replace(/\s+et\s+/gi, "|")
+                  .replace(/,\s*/g, "|");
+
+                const potentialNames = normalizedStr.split("|");
+
+                finalTypeNames = potentialNames
+                  .map((name) => {
+                    let trimmedName = name.trim();
+                    if (trimmedName.startsWith("de ")) {
+                      return trimmedName.substring(3).trim();
+                    } else if (trimmedName.startsWith("d'")) {
+                      return trimmedName.substring(2).trim();
+                    }
+                    return trimmedName;
+                  })
+                  .filter((name) => name);
+              } else {
+                finalTypeNames = damageTypesStr
+                  .split(/\s+(?:or|,)\s+/i)
+                  .map((n) => n.trim())
+                  .filter((n) => n); 
+              }
+
+              for (const name of finalTypeNames) {
+                const key = currentDamageMap[name.toLowerCase()];
                 if (key) {
                   initialData.parts[0].types.add(key);
                 } else {
                   console.warn(
-                    `[Scanner] Damage type "${name}" not found in map.`
+                    `Damage type "${name}" (processed from "${damageTypesStr}") not found in map for language "${lang}".`
                   );
                 }
               }
