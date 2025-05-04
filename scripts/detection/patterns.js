@@ -768,7 +768,7 @@ export const patternDefinitions = {
 			// "temporary" keyword
 			tempGroup: 6,
 		},
-		// Matches "[DC XX] Ability saving throw/save", "[DC XX] Concentration check/saving throw/save", "Ability saving throw/save (DC XX)", or "Concentration check/saving throw/save (DC XX)"
+		// Matches "[DC XX] Ability saving throw/save", "[DC XX] Concentration check/saving throw/save", "Ability saving throw/save [DC XX]", "Ability saving throw/save [(DC XX)]", "Concentration check/saving throw/save [DC XX]", or "Concentration check/saving throw/save [(DC XX)]"
 		save: {
 			pattern: new RegExp(
 				String.raw`(?:(?:DC\s+(\d+)\s+(?:(${enAbilityList})\s+(?:saving\s+throw|save)|(Concentration)\s+(?:saving\s+throw|save|check)))|(?:(?:(${enAbilityList})\s+(?:saving\s+throw|save)|(Concentration)\s+(?:saving\s+throw|save|check))(?:\s+(?:\(DC\s+(\d+)\)|DC\s+(\d+)))?))`, // v4 regex is structurally okay
@@ -784,36 +784,23 @@ export const patternDefinitions = {
 			dcGroup2_paren: 6, // DC value inside parenthesis (Ex: (DC 18))
 			dcGroup2_noparen: 7, // DC value
 		},
-		// Matches "[DC XX] Ability (Skill/Tool) check/test", "[DC XX] Ability using Tool check/test", "[DC XX] Skill check/test", "[DC XX] Tool check/test", or "passive Skill score of XX"
+		// Matches "[DC XX] Ability [(Skill/Tool)] check/test", "[DC XX] Skill check/test", "[DC XX] Tool check/test", "Ability [(Skill/Tool)] check/test [(DC XX)]", "Skill check/test [(DC XX)]", "Tool check/test [(DC XX)]", or "passive Skill score of XX"
 		check: {
 			pattern: new RegExp(
-				String.raw`(?:(?:(?:(DC)\s+(\d+))\s+)?(?:(${enAbilityList})\s*(?:\(\s*(${enSkillList}|${enToolList})\s*\)| using\s+(?:an?|some|their\s+)?(${enToolList}))?|(${enSkillList})|(${enToolList}))\s+(check|test)(?:\s+\(DC\s+(\d+)\))?)|(?:(passive)\s+(${enSkillList})\s+(?:score\s+of|of)\s+(\d+)(?:\s+or\s+higher)?)\b`,
+				String.raw`(?:(?:(?:(DC)\s+(\d+))\s+)?(?:(${enAbilityList})\s*(?:\(\s*(${enSkillList}|${enToolList})\s*\))?|(${enSkillList})|(${enToolList}))\s+(check|test)(?:\s+\(DC\s+(\d+)\))?)|(?:(passive)\s+(${enSkillList})\s+(?:score\s+of|of)\s+(\d+)(?:\s+or\s+higher)?)\b`,
 				"gi"
 			),
-			// "DC" keyword
-			dcMarker1: 1,
-			//DC value
-			dcValue1: 2,
-			// Ability name
-			abilityContext: 3,
-			//Skill or Tool name found within parentheses after an ability
-			skillOrToolInParen: 4,
-			//Tool name found after " using "
-			toolAfterUsing: 5,
-			// Skill name found standalone
-			skillStandalone: 6,
-			//Tool name found standalone
-			toolStandalone: 7,
-			// "check" or "test" keyword
-			checkMarker: 8,
-			//DC value after skill
-			dcValue2: 9,
-			// "passive" keyword
-			passiveMarker: 10,
-			// Skill name for passive check
-			passiveSkill: 11,
-			// DC value for passive check
-			passiveDcValue: 12,
+			dcMarker1: 1, //DC keyword at the start
+			dcValue1: 2, //DC value
+			abilityContext: 3, //Ability name
+			skillOrToolInParen: 4, //Skill or Tool name within parentheses
+			skillStandalone: 5, //Skill name alone
+			toolStandalone: 6, //tool name alone
+			checkMarker: 7, //check keyword
+			dcValue2_paren: 8, //DC value in parentheses at the end
+			passiveMarker: 9, //The passive keyword
+			passiveSkill: 10, //passive skill name
+			passiveDcValue: 11, //DC value
 		},
 		// Matches "X (Formula) [type(s)] damage" or "'Formula' [type(s)] damage"
 		damage: {
@@ -903,11 +890,12 @@ export const patternDefinitions = {
 			directFormulaGroup: 5,
 			tempGroup: 6,
 		},
-		// Matches "[DD XX] [Prefix] Ability", "[DD XX] [Prefix] Concentration", "[Prefix] Ability [DD XX]", "[Prefix] Ability [(DD XX)]", "[Prefix] Ability", "[Prefix] Concentration  [DD XX]", "[Prefix] Concentration[(DD XX)]", "[Prefix] Concentration"
-		// Where [Prefix] is "jet de sauvegarde de/d'", "sauvegarde de/d'", or "test de " (required for conc)
+		// Matches "[DD XX] [Prefix Ability] Ability", "[DD XX] [Prefix Conc] Concentration", "[Prefix Ability] Ability [DD XX]", "[Prefix Ability] Ability [(DD XX)]", "[Prefix Conc] Concentration [DD XX]", "[Prefix Conc] Concentration [(DD XX)]"
+		// Where [Prefix Ability] is "(jet de )?sauvegarde de/d'"
+		// Where [Prefix Conc] is "(jet de )?sauvegarde de/d'" or "test de"
 		save: {
 			pattern: new RegExp(
-				String.raw`(?:(?:DD\s+(\d+)\s+(?:(?:(?:jet\s+de\s+)?sauvegarde\s+(?:de|d')|test\s+de\s+)\s*)?(?:(${frAbilityList})|(Concentration))(?:\s+(?:sauvegarde|test))?)|(?:(?:(?:(?:jet\s+de\s+)?sauvegarde\s+(?:de|d')|test\s+de\s+)\s*)(?:(${frAbilityList})|(Concentration))(?:\s+(?:sauvegarde|test))?(?:\s+(?:\(DD\s+(\d+)\)|DD\s+(\d+)))?))`,
+				String.raw`(?:(?:DD\s+(\d+)\s+(?:(?:(?:(?:jet\s+de\s+)?sauvegarde\s+(?:de|d'))\s*(${frAbilityList})(?:\s+sauvegarde)?)|(?:(?:(?:(?:jet\s+de\s+)?sauvegarde\s+(?:de|d')|test\s+de))\s*(Concentration)(?:\s+(?:sauvegarde|test))?)))|(?:(?:(?:(?:(?:jet\s+de\s+)?sauvegarde\s+(?:de|d'))\s*(${frAbilityList})(?:\s+sauvegarde)?)|(?:(?:(?:(?:jet\s+de\s+)?sauvegarde\s+(?:de|d')|test\s+de))\s*(Concentration)(?:\s+(?:sauvegarde|test))?))(?:\s+(?:\(DD\s+(\d+)\)|DD\s+(\d+)))?))`,
 				"gi"
 			),
 			dcGroup1: 1,
@@ -918,23 +906,24 @@ export const patternDefinitions = {
 			dcGroup2_paren: 6,
 			dcGroup2_noparen: 7,
 		},
-		// Matches "[DD XX] Ability (Skill/Tool) test/compétence", "[DD XX] Ability en/avec Tool test/compétence", "[DD XX] Skill test/compétence", "[DD XX] Tool test/compétence", or "passive Skill [de] XX [ou supérieur/plus]"
+		// Matches "[DD XX] test de/d' Ability [(Skill/Tool)]", "[DD XX] test de/d' Skill", "[DD XX] test de/d' Tool", "test de/d' Ability [(Skill/Tool)] [DD XX / (DD XX)]", "test de/d' Skill [DD XX / (DD XX)]", "test de/d' Tool [DD XX / (DD XX)]", or "Skill passive de XX [ou supérieur]"
 		check: {
 			pattern: new RegExp(
-				String.raw`(?:(?:(?:(DD)\s+(\d+))\s+)?(?:(${frAbilityList})\s*(?:\(\s*(${frSkillList}|${frToolList})\s*\)| (?:en|avec)\s+(?:(?:un|une|des|ses)\s+)?(${frToolList}))?|(${frSkillList})|(${frToolList}))\s+(test|compétence)(?:\s+\(DD\s+(\d+)\))?)|(?:(passive)\s+(${frSkillList})\s+(?:de\s+)?(\d+)(?:\s+ou\s+(?:supérieur|plus))?)\b`,
+				String.raw`(?:(?:(?:(DD)\s+(\d+))\s+)?(?:test\s+(?:de\s+|d'))(?:(${frAbilityList})(?:\s*\(\s*(${frSkillList}|${frToolList})\s*\))?|(${frSkillList})|(${frToolList}))(?:\s+(?:\(DD\s+(\d+)\)|DD\s+(\d+)))?)|(?:(?:(${frSkillList})|(?:perception))\s+(passive)\s+de\s+(\d+)(?:\s+ou\s+supérieur)?)\b`,
 				"gi"
 			),
 			dcMarker1: 1,
 			dcValue1: 2,
 			abilityContext: 3,
 			skillOrToolInParen: 4,
-			toolAfterEnAvec: 5,
-			skillStandalone: 6,
-			toolStandalone: 7,
-			checkMarker: 8,
-			dcValue2: 9,
-			passiveMarker: 10,
-			passiveSkill: 11,
+			skillStandalone: 5,
+			toolStandalone: 6,
+			dcValue2_paren: 7,
+			dcValue2_noparen: 8,
+
+			passiveSkill: 9,
+			passiveAltPerception: 10,
+			passiveMarker: 11,
 			passiveDcValue: 12,
 		},
 		// Matches "X (Formula) dégâts [type(s)]" OR "'Formula' dégâts [type(s)]"
