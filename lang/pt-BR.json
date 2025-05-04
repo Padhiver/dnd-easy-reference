@@ -40,7 +40,7 @@
       "SCAN_COMPLETE": "Pesquisa concluída. Nenhum outro padrão de {type} encontrado.",
       "SCAN_ACTIVE": "Uma pesquisa de padrões já está em progresso.",
       "NO_PATTERN_DEF": "Nenhuma definição de padrão encontrada para {type} no idioma {lang} ou no fallback inglês.",
-      "PROMPT_WARNING": "Aviso: Verifique a seleção antes de confirmar."
+      "PROMPT_WARNING": "Verifique a seleção antes de confirmar."
     },
     "MENU": {
       "TITLE": "D&D",

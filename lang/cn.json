@@ -27,6 +27,19 @@
       "TYPES": "类型",
       "USE_NAME": "使用角色名称"
     },
+    "DETECT": {
+      "TITLE": "检测模式",
+      "PROMPT_TITLE": "发现模式",
+      "PROMPT_CONFIRM": "转换此文本？",
+      "BUTTON_CONFIRM": "确认",
+      "BUTTON_SKIP": "跳过",
+      "BUTTON_CANCEL": "取消扫描",
+      "SCAN_STARTED": "正在扫描 {type} 模式...",
+      "SCAN_COMPLETE": "扫描完成。未找到更多 {type} 模式。",
+      "SCAN_ACTIVE": "模式扫描已在进行中。",
+      "NO_PATTERN_DEF": "未找到语言 {lang} 或英语备选方案中 {type} 的模式定义。",
+      "PROMPT_WARNING": "确认前请核对选择。"
+    },
     "MENU": {
       "ABILITIES": {
         "TITLE": "技能"
