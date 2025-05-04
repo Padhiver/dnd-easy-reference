@@ -392,6 +392,7 @@ const frSkillMap = {
 	religion: "rel",
 	escamotage: "slt",
 	discrétion: "ste",
+	survie: "sur",
 };
 const frToolMap = {
 	"matériel d'alchimiste": "alchemist",
