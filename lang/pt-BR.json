@@ -1,5 +1,47 @@
 {
   "DND": {
+    "DIALOG": {
+      "APPLY": "Aplicar",
+      "ATTRIBUTES": "Atributos",
+      "AVERAGE": "Média",
+      "CANCEL": "Cancelar",
+      "COMBINATION": "Combinação",
+      "CONCENTRATION": "Concentração",
+      "CONFIRM": "Confirmar",
+      "DAMAGE_ADD": "Adicionar seção de dano",
+      "DAMAGE_PARTS": "Seção de dano",
+      "DAMAGE_TYPES": "Tipos de dano",
+      "DC": "Dificuldade",
+      "DELETE": "Excluir",
+      "EXTENDED": "Estendido",
+      "FORMULA": "Fórmula",
+      "NAME_FORMAT": {
+        "CAPITALIZE": "Capitalizar",
+        "LABEL": "Formato do nome",
+        "LOWERCASE": "minúsculas",
+        "UPPERCASE": "MAIÚSCULAS"
+      },
+      "NAME_OPTIONS": "Opções de nome",
+      "PASSIVE": "Passivo",
+      "PLACEHOLDER": "",
+      "RULES_SEARCH": "Regra",
+      "SELECT_ATTRIBUTE": "Selecionar atributo",
+      "TYPES": "Tipos",
+      "USE_NAME": "Nome do Ator"
+    },
+    "DETECT": {
+      "TITLE": "Detectar Padrões",
+      "PROMPT_TITLE": "Padrão Encontrado",
+      "PROMPT_CONFIRM": "Converter este texto?",
+      "BUTTON_CONFIRM": "Confirmar",
+      "BUTTON_SKIP": "Pular",
+      "BUTTON_CANCEL": "Cancelar Pesquisa",
+      "SCAN_STARTED": "Pesquisando padrões de {type}...",
+      "SCAN_COMPLETE": "Pesquisa concluída. Nenhum outro padrão de {type} encontrado.",
+      "SCAN_ACTIVE": "Uma pesquisa de padrões já está em progresso.",
+      "NO_PATTERN_DEF": "Nenhuma definição de padrão encontrada para {type} no idioma {lang} ou no fallback inglês.",
+      "PROMPT_WARNING": "Verifique a seleção antes de confirmar."
+    },
     "MENU": {
       "TITLE": "D&D",
       "TITLE_DESCRIPTION": "D&D - Easy Reference",
@@ -50,17 +92,37 @@
         "TREASURE_CONTENT": "Este é um bloco de tesouro.",
         "NARRATIVE": "Narrativo",
         "NOTABLE": "Notável"
+      },
+      "ATTACK": {
+        "TITLE": "Fórmula de ataque"
+      },
+      "HEAL": {
+          "TITLE": "Fórmula de cura"
+      },
+      "LOOKUP": {
+          "TITLE": "Consulta"
+      },
+      "RULES": {
+          "TITLE": "Regras"
+      },
+      "TOOLS": {
+          "TITLE": "Ferramentas"
       }
     },
     "SETTINGS": {
       "FORMAT": {
         "SHORT": "Formato Curto",
-        "LONG": "Formato Longo"
+        "LONG": "Formato Longo",
+        "TITLE": "Formato"
       },
       "MENU": {
         "TITLE": "Configuração do Menu",
         "LABEL": "Configurar Itens do Menu",
         "HINT": "Configurar quais itens aparecem no menu D&D"
+      },
+       "PROSEGAP": {
+          "HINT": "Reduz o espaço para evitar que o ProseMirror quebre em duas linhas ao adicionar o menu D&D.",
+          "TITLE": "Redução de Espaço do ProseMirror"
       }
     }
   }

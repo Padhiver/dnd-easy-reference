@@ -1,0 +1,15 @@
+<form autocomplete="off">
+    <p>{{promptText}}</p>
+    <p><em>"{{textToSelect}}"</em></p>
+
+    <p class="notes warning"><i class="fas fa-exclamation-triangle"></i> {{warningText}}</p>
+
+    <div class="dialog-buttons">
+        {{#each buttons as |button id|}}
+        <button type="button" class="dialog-button {{button.classes}}" data-action="{{id}}">
+            {{{button.icon}}}
+            {{button.label}}
+        </button>
+        {{/each}}
+    </div>
+</form>

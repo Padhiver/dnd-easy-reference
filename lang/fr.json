@@ -29,6 +29,19 @@
       "TYPES": "Types",
       "USE_NAME": "Nom de l'acteur"
     },
+    "DETECT": {
+      "TITLE": "Détecter les motifs",
+      "PROMPT_TITLE": "Motif trouvé",
+      "PROMPT_CONFIRM": "Convertir ce texte ?",
+      "BUTTON_CONFIRM": "Confirmer",
+      "BUTTON_SKIP": "Passer",
+      "BUTTON_CANCEL": "Annuler le scan",
+      "SCAN_STARTED": "Scan des motifs de {type} en cours...",
+      "SCAN_COMPLETE": "Scan terminé. Aucun autre motif de {type} trouvé.",
+      "SCAN_ACTIVE": "Un scan de motif est déjà en cours.",
+      "NO_PATTERN_DEF": "Aucune définition de motif trouvée pour {type} en langue {lang} ou en fallback anglais.",
+      "PROMPT_WARNING": "Vérifiez la sélection avant de confirmer."
+    },
     "MENU": {
       "ABILITIES": {
         "TITLE": "Caractéristiques"

@@ -29,6 +29,19 @@
       "TYPES": "Tipi",
       "USE_NAME": "Nome Personaggio"
     },
+    "DETECT": {
+      "TITLE": "Rileva Schemi",
+      "PROMPT_TITLE": "Schema Trovato",
+      "PROMPT_CONFIRM": "Convertire questo testo?",
+      "BUTTON_CONFIRM": "Conferma",
+      "BUTTON_SKIP": "Salta",
+      "BUTTON_CANCEL": "Annulla Scansione",
+      "SCAN_STARTED": "Scansione schemi {type} in corso...",
+      "SCAN_COMPLETE": "Scansione terminata. Nessun altro schema {type} trovato.",
+      "SCAN_ACTIVE": "Una scansione degli schemi è già in corso.",
+      "NO_PATTERN_DEF": "Nessuna definizione di schema trovata per {type} in lingua {lang} o nel fallback inglese.",
+      "PROMPT_WARNING": "Verificare la selezione prima di confermare."
+    },
     "MENU": {
       "ABILITIES": {
         "TITLE": "Caratteristiche"

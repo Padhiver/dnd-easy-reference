@@ -1,7 +1,9 @@
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 const { BooleanField } = foundry.data.fields;
 
-export default class HealFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class HealFormulaDialog extends HandlebarsApplicationMixin(
+  ApplicationV2
+) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["heal-formula-dialog"],
@@ -17,7 +19,7 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
     },
     window: {
       title: "DND.MENU.DIALOG",
-      contentClasses: ["standard-form"]
+      contentClasses: ["standard-form"],
     },
   };
 
@@ -27,8 +29,8 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
-    }
-  }
+    },
+  };
 
   /**
    * Modèle de données.
@@ -53,7 +55,8 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
     const formula = this.#model.formula;
     const healType = this.#model.healType;
 
-    if (!formula && !healType && !this.#model.average && !this.#model.extended) return null;
+    if (!formula && !healType && !this.#model.average && !this.#model.extended)
+      return null;
 
     let command = "[[/heal";
 
@@ -68,7 +71,9 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
     const options = [
       this.#model.average ? "average" : null,
       this.#model.extended ? "extended" : null,
-    ].filter(Boolean).join(" ");
+    ]
+      .filter(Boolean)
+      .join(" ");
 
     if (options) {
       command += ` ${options}`;
@@ -105,11 +110,13 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
 
     context.healingTypes = CONFIG.DND5E.healingTypes;
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+    context.buttons = [
+      {
+        type: "submit",
+        icon: "fa-solid fa-check",
+        label: "Confirm",
+      },
+    ];
 
     return context;
   }
@@ -148,7 +155,14 @@ export default class HealFormulaDialog extends HandlebarsApplicationMixin(Applic
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
+    //Overrides default data if initial data is found
+    if (options.initialData) {
+      application.#model.updateSource(options.initialData);
+    }
+
+    application.addEventListener("close", () => resolve(application.config), {
+      once: true,
+    });
     application.render({ force: true });
     return promise;
   }

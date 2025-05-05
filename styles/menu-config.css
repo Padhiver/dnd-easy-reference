@@ -190,3 +190,14 @@
     overflow: auto;
   }
 }
+
+.dnd-pattern-prompt .warning {
+  color: orange;
+  font-size: 0.9em;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.dnd-pattern-prompt .warning i {
+  margin-right: 4px;
+}
