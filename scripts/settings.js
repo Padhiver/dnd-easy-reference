@@ -16,7 +16,8 @@ const MENU_CATEGORIES = [
   "abilities",
   "skills",
   "damageTypes",
-  "creatureTypes"
+  "creatureTypes",
+  "detectPatterns"
 ];
 
 //region Hook

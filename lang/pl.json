@@ -29,6 +29,19 @@
       "TYPES": "Typy",
       "USE_NAME": "Nazwa aktora"
     },
+    "DETECT": {
+      "TITLE": "Wykryj Wzorce",
+      "PROMPT_TITLE": "Znaleziono Wzorzec",
+      "PROMPT_CONFIRM": "Konwertować ten tekst?",
+      "BUTTON_CONFIRM": "Zatwierdź",
+      "BUTTON_SKIP": "Pomiń",
+      "BUTTON_CANCEL": "Anuluj Skanowanie",
+      "SCAN_STARTED": "Skanowanie w poszukiwaniu wzorców {type}...",
+      "SCAN_COMPLETE": "Skanowanie zakończone. Nie znaleziono więcej wzorców {type}.",
+      "SCAN_ACTIVE": "Skanowanie wzorców jest już w toku.",
+      "NO_PATTERN_DEF": "Nie znaleziono definicji wzorca dla {type} w języku {lang} ani w angielskim wariancie zapasowym.",
+      "PROMPT_WARNING": "Sprawdź zaznaczenie przed zatwierdzeniem."
+    },
     "MENU": {
       "ABILITIES": {
         "TITLE": "Cechy"

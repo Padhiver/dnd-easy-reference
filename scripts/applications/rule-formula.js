@@ -6,7 +6,9 @@ const { StringField } = foundry.data.fields;
  * @property {string} rule     La règle sélectionnée.
  */
 
-export default class RuleFormulaDialog extends HandlebarsApplicationMixin(ApplicationV2) {
+export default class RuleFormulaDialog extends HandlebarsApplicationMixin(
+  ApplicationV2
+) {
   /** @inheritdoc */
   static DEFAULT_OPTIONS = {
     classes: ["rule-formula-dialog"],
@@ -22,8 +24,8 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
     },
     window: {
       title: "DND.MENU.DIALOG",
-      contentClasses: ["standard-form"]
-    }
+      contentClasses: ["standard-form"],
+    },
   };
 
   /* -------------------------------------------------- */
@@ -35,8 +37,8 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
     },
     footer: {
       template: "templates/generic/form-footer.hbs",
-    }
-  }
+    },
+  };
 
   /* -------------------------------------------------- */
 
@@ -76,23 +78,25 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
 
     const rulesConfig = CONFIG.DND5E.rules || {};
 
-    const rules = Object.keys(rulesConfig).map(key => ({
+    const rules = Object.keys(rulesConfig).map((key) => ({
       value: key,
-      label: rulesConfig[key]?.label || key
+      label: rulesConfig[key]?.label || key,
     }));
 
     context.rule = {
       field: this.#model.schema.getField("rule"),
       value: this.#model.rule,
       choices: rules,
-      placeholder: game.i18n.localize("DND.DIALOG.PLACEHOLDER")
+      placeholder: game.i18n.localize("DND.DIALOG.PLACEHOLDER"),
     };
 
-    context.buttons = [{
-      type: "submit",
-      icon: "fa-solid fa-check",
-      label: "Confirm",
-    }];
+    context.buttons = [
+      {
+        type: "submit",
+        icon: "fa-solid fa-check",
+        label: "Confirm",
+      },
+    ];
 
     return context;
   }
@@ -133,7 +137,13 @@ export default class RuleFormulaDialog extends HandlebarsApplicationMixin(Applic
   static async create(options = {}) {
     const { promise, resolve } = Promise.withResolvers();
     const application = new this(options);
-    application.addEventListener("close", () => resolve(application.config), { once: true });
+    //Overrides default data if initial data is found
+    if (options.initialData && options.initialData.rule) {
+      application.#model.updateSource({ rule: options.initialData.rule });
+    }
+    application.addEventListener("close", () => resolve(application.config), {
+      once: true,
+    });
     application.render({ force: true });
     return promise;
   }
@@ -161,8 +171,8 @@ class RuleFormulaModel extends foundry.abstract.DataModel {
             acc[key] = rules[key]?.label || key;
             return acc;
           }, {});
-        }
-      })
+        },
+      }),
     };
   }
 }

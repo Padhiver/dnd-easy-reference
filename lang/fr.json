@@ -29,6 +29,19 @@
       "TYPES": "Types",
       "USE_NAME": "Nom de l'acteur"
     },
+    "DETECT": {
+      "TITLE": "Détecter les références",
+      "PROMPT_TITLE": "Référence trouvée",
+      "PROMPT_CONFIRM": "Convertir ce texte ?",
+      "BUTTON_CONFIRM": "Confirmer",
+      "BUTTON_SKIP": "Passer",
+      "BUTTON_CANCEL": "Annuler le scan",
+      "SCAN_STARTED": "Scan des références de {type} en cours...",
+      "SCAN_COMPLETE": "Scan terminé. Aucune autre référence de {type} trouvée.",
+      "SCAN_ACTIVE": "Un scan de référence est déjà en cours.",
+      "NO_PATTERN_DEF": "Aucune définition de référence trouvée pour {type} en langue {lang} ou en fallback anglais.",
+      "PROMPT_WARNING": "Vérifiez la sélection avant de confirmer."
+    },
     "MENU": {
       "ABILITIES": {
         "TITLE": "Caractéristiques"
@@ -55,6 +68,9 @@
         "TITLE": "Types de dégâts"
       },
       "DESCRIPTION": "Sélectionnez les menus à afficher dans ProseMirror.",
+      "DETECTPATTERNS": {
+        "TITLE": "Détection de références"
+      },
       "DIALOG": "Configurer l'enrichisseur",
       "HEAL": {
         "TITLE": "Formule de soins"
