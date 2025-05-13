@@ -68,6 +68,9 @@
         "TITLE": "Tipi danno"
       },
       "DESCRIPTION": "Selezionare i menu da visualizzare in ProseMirror.",
+      "DETECTPATTERNS": {
+        "TITLE": "Rilevamento Modelli"
+      },
       "DIALOG": "Configura arricchitore",
       "HEAL": {
         "TITLE": "Formula Guarigione"
