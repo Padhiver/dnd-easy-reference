@@ -30,17 +30,17 @@
       "USE_NAME": "Nazwa aktora"
     },
     "DETECT": {
-      "TITLE": "Wykryj Wzorce",
-      "PROMPT_TITLE": "Znaleziono Wzorzec",
-      "PROMPT_CONFIRM": "Konwertować ten tekst?",
+      "TITLE": "Wykryj wzorce",
+      "PROMPT_TITLE": "Wykryto wzorzec",
+      "PROMPT_CONFIRM": "Przekonwertować ten tekst?",
       "BUTTON_CONFIRM": "Zatwierdź",
       "BUTTON_SKIP": "Pomiń",
-      "BUTTON_CANCEL": "Anuluj Skanowanie",
-      "SCAN_STARTED": "Skanowanie w poszukiwaniu wzorców {type}...",
+      "BUTTON_CANCEL": "Anuluj skanowanie",
+      "SCAN_STARTED": "Wyszukiwanie wzorców {type}...",
       "SCAN_COMPLETE": "Skanowanie zakończone. Nie znaleziono więcej wzorców {type}.",
-      "SCAN_ACTIVE": "Skanowanie wzorców jest już w toku.",
-      "NO_PATTERN_DEF": "Nie znaleziono definicji wzorca dla {type} w języku {lang} ani w angielskim wariancie zapasowym.",
-      "PROMPT_WARNING": "Sprawdź zaznaczenie przed zatwierdzeniem."
+      "SCAN_ACTIVE": "Skanowanie wzorca jest już w toku.",
+      "NO_PATTERN_DEF": "Nie znaleziono definicji wzorca dla {type} w języku {lang} ani w języku angielskim.",
+      "PROMPT_WARNING": "Przed potwierdzeniem sprawdź wybór."
     },
     "MENU": {
       "ABILITIES": {
@@ -68,6 +68,9 @@
         "TITLE": "Typy obrażeń"
       },
       "DESCRIPTION": "Wybierz menu, które ma być wyświetlane w ProseMirror.",
+      "DETECTPATTERNS": {
+        "TITLE": "Wykrywanie wzorców"
+      },
       "DIALOG": "Konfiguracja wpisu",
       "HEAL": {
         "TITLE": "Formuła uzdrawiania"
