@@ -14,25 +14,29 @@ export default class PatternPromptDialog extends HandlebarsApplicationMixin(Appl
         });
     }
 
-    static DEFAULT_OPTIONS = foundry.utils.mergeObject(super.DEFAULT_OPTIONS, {
+    static DEFAULT_OPTIONS = {
         classes: ["dnd-pattern-prompt"],
         tag: "form",
         position: { width: 400, height: "auto" },
         window: {
             title: "DND.DETECT.PROMPT_TITLE",
-            contentClasses: ["dialog-content"]
+            contentClasses: ["dialog-content"],
+        },
+        position: {
+            width: 400,
+            height: "auto",
         },
         actions: {
             confirm: PatternPromptDialog.#handleAction,
             skip: PatternPromptDialog.#handleAction,
-            cancel: PatternPromptDialog.#handleAction
-        }
-    });
+            cancel: PatternPromptDialog.#handleAction,
+        },
+    };
 
     static PARTS = {
         form: {
-             id: "form",
-             template: "modules/dnd-easy-reference/templates/detection/pattern-prompt.hbs"
+            id: "form",
+            template: "modules/dnd-easy-reference/templates/detection/pattern-prompt.hbs"
         }
     };
 
@@ -76,10 +80,10 @@ export default class PatternPromptDialog extends HandlebarsApplicationMixin(Appl
     static async #handleAction(event, target) {
         const action = target.dataset.action;
         if (this.resolve) {
-             this.resolve(action);
-             this.resolve = null;
+            this.resolve(action);
+            this.resolve = null;
         } else {
-             console.warn("PatternPromptDialog | Resolve function was null when handling action:", action);
+            console.warn("PatternPromptDialog | Resolve function was null when handling action:", action);
         }
         await this.close({ force: true });
     }
