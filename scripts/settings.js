@@ -7,6 +7,7 @@ const MENU_CATEGORIES = [
   "attack",
   "damage",
   "heal",
+  "award",
   "lookup",
   "rules",
   "conditionTypes",

@@ -201,3 +201,38 @@
 .dnd-pattern-prompt .warning i {
   margin-right: 4px;
 }
+
+.award-config .inline-form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.award-config .inline-form-group label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
+
+.award-config .inline-form-group .form-fields {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+  width: 80px; /* Largeur fixe pour les champs numériques */
+  margin-left: auto; /* Force l'alignement à droite */
+}
+
+.award-config .inline-form-group .form-fields input[type="number"] {
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  text-align: right; /* Aligne le texte à droite dans le champ */
+}
+
+.award-config .inline-form-group .form-fields input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+  margin-left: auto; /* Aligne la checkbox à droite */
+}

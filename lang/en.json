@@ -8,13 +8,16 @@
       "COMBINATION": "Combination",
       "CONCENTRATION": "Concentration",
       "CONFIRM": "Confirm",
+      "COPPER": "Copper Pieces",
       "DAMAGE_ADD": "Add damage section",
       "DAMAGE_PARTS": "Damage section",
       "DAMAGE_TYPES": "Damage types",
       "DC": "Difficulty",
       "DELETE": "Delete",
+      "EACH": "Each character",
       "EXTENDED": "Extended",
       "FORMULA": "Formula",
+      "GOLD": "Gold Pieces",
       "NAME_FORMAT": {
         "CAPITALIZE": "Capitalize",
         "LABEL": "Name format",
@@ -26,8 +29,13 @@
       "PLACEHOLDER": "",
       "RULES_SEARCH": "Rule",
       "SELECT_ATTRIBUTE": "Select attribute",
+      "SILVER": "Silver Pieces",
       "TYPES": "Types",
-      "USE_NAME": "Actor name"
+      "USE_NAME": "Actor name",
+      "XP": "Experience Points",
+      "AWARD_EXPERIENCE": "Experience",
+      "AWARD_CURRENCY": "Currency",
+      "AWARD_OPTIONS": "Options"
     },
     "DETECT": {
       "TITLE": "Detect Patterns",
@@ -51,6 +59,10 @@
       },
       "ATTACK": {
         "TITLE": "Attack formula"
+      },
+      "AWARD": {
+        "TITLE": "Awards",
+        "HINT": "Show the award menu in the editor"
       },
       "CHECKS": {
         "TITLE": "Checks"

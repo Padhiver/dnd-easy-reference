@@ -9,6 +9,7 @@ import LookupFormulaDialog from "./applications/lookup-formula.js";
 import RuleFormulaDialog from "./applications/rule-formula.js";
 import ConditionFormulaDialog from "./applications/condition-formula.js";
 import { startPatternScan } from "./detection/pattern-scanner.js";
+import AwardFormulaDialog from "./applications/award-formula.js";
 
 // Configuration des menus - structure harmonisée
 const MENU_CONFIGS = {
@@ -44,6 +45,11 @@ const MENU_CONFIGS = {
     source: "conditionTypes",
     reference: true,
     dialogHandler: "condition",
+  },
+  award: {
+    source: null,
+    reference: false,
+    dialogHandler: "award",
   },
   lookup: {
     source: null,
@@ -171,6 +177,12 @@ Hooks.on("getProseMirrorMenuDropDowns", (proseMirrorMenu, dropdowns) => {
 
     rule: async () => {
       const text = await RuleFormulaDialog.create();
+      if (text) insertText(text);
+    },
+
+    // Dialogue pour les récompenses
+    award: async () => {
+      const text = await AwardFormulaDialog.create();
       if (text) insertText(text);
     },
 

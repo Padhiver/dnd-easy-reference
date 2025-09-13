@@ -1,0 +1,43 @@
+<div class="award-config">
+  <fieldset>
+    <legend>{{localize "DND.DIALOG.AWARD_EXPERIENCE"}}</legend>
+    <div class="form-group inline-form-group">
+      <label>{{localize xp.field.label}}</label>
+      <div class="form-fields">
+        {{ formInput xp.field value=xp.value name="xp" }}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "DND.DIALOG.AWARD_CURRENCY"}}</legend>
+    <div class="form-group inline-form-group">
+      <label>{{localize gp.field.label}}</label>
+      <div class="form-fields">
+        {{ formInput gp.field value=gp.value name="gp" }}
+      </div>
+    </div>
+    <div class="form-group inline-form-group">
+      <label>{{localize sp.field.label}}</label>
+      <div class="form-fields">
+        {{ formInput sp.field value=sp.value name="sp" }}
+      </div>
+    </div>
+    <div class="form-group inline-form-group">
+      <label>{{localize cp.field.label}}</label>
+      <div class="form-fields">
+        {{ formInput cp.field value=cp.value name="cp" }}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>{{localize "DND.DIALOG.AWARD_OPTIONS"}}</legend>
+    <div class="form-group inline-form-group">
+      <label>{{localize each.field.label}}</label>
+      <div class="form-fields">
+        {{ formInput each.field value=each.value name="each" }}
+      </div>
+    </div>
+  </fieldset>
+</div>

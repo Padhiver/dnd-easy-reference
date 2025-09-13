@@ -8,13 +8,16 @@
       "COMBINATION": "Ajouter une combinaison",
       "CONCENTRATION": "Concentration",
       "CONFIRM": "Confirmer",
-      "DAMAGE_ADD": "Ajouter une séction de dégâts",
-      "DAMAGE_PARTS": "Séction de dégâts",
+      "COPPER": "Pièces de cuivre",
+      "DAMAGE_ADD": "Ajouter une section de dégâts",
+      "DAMAGE_PARTS": "Section de dégâts",
       "DAMAGE_TYPES": "Type de dégâts",
       "DC": "Difficulté",
       "DELETE": "Supprimer",
+      "EACH": "Chaque personnage",
       "EXTENDED": "Étendue",
       "FORMULA": "Formule",
+      "GOLD": "Pièces d'or",
       "NAME_FORMAT": {
         "CAPITALIZE": "Majuscules",
         "LABEL": "Format du nom",
@@ -26,8 +29,13 @@
       "PLACEHOLDER": "",
       "RULES_SEARCH": "Règle",
       "SELECT_ATTRIBUTE": "Choix d'attribut",
+      "SILVER": "Pièces d'argent",
       "TYPES": "Types",
-      "USE_NAME": "Nom de l'acteur"
+      "USE_NAME": "Nom de l'acteur",
+      "XP": "Points d'expérience",
+      "AWARD_EXPERIENCE": "Expérience",
+      "AWARD_CURRENCY": "Monnaie",
+      "AWARD_OPTIONS": "Options"
     },
     "DETECT": {
       "TITLE": "Détecter les références",
@@ -51,6 +59,10 @@
       },
       "ATTACK": {
         "TITLE": "Formule d'attaque"
+      },
+      "AWARD": {
+        "TITLE": "Récompenses",
+        "HINT": "Afficher le menu des récompenses dans l'éditeur"
       },
       "CHECKS": {
         "TITLE": "Jets d'opposition"
