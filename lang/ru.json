@@ -8,13 +8,16 @@
       "COMBINATION": "Комбинация",
       "CONCENTRATION": "Концентрация",
       "CONFIRM": "Подтвердить",
+      "COPPER": "ММ",
       "DAMAGE_ADD": "Добавить раздел урона",
       "DAMAGE_PARTS": "Разделение урона",
       "DAMAGE_TYPES": "Тип урона",
       "DC": "СЛ",
       "DELETE": "Удалить",
+      "EACH": "Каждому",
       "EXTENDED": "Расширенный формат",
       "FORMULA": "Формула",
+      "GOLD": "ЗМ",
       "NAME_FORMAT": {
         "CAPITALIZE": "Капитализация",
         "LABEL": "Форматирование",
@@ -26,8 +29,13 @@
       "PLACEHOLDER": "",
       "RULES_SEARCH": "Правило",
       "SELECT_ATTRIBUTE": "Выберите атрибут",
+      "SILVER": "CМ",
       "TYPES": "Тип",
-      "USE_NAME": "Имя актёра"
+      "USE_NAME": "Имя актёра",
+      "XP": "ПО",
+      "AWARD_EXPERIENCE": "Опыт",
+      "AWARD_CURRENCY": "Монеты",
+      "AWARD_OPTIONS": "Параметры"
     },
     "DETECT": {
       "TITLE": "Обнаружить Шаблоны",
@@ -52,6 +60,10 @@
       "ATTACK": {
         "TITLE": "Формула атаки"
       },
+      "AWARD": {
+        "TITLE": "Награда",
+        "HINT": "Отображать пункт выдачи наград в меню редактора"
+      },
       "CHECKS": {
         "TITLE": "Проверка"
       },
@@ -68,6 +80,9 @@
         "TITLE": "Тип урона"
       },
       "DESCRIPTION": "Выберите пункты меню, которые будут отображаться в редакторе.",
+      "DETECTPATTERNS": {
+        "TITLE": "Обнаружение паттернов"
+      },
       "DIALOG": "Настрока энричера",
       "HEAL": {
         "TITLE": "Формула лечения"
