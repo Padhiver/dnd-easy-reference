@@ -13,7 +13,7 @@ I'm open to requests if you think other references or other things would be usef
 - English
 - Italian - Need a update !
 - Polish - Need a update !
-- Russian - Need a update !
+- Русский
 - Simple Chinese - Need a update !
 - Português (Brasil) - Need a update !
 - Submit a PR to add your own!
@@ -21,3 +21,4 @@ I'm open to requests if you think other references or other things would be usef
 ## Supported languages for Pattern Detection
 - French
 - English
+- Русский (некоторые формы слов могут быть пропущены)
